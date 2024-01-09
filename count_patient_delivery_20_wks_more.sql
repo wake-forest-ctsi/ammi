@@ -53,7 +53,7 @@ with pop as (
 
 /* Total Number of deliveries*/
  select count(*) as TOT_CNT from pop
- where gest_age_in_weeks > 20
+ where gest_age_in_weeks >= 20
  and floor(( baby_birth_date - mom_dob)/365.25) between 15 and 54
 ;
 
@@ -61,7 +61,7 @@ with pop as (
 --/*Count deliveries group by gestational age*/
 --select gest_age_in_weeks, count(*) as CNT
 --from pop
---where gest_age_in_weeks > 20
+--where gest_age_in_weeks >= 20
 --and floor(( baby_birth_date - mom_dob)/365.25) between 15 and 54
 --group by gest_age_in_weeks
 --order by gest_age_in_weeks
@@ -69,7 +69,7 @@ with pop as (
 
 --/*Count deliveries group by delivery_method */
 --select  delivery_method, count(*) as CNT from pop
---where gest_age_in_weeks > 20
+--where gest_age_in_weeks >= 20
 --and floor(( baby_birth_date - mom_dob)/365.25) between 15 and 54
 --group by   delivery_method
 --order by delivery_method
@@ -83,7 +83,7 @@ with pop as (
 --,sum(case when delivery_method like 'VBAC%' then 1 else 0 end) as VBAC_CNT
 --
 --from pop
---where gest_age_in_weeks > 20
+--where gest_age_in_weeks >= 20
 --and floor(( baby_birth_date - mom_dob)/365.25) between 15 and 54
 --;
 
