@@ -1,0 +1,26 @@
+INI,ITEM,VALUE,NAME,VOCABULARY,CONCEPT,CONCEPT_NAME
+EPT,19463,250,"Vaginal, Spontaneous",SM,169961004,Normal birth
+EPT,19463,251,"C-Section, Low Transverse",SM,200144004,"Deliveries by cesarean"
+EPT,19463,252,"Vertical C-Section",SM,200144004,"Deliveries by cesarean"
+EPT,19463,253,"C-Section, Unspecified",SM,200144004,"Deliveries by cesarean"
+EPT,19463,254,"Vaginal, Vacuum (Extractor)",SM,10761101000119105,"Vacuum assisted vaginal delivery"
+EPT,19463,255,"Vaginal, Forceps",SM,200130005,"Forceps delivery - delivered"
+EPT,19463,256,"Vaginal, Breech",SM,271373005,"Deliveries by spontaneous breech delivery"
+EPT,19463,257,"Non-Spontaneous Vaginal Delivery",SM,,
+EPT,19463,258,"VBAC, Spontaneous",SM,237313003,"Vaginal delivery following previous cesarean section"
+EPT,19463,259,"C-Section, Low Vertical",SM,200144004,"Deliveries by cesarean"
+EPT,19463,260,"C-Section, Classical",SM,200144004,"Deliveries by cesarean"
+EPT,19463,290,"Biochemical",SM,,
+
+EPT,19463,250,"Vaginal, Spontaneous",SM,48204000,"Spontaneous unassisted delivery, medical personnel present"
+EPT,19463,251,"C-Section, Low Transverse",SM,11466000,"Cesarean section"
+EPT,19463,252,"Vertical C-Section",SM,11466000,"Cesarean section"
+EPT,19463,253,"C-Section, Unspecified",SM,11466000,"Cesarean section"
+EPT,19463,254,"Vaginal, Vacuum (Extractor)",SM,61586001,"Delivery by vacuum extraction"
+EPT,19463,255,"Vaginal, Forceps",SM,302383004,"Forceps delivery"
+EPT,19463,256,"Vaginal, Breech",SM,177157003,"Spontaneous breech delivery"
+EPT,19463,257,"Non-Spontaneous Vaginal Delivery",SM,236974004,"Instrumental delivery"
+EPT,19463,258,"VBAC, Spontaneous",SM,
+EPT,19463,259,"C-Section, Low Vertical",SM,11466000,"Cesarean section"
+EPT,19463,260,"C-Section, Classical",SM,84195007,"Classical cesarean section"
+EPT,19463,290,"Biochemical",SM,,

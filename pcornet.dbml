@@ -1,0 +1,313 @@
+//// Docs: https://dbml.dbdiagram.io/docs
+//// -- LEVEL 1
+//// -- Schemas     Tables and References
+
+// Creating tables
+// You can define the tables with full schema names
+Table DEMOGRAPHIC {
+    PATID varchar [pk, not null, unique]
+    BIRTH_DATE date [not null]
+    BIRTH_TIME char(5)
+    SEX char(2)
+    SEXUAL_ORIENTATION char(2)
+    GENDER_IDENTITY char(2)
+    HISPANIC char(2)
+    RACE char(2)
+    BIOBANK_FLAG char(1)
+    PAT_PREF_LANGUAGE_SPOKEN char(3)
+    RAW_SEX varchar
+    RAW_SEXUAL_ORIENTATION varchar
+    RAW_GENDER_IDENTITY varchar
+    RAW_HISPANIC varchar
+    RAW_RACE varchar
+    RAW_PAT_PREF_LANGUAGE_SPOKEN varchar
+
+    // Note: {
+    //     'The most recently available information should be populated for BIRTH_DATE, SEX, and other characteristics. If these attributes have been updated in the patient record, use the most recent value.'
+    // }
+}
+
+Table ENROLLMENT {
+    PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+    ENR_START_DATE date [not null]
+	ENR_END_DATE date
+	CHART char(1)
+	ENR_BASIS char(1) [not null]
+	// RAW_CHART varchar
+	// RAW_BASIS varchar
+
+    indexes {
+        (PATID, ENR_START_DATE, ENR_BASIS) [pk, unique] // composite primary key
+    }
+
+//     Note: {
+//         '• For partners that do not have insurance-based enrollment information for some of their patients, other approaches can be used to identify periods during which complete medical capture is expected.
+//         • Members with medical insurance coverage, with or without drug coverage, or should be included. If a patient has both medical and drug coverage, create the appropriate enrollment records for each.
+//         • A break in insurance coverage of at least one day or a change in the chart abstraction flag should generate a new record.
+//         • The ENROLLMENT table provides an important analytic basis for identifying periods during which medical care should be observed, for calculating person-time, and for inferring the meaning of
+// unobserved care (i.e., if care is not observed, it likely did not happen). The most recently available information should be populated for BIRTH_DATE, SEX, and other characteristics. If these attributes
+// have been updated in the patient record, please use the most recent value.'
+//     }
+}
+
+Table ENCOUNTER {
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	ENCOUNTERID varchar [pk, not null, unique]
+	ADMIT_DATE date [not null]
+	ADMIT_TIME char(5) 
+	DISCHARGE_DATE date 
+	DISCHARGE_TIME char(5) 
+	PROVIDERID varchar  [ref: > PROVIDER.PROVIDERID]
+	FACILITY_LOCATION char(5)
+	ENC_TYPE char(2) [not null]
+	FACILITYID varchar 
+	DISCHARGE_DISPOSITION char(2) 
+	DISCHARGE_STATUS char(2) 
+	DRG char(3) 
+	DRG_TYPE char(2) 
+	ADMITTING_SOURCE char(2) 
+	PAYER_TYPE_PRIMARY char(5) 
+	PAYER_TYPE_SECONDARY char(5) 
+    FACILITY_TYPE varchar
+    RAW_SITEID varchar
+	RAW_ENC_TYPE varchar 
+	RAW_DISCHARGE_DISPOSITION varchar 
+	RAW_DISCHARGE_STATUS varchar 
+	RAW_DRG_TYPE varchar 
+	RAW_ADMITTING_SOURCE varchar 
+    RAW_FACILITY_TYPE varchar 
+    RAW_PAYER_TYPE_PRIMARY varchar 
+    RAW_PAYER_NAME_PRIMARY varchar 
+    RAW_PAYER_ID_PRIMARY varchar 
+    RAW_PAYER_TYPE_SECONDARY varchar 
+    RAW_PAYER_NAME_SECONDARY varchar 
+    RAW_PAYER_ID_SECONDARY varchar
+
+//     Note: {
+//         '• Each ENCOUNTERID will generally reflect a unique combination of PATID, ADMIT_DATE, PROVIDERID and ENC_TYPE.
+//             • Every diagnosis and procedure recorded during the encounter should have a separate record in the DIAGNOSIS or PROCEDURES Tables.
+//             • Multiple visits to the same provider on the same day may be considered one encounter, especially if defined by a reimbursement basis; if so, the ENCOUNTER record should be associated with all
+// diagnoses and procedures that were recorded during those visits.
+//             • Visits to different providers for different encounter types on the same day, however, such as a physician appointment that leads to a hospitalization, would generally correspond to multiple encounters
+// within the ENCOUNTER table.
+//             • Rollback or voided transactions and other adjustments should be processed before populating this table.
+//             • Although “Expired” is represented in both DISCHARGE_DISPOSITION and DISCHARGE_STATUS, this overlap represents the reality that both fields are captured in hospital data systems but with
+// variation in how each field is populated.
+//             • Do not include scheduled encounters.
+//             • Partners should ensure that “administrative” encounters (e.g., e-mail, phone, documentation-only), are coded to the appropriate encounter type, which is typically “OA” for outpatient visits.'
+//     }
+}
+
+//6.4
+Table DIAGNOSIS {
+	DIAGNOSISID varchar [pk, not null, unique]
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	ENCOUNTERID varchar  [ ref: > ENCOUNTER.ENCOUNTERID]
+	ENC_TYPE varchar(2) 
+	ADMIT_DATE date 
+	PROVIDERID varchar  [ ref: > PROVIDER.PROVIDERID]
+	DX char(18) [not null]
+	DX_TYPE char(2) [not null]
+	DX_DATE date 
+	DX_SOURCE char(2) [not null]
+    DX_ORIGIN char(2) 
+	PDX char(2) 
+    DX_POA char(2) 
+	RAW_DX varchar
+	RAW_DX_TYPE varchar
+	RAW_DX_SOURCE varchar 
+	// RAW_ORIGDX varchar
+	RAW_PDX varchar
+    RAW_DX_POA varchar
+
+//     Note: {
+//             '• This table should capture all uniquely recorded diagnoses for all encounters, with the exception of problem list entries. If partners have access to multiple versions of each diagnosis within a given
+//             encounter (e.g., admitting, interim, final), the preference is to prioritize final or discharge diagnoses. A value should be specified in DX_SOURCE to indicate the classification of the diagnosis.
+//             • Diagnoses from problem lists will be captured in the CONDITION table.
+//             • If a patient has multiple diagnoses associated with one encounter, then there would be one record in this table for each diagnosis.
+//             • ENCOUNTERID should be populated for DIAGNOSIS and PROCEDURES. The definitions of the DIAGNOSIS and PROCEDURES tables are dependent upon a healthcare context; therefore, the
+//             encounter basis is necessary and the ENCOUNTERID, PROVIDERID, ENCOUNTER_TYPE, and ADMIT_DATE from the associated ENCOUNTER record should be included. While not
+//             desirable, a low percentage of orphan records is permissible to accommodate instances in which the associated ENCOUNTER details are missing from the source data.
+//             • Data in this table are expected to be from healthcare-mediated processes and reimbursement drivers, including technical/facility billing, professional billing and other data streams. Do not omit billing
+//             data unless it is unavailable from the source system or the partner is certain that the diagnoses loaded from the non-billing system (e.g., the EHR) represents completely the diagnosis data available
+//             from the billing system. Data from these different streams have different analytical utility so there is a benefit to including both if available.
+//             • Diagnoses are often only related to the treatment of the patient during the specific encounter. Chronic conditions that are not be pertinent to the treatment of a specific encounter, for example, would
+//             not be expected to be present.
+//             • If a local vocabulary is used, but cannot be mapped to a standard vocabulary such as ICD-9-CM, DX_TYPE should be populated as “Other” and the local value stored in DX. If the local value can be
+//             mapped to a standard vocabulary, follow the guidance around the population of Raw fields (General Guidance #1).
+//             • Partners should continue to populate ADMIT_DATE, even if they are populating DX_DATE. Analyses may leverage either date, or both. DX_DATE can be particularly useful for identifying
+//             diagnoses or conditions that might have developed over the course of a long inpatient encounter.
+//     }
+}
+
+//6.5
+table PROCEDURES{
+	PROCEDURESID varchar [pk, unique, not null]
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	ENCOUNTERID varchar  [ ref: > ENCOUNTER.ENCOUNTERID]
+	ENC_TYPE char(2)
+	ADMIT_DATE date
+	PROVIDERID varchar  [ ref: > PROVIDER.PROVIDERID]
+	PX_DATE date
+	PX char(11) [not null]
+	PX_TYPE char(2) [not null]
+	PX_SOURCE char(2)
+    PPX char(2)
+	RAW_PX varchar
+	RAW_PX_TYPE varchar
+    RAW_PPX varchar
+}
+
+//6.6
+Table VITAL{
+	VITALID varchar [pk, unique, not null]
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	ENCOUNTERID varchar  [ref: > ENCOUNTER.ENCOUNTERID]
+	MEASURE_DATE date [not null]
+	MEASURE_TIME char(5)
+	VITAL_SOURCE char(2) [not null]
+    HT int
+	WT int
+	DIASTOLIC int
+	SYSTOLIC int
+    ORIGINAL_BMI intDISPENSING
+	BP_POSITION char(2) 
+	SMOKING char(2)
+	TOBACCO char(2)
+	TOBACCO_TYPE char(2)
+	// RAW_VITAL_SOURCE varchar 
+	// RAW_HT varchar 
+	// RAW_WT varchar 
+	RAW_DIASTOLIC varchar 
+	RAW_SYSTOLIC varchar 
+	RAW_BP_POSITION varchar 
+	RAW_SMOKING varchar
+	Raw_TOBACCO varchar
+	Raw_TOBACCO_TYPE varchar
+}
+
+//6.7
+Table DISPENSING{
+	DISPENSINGID varchar [pk, unique, not null]
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	PRESCRIBINGID varchar [ref: < PRESCRIBING.PRESCRIBINGID]
+	DISPENSE_DATE date [not null]
+	NDC char(11) [not null]
+	DISPENSE_SOURCE char(2) 
+	DISPENSE_SUP int
+	DISPENSE_AMT int
+    DISPENSE_DOSE_DISP int
+    DISPENSE_DOSE_DISP_UNIT varchar
+    DISPENSE_ROUTE varchar
+	RAW_NDC varchar
+    RAW_DISPENSE_DOSE_DISP varchar
+    RAW_DISPENSE_DOSE_DISP_UNIT varchar
+    RAW_DISPENSE_ROUTE varchar
+}
+
+//6.11
+TABLE PRESCRIBING{
+	PRESCRIBINGID varchar [pk, unique, not null]
+	PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+	ENCOUNTERID varchar  [ref: > ENCOUNTER.ENCOUNTERID]
+	RX_PROVIDERID varchar  [ ref: > PROVIDER.PROVIDERID]
+	RX_ORDER_DATE date 
+	RX_ORDER_TIME char(5) 
+	RX_START_DATE date 
+	RX_END_DATE date 
+    RX_DOSE_ORDERED int
+    RX_DOSE_ORDERED_UNIT varchar 
+	RX_QUANTITY int
+    RX_DOSE_FORM varchar 
+	RX_REFILLS int
+	RX_DAYS_SUPPLY int
+	RX_FREQUENCY char(2)
+	RX_PRN_FLAG char(1) 
+    RX_ROUTE varchar 
+    RX_BASIS char(2) 
+	RXNORM_CUI char(8) 
+    RX_SOURCE char(2) 
+    RX_DISPENSE_AS_WRITTEN char(2) 
+	RAW_RX_MED_NAME varchar 
+	RAW_RX_FREQUENCY varchar 
+	RAW_RXNORM_CUI varchar 
+    RAW_RX_QUANTITY varchar 
+    RAW_RX_NDC varchar 
+    RAW_RX_DOSE_ORDERED varchar 
+    RAW_RX_DOSE_ORDERED_UNIT varchar 
+    RAW_RX_ROUTE varchar 
+    RAW_RX_REFILLS varchar 
+}
+
+//6.16
+Table PROVIDER {
+    PROVIDERID varchar [pk, unique, not null]
+    PROVIDER_SEX char(2)
+    PROVIDER_SPECIALTY_PRIMARY varchar
+    PROVIDER_NPI int
+    PROVIDER_NPI_FLAG char(1)
+    RAW_PROVIDER_SPECIALTY_PRIMARY varchar
+//     Note: {
+// '• Include one record per provider.
+// • When populating provider specialty, if multiple values are available, use the specialty believed to be primary.'
+//     }
+}
+
+Table BIRTH_RELATIONSHIP{
+    BIRTHID varchar [pk, not null]
+    PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+    ENCOUNTERID varchar  [ ref: > ENCOUNTER.ENCOUNTERID]
+    PREGNANCYID varchar
+    MOTHERID varchar [ref: > DEMOGRAPHIC.PATID]
+    MOTHER_ENCOUNTERID varchar  [ ref: > ENCOUNTER.ENCOUNTERID]
+    // PROVIDERID varchar  [ ref: > PROVIDER.PROVIDERID]
+    // MODE_OF_DELIVERY varchar
+    // GESTATIONAL_AGE_AT_DELIVERY_WEEKS int
+    // DELIVERY_DATE date
+    // DELIVERY_TIME char(5)
+    // BIRTH_WEIGHT_POUNDS int
+    // DELIVERY_LIVING_STATUS varchar
+
+//     Note: {
+// 'TODO: 
+// • Determine normalized valueset for MODE_OF_DELIVERY[
+//    https://uts.nlm.nih.gov/uts/umls/concept/C2825496
+//    https://loinc.org/73762-7
+//    https://uts.nlm.nih.gov/uts/umls/vocabulary/LNC/57071-3
+//    Findings: https://uts.nlm.nih.gov/uts/umls/vocabulary/SNOMEDCT_US/118215003
+//    Procedures: https://uts.nlm.nih.gov/uts/umls/vocabulary/SNOMEDCT_US/236973005
+// • Determine normalized valueset for DELIVERY_LIVING_STATUS
+//     }
+//    https://uts.nlm.nih.gov/uts/umls/concept/C0032972
+//    https://uts.nlm.nih.gov/uts/umls/vocabulary/NCI/C90491
+//    https://uts.nlm.nih.gov/uts/umls/vocabulary/LNC/63893-2
+}
+
+//6.17
+Table OBS_CLIN{
+    OBSCLINID varchar [pk, unique, not null]
+    PATID varchar [ref: > DEMOGRAPHIC.PATID, not null]
+    ENCOUNTERID varchar  [ref: > ENCOUNTER.ENCOUNTERID]
+    OBSCLIN_PROVIDERID varchar  [ ref: > PROVIDER.PROVIDERID]
+    OBSCLIN_START_DATE date [not null]
+    OBSCLIN_START_TIME varchar(5) 
+    OBSCLIN_STOP_DATE date     
+    OBSCLIN_STOP_TIME char(5)  
+    OBSCLIN_TYPE char(2) 
+    OBSCLIN_CODE char(18) 
+    OBSCLIN_RESULT_QUAL varchar
+    OBSCLIN_RESULT_TEXT varchar 
+    OBSCLIN_RESULT_SNOMED char(18) 
+    OBSCLIN_RESULT_NUM int
+    OBSCLIN_RESULT_MODIFIER char(2) 
+    OBSCLIN_RESULT_UNIT varchar 
+    OBSCLIN_SOURCE char(2) 
+    OBSCLIN_ABN_IND char(2)  
+    RAW_OBSCLIN_NAME varchar
+    RAW_OBSCLIN_CODE varchar
+    RAW_OBSCLIN_TYPE varchar
+    RAW_OBSCLIN_RESULT varchar
+    RAW_OBSCLIN_MODIFIER varchar
+    RAW_OBSCLIN_UNIT varchar
+}
+
