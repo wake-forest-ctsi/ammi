@@ -281,6 +281,12 @@ Table BIRTH_RELATIONSHIP{
 //    https://uts.nlm.nih.gov/uts/umls/concept/C0032972
 //    https://uts.nlm.nih.gov/uts/umls/vocabulary/NCI/C90491
 //    https://uts.nlm.nih.gov/uts/umls/vocabulary/LNC/63893-2
+// PATID is the foreign key to the demographic table for the baby.  
+// Similarly, MOTHERID is the foreign key to the demographic table for the mother.
+// ENCOUNTERID is the foreign key to the encounter table for the baby for the encounter in which they were born.  
+// MOTHER_ENCOUNTERID is the foreign key to the encounter table for the encounter in which the mother birthed the child.
+// BIRTHID is a unique identifier for the birth event for the child.
+// PREGNANCYID is the unique identifier for the entire pregnancy episode.  Two or more children would share a pregnancyid if the mother was pregnant with them at the same time.
 }
 
 //6.17
