@@ -1,26 +1,24 @@
-INI,ITEM,VALUE,NAME,VOCABULARY,CONCEPT,CONCEPT_NAME
-EPT,19463,250,"Vaginal, Spontaneous",SM,169961004,Normal birth
-EPT,19463,251,"C-Section, Low Transverse",SM,200144004,"Deliveries by cesarean"
-EPT,19463,252,"Vertical C-Section",SM,200144004,"Deliveries by cesarean"
-EPT,19463,253,"C-Section, Unspecified",SM,200144004,"Deliveries by cesarean"
-EPT,19463,254,"Vaginal, Vacuum (Extractor)",SM,10761101000119105,"Vacuum assisted vaginal delivery"
-EPT,19463,255,"Vaginal, Forceps",SM,200130005,"Forceps delivery - delivered"
-EPT,19463,256,"Vaginal, Breech",SM,271373005,"Deliveries by spontaneous breech delivery"
-EPT,19463,257,"Non-Spontaneous Vaginal Delivery",SM,,
-EPT,19463,258,"VBAC, Spontaneous",SM,237313003,"Vaginal delivery following previous cesarean section"
-EPT,19463,259,"C-Section, Low Vertical",SM,200144004,"Deliveries by cesarean"
-EPT,19463,260,"C-Section, Classical",SM,200144004,"Deliveries by cesarean"
-EPT,19463,290,"Biochemical",SM,,
-
-EPT,19463,250,"Vaginal, Spontaneous",SM,48204000,"Spontaneous unassisted delivery, medical personnel present"
-EPT,19463,251,"C-Section, Low Transverse",SM,11466000,"Cesarean section"
-EPT,19463,252,"Vertical C-Section",SM,11466000,"Cesarean section"
-EPT,19463,253,"C-Section, Unspecified",SM,11466000,"Cesarean section"
-EPT,19463,254,"Vaginal, Vacuum (Extractor)",SM,61586001,"Delivery by vacuum extraction"
-EPT,19463,255,"Vaginal, Forceps",SM,302383004,"Forceps delivery"
-EPT,19463,256,"Vaginal, Breech",SM,177157003,"Spontaneous breech delivery"
-EPT,19463,257,"Non-Spontaneous Vaginal Delivery",SM,236974004,"Instrumental delivery"
-EPT,19463,258,"VBAC, Spontaneous",SM,
-EPT,19463,259,"C-Section, Low Vertical",SM,11466000,"Cesarean section"
-EPT,19463,260,"C-Section, Classical",SM,84195007,"Classical cesarean section"
-EPT,19463,290,"Biochemical",SM,,
+INI,ITEM,ITEM_TABLE_NAME,ITEM_TABLE_DESCRIPTION,ITEM_COLUMN_NAME,ITEM_COLUMN_DESCRIPTION,ITEM_VALUE,ITEM_VALUE_DESCRIPTION,DESTINATION_TABLE,DESTINATION_VOCABULARY,DESTINATION_VALUE,DESTINATION_DESCRIPTION
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",250,"Vaginal, Spontaneous",PROCEDURES,SM,48204000,"Spontaneous unassisted delivery, medical personnel present"
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",251,"C-Section, Low Transverse",PROCEDURES,SM,11466000,Cesarean section
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",252,Vertical C-Section,PROCEDURES,SM,11466000,Cesarean section
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",253,"C-Section, Unspecified",PROCEDURES,SM,11466000,Cesarean section
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",254,"Vaginal, Vacuum (Extractor)",PROCEDURES,SM,61586001,Delivery by vacuum extraction
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",255,"Vaginal, Forceps",PROCEDURES,SM,302383004,Forceps delivery
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",256,"Vaginal, Breech",PROCEDURES,SM,177157003,Spontaneous breech delivery
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",257,Non-Spontaneous Vaginal Delivery,PROCEDURES,SM,236974004,Instrumental delivery
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",258,"VBAC, Spontaneous",PROCEDURES,SM,,
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",259,"C-Section, Low Vertical",PROCEDURES,SM,11466000,Cesarean section
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",260,"C-Section, Classical",PROCEDURES,SM,84195007,Classical cesarean section
+HSB,35413,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_DEL_DELIV_METH_C,"The Delivery Type category ID for the type of delivery the patient experienced with this pregnancy, such as spontaneous vaginal delivery or classical cesarean section",290,Biochemical,PROCEDURES,SM,,
+HSB,35810,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_GEST_AGE,Stores the pregnancy gestational age (GA) in days for an outcome in OB history.,,,OBS_CLIN,SM,444135009,Estimated fetal gestational age at delivery (444135009)
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,1,Current,OBS_CLIN,SM,,
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,2,Term,OBS_CLIN,SM,21243004,Term birth of newborn
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,3,Preterm,OBS_CLIN,SM,282020008,Premature delivery
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,4,Abortion,OBS_CLIN,SM,386639001,Abortion
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,5,Gravida,OBS_CLIN,SM,,
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,6,Para,OBS_CLIN,SM,,
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,7,Induced Abortion,OBS_CLIN,SM,57797005,Induced abortion
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,8,Spontaneous Abortion,OBS_CLIN,SM,17369002,Spontaneous abortion
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,9,Ectopic,OBS_CLIN,SM,,
+HSB,35807,OB_HSB_DELIVERY,"This table contains information about the delivery for this pregnancy, as entered in Stork's Delivery Summary activity",OB_HX_OUTCOME_C,Stores the outcome type for an outcome documented in OB history for a patient,10,Molar,OBS_CLIN,SM,,
