@@ -8,7 +8,7 @@ Insert into AMMI.[dbo].BIRTH_RELATIONSHIP( [BIRTHID]
  SELECT distinct
      wk.SUMMARY_BLOCK_ID as birthid
 		,wk.PREG_EPISODE_ID as pregnancyid 
-		,wk.BABY_PATIENT_NUM as pat_id
+		,wk.BABY_PATIENT_NUM as patid
 		,wk.BABY_ENCOUNTER_NUM as encounterid
 		,wk.MOM_PATIENT_NUM as motherid
 	  ,wk.[MOM_ENCOUNTER_NUM] as mother_encounterid	  
