@@ -40,7 +40,9 @@ hdp_vitals as
 		a.measure_datetime as measure_datetime_a,
 		b.systolic as systolic_b,
 		b.diastolic as diastolic_b,
-		b.measure_datetime as measure_datetime_b
+		b.measure_datetime as measure_datetime_b,
+		case when a.systolic >= 160 and b.systolic >= 160 and a.diastolic >= 110 and b.diastolic >= 110 then 1 else 0 end severe_hypertension,
+		(a.systolic - 140) + (b.systolic - 140) + (a.diastolic - 90) + (b.diastolic - 90) as hypertension_score
 	from
 		pregnancy_vitals a
 		join pregnancy_vitals b on
@@ -50,9 +52,36 @@ hdp_vitals as
 	where
 		a.systolic >= 140
 		or a.diastolic >= 90
+),
+rank_hdp_vitals as
+(
+	select
+		row_number() over (partition by hdp_vitals.birthid order by hdp_vitals.severe_hypertension desc, hdp_vitals.hypertension_score desc) as rownum,
+		hdp_vitals.*
+	from
+		hdp_vitals
+),
+max_hdp_vitals as
+(
+	select
+		rank_hdp_vitals.patid,
+		rank_hdp_vitals.birthid,
+		rank_hdp_vitals.episode_begin_datetime,
+		rank_hdp_vitals.episode_end_datetime,
+		rank_hdp_vitals.systolic_a,
+		rank_hdp_vitals.diastolic_a,
+		rank_hdp_vitals.measure_datetime_a,
+		rank_hdp_vitals.systolic_b,
+		rank_hdp_vitals.diastolic_b,
+		rank_hdp_vitals.measure_datetime_b,
+		rank_hdp_vitals.severe_hypertension
+	from
+		rank_hdp_vitals
+	where
+		rank_hdp_vitals.rownum = 1
 )
 select
 	*
 from
-	hdp_vitals
+	max_hdp_vitals
 ;
