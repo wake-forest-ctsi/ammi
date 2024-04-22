@@ -1,10 +1,3 @@
--- ACOG defines HDP as two values at least four hours apart. We use MEASURE_TAKEN_INSTANT for elevated blood pressures to identify the first and last blood pressure that meets criteria:
--- CASE WHEN eb.sbp_value >= 140 OR eb.DBP_VALUE >=90 THEN eb.MEASURE_TAKEN_INSTANT ELSE NULL END) AS mild_bp_first
-
--- Discrete lab values that are used to diagnose preeclampsia include Platelet count, AST, ALT, Creatinine, 24 hour urine protein, and urine protein:creatinine ratio. 
-
--- Using lab_component_key values, we retrieved the minimum or maximum value for each lab. Platelets <100,000 are diagnostic of preeclampsia; AST, ALT, Creatinine, and urine protein are diagnostic if they exceed thresholds
-
 with pregnancy_episodes as
 (
 	select
@@ -25,7 +18,7 @@ pregnancy_vitals as
 		vital.MEASURE_DATE + vital.MEASURE_TIME as measure_datetime
 	from vital 
 	join pregnancy_episodes on 
-		vital.PATID = pregnancy_episodes.PATID
+		vital.PATID = pregnancy_episodes.patid
 		and (vital.measure_date + vital.measure_time) between episode_begin_datetime and episode_end_datetime
 ),
 hdp_vitals as
@@ -42,7 +35,7 @@ hdp_vitals as
 		b.diastolic as diastolic_b,
 		b.measure_datetime as measure_datetime_b,
 		case when a.systolic >= 160 and b.systolic >= 160 and a.diastolic >= 110 and b.diastolic >= 110 then 1 else 0 end severe_hypertension,
-		(a.systolic - 140) + (b.systolic - 140) + (a.diastolic - 90) + (b.diastolic - 90) as hypertension_score
+		(a.systolic - 140) + (b.systolic - 140) + (a.diastolic - 90) + (b.diastolic - 90) as hypertension_score  --
 	from
 		pregnancy_vitals a
 		join pregnancy_vitals b on
@@ -53,7 +46,7 @@ hdp_vitals as
 		a.systolic >= 140
 		or a.diastolic >= 90
 ),
-rank_hdp_vitals as
+hdp_vitals_rank as
 (
 	select
 		row_number() over (partition by hdp_vitals.birthid order by hdp_vitals.severe_hypertension desc, hdp_vitals.hypertension_score desc) as rownum,
@@ -61,27 +54,54 @@ rank_hdp_vitals as
 	from
 		hdp_vitals
 ),
-max_hdp_vitals as
+hdp_vitals_max as
 (
 	select
-		rank_hdp_vitals.patid,
-		rank_hdp_vitals.birthid,
-		rank_hdp_vitals.episode_begin_datetime,
-		rank_hdp_vitals.episode_end_datetime,
-		rank_hdp_vitals.systolic_a,
-		rank_hdp_vitals.diastolic_a,
-		rank_hdp_vitals.measure_datetime_a,
-		rank_hdp_vitals.systolic_b,
-		rank_hdp_vitals.diastolic_b,
-		rank_hdp_vitals.measure_datetime_b,
-		rank_hdp_vitals.severe_hypertension
+		hdp_vitals_rank.patid,
+		hdp_vitals_rank.birthid,
+		hdp_vitals_rank.episode_begin_datetime,
+		hdp_vitals_rank.episode_end_datetime,
+		hdp_vitals_rank.systolic_a,
+		hdp_vitals_rank.diastolic_a,
+		hdp_vitals_rank.measure_datetime_a,
+		hdp_vitals_rank.systolic_b,
+		hdp_vitals_rank.diastolic_b,
+		hdp_vitals_rank.measure_datetime_b,
+		hdp_vitals_rank.severe_hypertension
 	from
-		rank_hdp_vitals
+		hdp_vitals_rank
 	where
-		rank_hdp_vitals.rownum = 1
+		hdp_vitals_rank.rownum = 1
+),
+hdp_labs as
+(
+	select
+		pregnancy_episodes.*,
+		lab_result_cm.lab_loinc,
+		lab_result_cm.result_num,
+		lab_result_cm.result_modifier,
+		lab_result_cm.specimen_date + lab_result_cm.specimen_time as specimen_datetime
+	from lab_result_cm
+	join pregnancy_episodes on 
+		lab_result_cm.PATID = pregnancy_episodes.patid
+		and (lab_result_cm.specimen_date + lab_result_cm.specimen_time) between episode_begin_datetime and episode_end_datetime
+		and 
+			( 
+				(lab_result_cm.lab_loinc in ('2889-4') and lab_result_cm.result_num >= 300 and lab_result_cm.result_modifier in ('EQ', 'GE', 'GT'))		-- Proteinuria
+				or (lab_result_cm.lab_loinc in ('2890-2') and lab_result_cm.result_num >= 0.3 and lab_result_cm.result_modifier in ('EQ', 'GE', 'GT'))	-- Proteinuria
+				-- Proteinuria dipstick ??
+				or (lab_result_cm.lab_loinc in ('777-3') and lab_result_cm.result_num <= 99999 and lab_result_cm.result_modifier in ('EQ', 'LE', 'LT'))	-- Thrombocytopenia
+				or (lab_result_cm.lab_loinc in ('2160-0') and lab_result_cm.result_num >= 1.2 and lab_result_cm.result_modifier in ('EQ', 'GE', 'GT'))	-- Renal Insufficiency
+					-- or a doubling of the serum creatinine concentration in the absence of other renal disease?
+				-- Impaired liver function?
+				-- Pulmonary Edema?
+				-- New onset headache?
+			)
 )
 select
-	*
+	hdp_vitals_max.*
+	, hdp_labs.*
 from
-	max_hdp_vitals
+	hdp_vitals_max
+	inner join hdp_labs on hdp_labs.birthid = hdp_vitals_max.birthid
 ;
