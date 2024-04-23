@@ -1,4 +1,3 @@
-/* Birth episodes with a preeclampsia phenotype */
 with pregnancy_episodes as
 (
 	select
@@ -10,6 +9,40 @@ with pregnancy_episodes as
 		birth_relationship
 		join encounter on encounter.encounterid = birth_relationship.mother_encounterid
 ),
+/* Birth episodes with a preeclampsia diagnosis */
+preeclampsia_diagnosis as
+(
+	select 
+		pregnancy_episodes.*,
+		diagnosis.dx_type,
+		diagnosis.dx,
+		diagnosis.dx_date
+	from 
+		pregnancy_episodes
+		inner join diagnosis on diagnosis.dx_date between pregnancy_episodes.episode_begin_datetime and pregnancy_episodes.episode_end_datetime
+	where
+		diagnosis.dx_type = '10' and diagnosis.dx like 'O14%'
+),
+preeclampsia_diagnosis_max as
+(
+	select
+		preeclampsia_diagnosis_rank.patid,
+		preeclampsia_diagnosis_rank.birthid,
+		preeclampsia_diagnosis_rank.episode_begin_datetime,
+		preeclampsia_diagnosis_rank.episode_end_datetime,
+		preeclampsia_diagnosis_rank.dx_type,
+		preeclampsia_diagnosis_rank.dx,
+		preeclampsia_diagnosis_rank.dx_date
+	from
+		(select
+			row_number() over (partition by preeclampsia_diagnosis.birthid order by preeclampsia_diagnosis.dx_date desc) as rownum,
+			preeclampsia_diagnosis.*
+		from
+			preeclampsia_diagnosis) preeclampsia_diagnosis_rank
+	where
+		preeclampsia_diagnosis_rank.rownum = 1
+),
+/* Birth episodes with preeclampsia supporting vital measurements */
 pregnancy_vitals as
 (
 	select
@@ -70,6 +103,7 @@ hdp_vitals_max as
 	where
 		hdp_vitals_rank.rownum = 1
 ),
+/* Birth episodes with preeclampsia supporting laboratory measurements */
 hdp_labs as
 (
 	select
@@ -121,36 +155,19 @@ hdp_labs_max as (
 	
 )
 select
-	hdp_vitals_max.*,
+	preeclampsia_diagnosis_max.*,
+	hdp_vitals_max.systolic_a,
+	hdp_vitals_max.diastolic_a,
+	hdp_vitals_max.measure_datetime_a,
+	hdp_vitals_max.systolic_b,
+	hdp_vitals_max.diastolic_b,
+	hdp_vitals_max.measure_datetime_b,
 	hdp_labs_max.lab_loinc,
 	hdp_labs_max.result_num,
 	hdp_labs_max.result_modifier,
 	hdp_labs_max.specimen_datetime
 from
-	hdp_vitals_max
-	inner join hdp_labs_max on hdp_labs_max.birthid = hdp_vitals_max.birthid
-;
-
-/* Birth episodes with a preeclampsia diagnosis */
-with pregnancy_episodes as
-(
-	select
-		encounter.patid,
-		birth_relationship.birthid,
-		dateadd(MONTH,-9,encounter.admit_date) as episode_begin_datetime,
-		encounter.admit_date as episode_end_datetime
-	from
-		birth_relationship
-		join encounter on encounter.encounterid = birth_relationship.mother_encounterid
-)
-select 
-	pregnancy_episodes.*,
-	diagnosis.dx_type,
-	diagnosis.dx,
-	diagnosis.dx_date
-from 
-	pregnancy_episodes
-	inner join diagnosis on diagnosis.dx_date between pregnancy_episodes.episode_begin_datetime and pregnancy_episodes.episode_end_datetime
-where
-	diagnosis.dx_type = '10' and diagnosis.dx like 'O14%'
+	preeclampsia_diagnosis_max
+	left join hdp_vitals_max on hdp_vitals_max.birthid = preeclampsia_diagnosis_max.birthid
+	left join hdp_labs_max on hdp_labs_max.birthid = preeclampsia_diagnosis_max.birthid
 ;
