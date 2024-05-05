@@ -35,29 +35,29 @@ with patient_pop as (
 		LEFT OUTER JOIN ZC_OB_HX_OUTCOME@clarityprod on ZC_OB_HX_OUTCOME.OB_HX_OUTCOME_C = ob_hsb_delivery.ob_hx_outcome_c
 
 		--get patient_num for mom mrn
-	join patient_mapping_new@b2db wpi_mom on wpi_mom.PATIENT_IDE = pat_enc_mother.pat_id and wpi_mom.patient_ide_source = 'WAKE FOREST PAT_ID' 
-	and wpi_mom.SOURCESYSTEM_CD = 'WAKEONE'
-
-
-	--get encounter_num for del/mom CSN
-	LEFT OUTER JOIN  phi_blind_enc@b2db pbe on pbe.encnter_idn = ob_hsb_delivery.delivery_date_csn and pbe.sourcesystem_cd != 'ATRIUM'
-	LEFT OUTER JOIN  encounter_mapping@b2db em on pbe.enc_id = em.encounter_ide and em.sourcesystem_cd != 'ATRIUM' and em.PATIENT_IDE_SOURCE != 'ATRIUM'
-	and em.ENCOUNTER_IDE_SOURCE != 'ATRIUM'
-
-	--get patient_num for baby mrn
-	join patient_mapping_new@b2db wpi_baby on wpi_baby.PATIENT_IDE =  pat_enc_baby.pat_id and wpi_baby.patient_ide_source = 'WAKE FOREST PAT_ID' 
-	and wpi_baby.SOURCESYSTEM_CD = 'WAKEONE'
-
-	--get encounter_num for baby CSN
-	LEFT OUTER JOIN  phi_blind_enc@b2db pbe2 on pbe2.encnter_idn = ob_hsb_delivery.baby_birth_csn and pbe2.sourcesystem_cd != 'ATRIUM'
-	LEFT OUTER JOIN encounter_mapping@b2db em2 on pbe2.enc_id = em2.encounter_ide and em2.sourcesystem_cd != 'ATRIUM' and em2.PATIENT_IDE_SOURCE != 'ATRIUM'
-	and em2.ENCOUNTER_IDE_SOURCE != 'ATRIUM'
-
-	WHERE
-		ob_hsb_delivery.ob_del_epis_type_c = 10
-
-)
- 
+		join patient_mapping_new@b2db wpi_mom on wpi_mom.PATIENT_IDE = pat_enc_mother.pat_id and wpi_mom.patient_ide_source = 'WAKE FOREST PAT_ID' 
+		and wpi_mom.SOURCESYSTEM_CD = 'WAKEONE'
+	
+	
+		--get encounter_num for del/mom CSN
+		LEFT OUTER JOIN  phi_blind_enc@b2db pbe on pbe.encnter_idn = ob_hsb_delivery.delivery_date_csn and pbe.sourcesystem_cd != 'ATRIUM'
+		LEFT OUTER JOIN  encounter_mapping@b2db em on pbe.enc_id = em.encounter_ide and em.sourcesystem_cd != 'ATRIUM' and em.PATIENT_IDE_SOURCE != 'ATRIUM'
+		and em.ENCOUNTER_IDE_SOURCE != 'ATRIUM'
+	
+		--get patient_num for baby mrn
+		join patient_mapping_new@b2db wpi_baby on wpi_baby.PATIENT_IDE =  pat_enc_baby.pat_id and wpi_baby.patient_ide_source = 'WAKE FOREST PAT_ID' 
+		and wpi_baby.SOURCESYSTEM_CD = 'WAKEONE'
+	
+		--get encounter_num for baby CSN
+		LEFT OUTER JOIN  phi_blind_enc@b2db pbe2 on pbe2.encnter_idn = ob_hsb_delivery.baby_birth_csn and pbe2.sourcesystem_cd != 'ATRIUM'
+		LEFT OUTER JOIN encounter_mapping@b2db em2 on pbe2.enc_id = em2.encounter_ide and em2.sourcesystem_cd != 'ATRIUM' and em2.PATIENT_IDE_SOURCE != 'ATRIUM'
+		and em2.ENCOUNTER_IDE_SOURCE != 'ATRIUM'
+	
+		WHERE
+			ob_hsb_delivery.ob_del_epis_type_c = 10
+	
+	)
+	 
 
 INSERT INTO [AMMI].[dbo].[PROCEDURES]([PROCEDURESID] ,[PATID] ,[ENCOUNTERID] ,[ENC_TYPE] ,[ADMIT_DATE]
            ,[PROVIDERID] ,[PX_DATE] ,[PX] ,[PX_TYPE] ,[PX_SOURCE] ,[PPX] ,[RAW_PX]
@@ -116,6 +116,5 @@ INSERT INTO [AMMI].[dbo].[PROCEDURES]([PROCEDURESID] ,[PATID] ,[ENCOUNTERID] ,[E
 	,'@'
 	 
 	from
-patient_pop a
- --join [dbo].procedures p on p.[ENCOUNTERID] = a.MOM_ENCOUNTER_NUM
-join [AMMI].dbo.encounter e on e.[ENCOUNTERID] = a.MOM_ENCOUNTER_NUM 
+	patient_pop a	 
+	join [AMMI].dbo.encounter e on e.[ENCOUNTERID] = a.MOM_ENCOUNTER_NUM 
