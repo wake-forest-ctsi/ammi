@@ -24,7 +24,7 @@ FROM AMMI.dbo.BIRTH_RELATIONSHIP a
     MIN(OBSCLIN_RESULT_NUM) AS "gest_age_in_days", -- it affects about 4 records of twins with different gest_age
 	MIN(OBSCLIN_START_DATE) AS "obs_start_date"
    FROM AMMI.dbo.OBS_CLIN
-   WHERE RAW_OBSCLIN_NAME = 'Estimated fetal gestational age at delivery'
+   WHERE OBSCLIN_TYPE = 'SM' AND OBSCLIN_CODE = '444135009' -- this is the code the gestational age
    GROUP BY ENCOUNTERID) c ON a.MOTHER_ENCOUNTERID = c.ENCOUNTERID
   LEFT JOIN AMMI.dbo.DEMOGRAPHIC d on a.MOTHERID = d.PATID
 )
@@ -54,7 +54,7 @@ SELECT PATID, earliest_bmi FROM
   b.OBSCLIN_RESULT_NUM AS "earliest_bmi",
   ROW_NUMBER() OVER (PARTITION BY a.PATID ORDER BY b.OBSCLIN_START_DATE) AS "k"  -- get the earliest bmi
 FROM demographic_base a 
-LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE RAW_OBSCLIN_CODE = 'VITAL:ORIGINAL_BMI') b 
+LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE OBSCLIN_TYPE = 'LC' AND OBSCLIN_CODE = '39156-5') b -- code for BMI
   ON (a.MOTHERID = b.PATID) AND (b.OBSCLIN_START_DATE BETWEEN a.preg_start_date AND a.preg_start_date + 84)
 ) tmp 
 WHERE k = 1
@@ -69,7 +69,7 @@ SELECT PATID, earliest_weight FROM
   b.OBSCLIN_RESULT_NUM AS "earliest_weight",
   ROW_NUMBER() OVER (PARTITION BY a.PATID ORDER BY b.OBSCLIN_START_DATE) AS "k"  -- get the earliest weight
 FROM demographic_base a 
-LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE RAW_OBSCLIN_CODE = 'VITAL:WT') b 
+LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE OBSCLIN_TYPE = 'LC' AND OBSCLIN_CODE = '3141-9') b -- for weight
   ON (a.MOTHERID = b.PATID) AND (b.OBSCLIN_START_DATE BETWEEN a.preg_start_date AND a.preg_start_date + 84)
 ) tmp 
 WHERE k = 1
@@ -82,7 +82,8 @@ SELECT
   a.PATID,
   MAX(b.OBSCLIN_RESULT_NUM) AS "max_height"
 FROM demographic_base a
-LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE RAW_OBSCLIN_CODE = 'VITAL:HT') b ON a.MOTHERID = b.PATID
+LEFT JOIN (SELECT * FROM AMMI.dbo.OBS_CLIN WHERE OBSCLIN_TYPE = 'LC' AND OBSCLIN_CODE = '3137-7') b -- for height
+  ON a.MOTHERID = b.PATID
 GROUP BY a.PATID
 )
 
