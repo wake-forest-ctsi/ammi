@@ -1,0 +1,1485 @@
+version: 2
+
+sources:
+  - name: pcornet
+    description: ""
+    schema: dbo
+    tables:
+      - name: birth_relationship
+        description: ""
+        columns:
+          - name: birthid
+            data_type: varchar
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: pregnancyid
+            data_type: varchar
+            description: ""
+          - name: motherid
+            data_type: varchar
+            description: ""
+          - name: mother_encounterid
+            data_type: varchar
+            description: ""
+
+      - name: condition
+        description: ""
+        columns:
+          - name: conditionid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: report_date
+            data_type: datetime
+            description: ""
+          - name: resolve_date
+            data_type: datetime
+            description: ""
+          - name: onset_date
+            data_type: datetime
+            description: ""
+          - name: condition_status
+            data_type: varchar
+            description: ""
+          - name: condition
+            data_type: varchar
+            description: ""
+          - name: condition_type
+            data_type: varchar
+            description: ""
+          - name: condition_source
+            data_type: varchar
+            description: ""
+          - name: raw_condition_status
+            data_type: varchar
+            description: ""
+          - name: raw_condition
+            data_type: varchar
+            description: ""
+          - name: raw_condition_type
+            data_type: varchar
+            description: ""
+          - name: raw_condition_source
+            data_type: varchar
+            description: ""
+
+      - name: death
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: death_date
+            data_type: datetime
+            description: ""
+          - name: death_date_impute
+            data_type: varchar
+            description: ""
+          - name: death_source
+            data_type: varchar
+            description: ""
+          - name: death_match_confidence
+            data_type: varchar
+            description: ""
+
+      - name: death_cause
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: death_cause
+            data_type: varchar
+            description: ""
+          - name: death_cause_code
+            data_type: varchar
+            description: ""
+          - name: death_cause_type
+            data_type: varchar
+            description: ""
+          - name: death_cause_source
+            data_type: varchar
+            description: ""
+          - name: death_cause_confidence
+            data_type: varchar
+            description: ""
+
+      - name: demographic
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: birth_date
+            data_type: datetime
+            description: ""
+          - name: birth_time
+            data_type: varchar
+            description: ""
+          - name: sex
+            data_type: varchar
+            description: ""
+          - name: sexual_orientation
+            data_type: varchar
+            description: ""
+          - name: gender_identity
+            data_type: varchar
+            description: ""
+          - name: hispanic
+            data_type: varchar
+            description: ""
+          - name: biobank_flag
+            data_type: varchar
+            description: ""
+          - name: race
+            data_type: varchar
+            description: ""
+          - name: pat_pref_language_spoken
+            data_type: varchar
+            description: ""
+          - name: raw_sex
+            data_type: varchar
+            description: ""
+          - name: raw_hispanic
+            data_type: varchar
+            description: ""
+          - name: raw_race
+            data_type: varchar
+            description: ""
+          - name: raw_sexual_orientation
+            data_type: varchar
+            description: ""
+          - name: raw_gender_identity
+            data_type: varchar
+            description: ""
+          - name: raw_pat_pref_language_spoken
+            data_type: varchar
+            description: ""
+
+      - name: diagnosis
+        description: ""
+        columns:
+          - name: diagnosisid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: enc_type
+            data_type: varchar
+            description: ""
+          - name: admit_date
+            data_type: datetime
+            description: ""
+          - name: providerid
+            data_type: varchar
+            description: ""
+          - name: dx
+            data_type: varchar
+            description: ""
+          - name: dx_type
+            data_type: varchar
+            description: ""
+          - name: dx_date
+            data_type: datetime
+            description: ""
+          - name: dx_source
+            data_type: varchar
+            description: ""
+          - name: dx_origin
+            data_type: varchar
+            description: ""
+          - name: pdx
+            data_type: varchar
+            description: ""
+          - name: dx_poa
+            data_type: varchar
+            description: ""
+          - name: raw_dx
+            data_type: varchar
+            description: ""
+          - name: raw_dx_type
+            data_type: varchar
+            description: ""
+          - name: raw_dx_source
+            data_type: varchar
+            description: ""
+          - name: raw_origdx
+            data_type: varchar
+            description: ""
+          - name: raw_pdx
+            data_type: varchar
+            description: ""
+          - name: raw_dx_poa
+            data_type: varchar
+            description: ""
+
+      - name: dispensing
+        description: ""
+        columns:
+          - name: dispensingid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: prescribingid
+            data_type: bigint
+            description: ""
+          - name: dispense_date
+            data_type: datetime
+            description: ""
+          - name: ndc
+            data_type: varchar
+            description: ""
+          - name: dispense_source
+            data_type: varchar
+            description: ""
+          - name: dispense_sup
+            data_type: numeric
+            description: ""
+          - name: dispense_amt
+            data_type: numeric
+            description: ""
+          - name: dispense_dose_disp
+            data_type: numeric
+            description: ""
+          - name: dispense_dose_disp_unit
+            data_type: varchar
+            description: ""
+          - name: dispense_route
+            data_type: varchar
+            description: ""
+          - name: raw_ndc
+            data_type: varchar
+            description: ""
+          - name: raw_dispense_dose_disp
+            data_type: varchar
+            description: ""
+          - name: raw_dispense_dose_disp_unit
+            data_type: varchar
+            description: ""
+          - name: raw_dispense_route
+            data_type: varchar
+            description: ""
+
+      - name: encounter
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: admit_date
+            data_type: datetime
+            description: ""
+          - name: admit_time
+            data_type: varchar
+            description: ""
+          - name: discharge_date
+            data_type: datetime
+            description: ""
+          - name: discharge_time
+            data_type: varchar
+            description: ""
+          - name: providerid
+            data_type: varchar
+            description: ""
+          - name: facility_location
+            data_type: varchar
+            description: ""
+          - name: enc_type
+            data_type: varchar
+            description: ""
+          - name: facilityid
+            data_type: varchar
+            description: ""
+          - name: discharge_disposition
+            data_type: varchar
+            description: ""
+          - name: discharge_status
+            data_type: varchar
+            description: ""
+          - name: drg
+            data_type: varchar
+            description: ""
+          - name: drg_type
+            data_type: varchar
+            description: ""
+          - name: admitting_source
+            data_type: varchar
+            description: ""
+          - name: payer_type_primary
+            data_type: varchar
+            description: ""
+          - name: payer_type_secondary
+            data_type: varchar
+            description: ""
+          - name: facility_type
+            data_type: varchar
+            description: ""
+          - name: raw_siteid
+            data_type: varchar
+            description: ""
+          - name: raw_enc_type
+            data_type: varchar
+            description: ""
+          - name: raw_discharge_disposition
+            data_type: varchar
+            description: ""
+          - name: raw_discharge_status
+            data_type: varchar
+            description: ""
+          - name: raw_drg_type
+            data_type: varchar
+            description: ""
+          - name: raw_admitting_source
+            data_type: varchar
+            description: ""
+          - name: raw_facility_type
+            data_type: varchar
+            description: ""
+          - name: raw_payer_type_primary
+            data_type: varchar
+            description: ""
+          - name: raw_payer_name_primary
+            data_type: varchar
+            description: ""
+          - name: raw_payer_id_primary
+            data_type: varchar
+            description: ""
+          - name: raw_payer_type_secondary
+            data_type: varchar
+            description: ""
+          - name: raw_payer_name_secondary
+            data_type: varchar
+            description: ""
+          - name: raw_payer_id_secondary
+            data_type: varchar
+            description: ""
+
+      - name: enrollment
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: enr_start_date
+            data_type: datetime
+            description: ""
+          - name: enr_end_date
+            data_type: datetime
+            description: ""
+          - name: chart
+            data_type: varchar
+            description: ""
+          - name: enr_basis
+            data_type: varchar
+            description: ""
+          - name: raw_chart
+            data_type: varchar
+            description: ""
+          - name: raw_basis
+            data_type: varchar
+            description: ""
+
+      - name: harvest
+        description: "Attributes associated with the specific PCORnet datamart implementation, including data refreshes."
+        columns:
+          - name: networkid
+            data_type: varchar
+            description: ""
+          - name: network_name
+            data_type: varchar
+            description: ""
+          - name: datamartid
+            data_type: varchar
+            description: ""
+          - name: datamart_name
+            data_type: varchar
+            description: ""
+          - name: datamart_platform
+            data_type: varchar
+            description: ""
+          - name: cdm_version
+            data_type: varchar
+            description: ""
+          - name: datamart_claims
+            data_type: varchar
+            description: ""
+          - name: datamart_ehr
+            data_type: varchar
+            description: ""
+          - name: birth_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: enr_start_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: enr_end_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: admit_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: discharge_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: dx_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: px_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: rx_order_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: rx_start_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: rx_end_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: dispense_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: lab_order_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: specimen_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: result_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: measure_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: onset_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: report_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: resolve_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: pro_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: death_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: medadmin_start_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: medadmin_stop_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: obsclin_start_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: obsclin_stop_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: obsgen_start_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: obsgen_stop_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: address_period_start_mgmt
+            data_type: varchar
+            description: ""
+          - name: address_period_end_mgmt
+            data_type: varchar
+            description: ""
+          - name: vx_record_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: vx_admin_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: vx_exp_date_mgmt
+            data_type: varchar
+            description: ""
+          - name: refresh_demographic_date
+            data_type: datetime
+            description: ""
+          - name: refresh_enrollment_date
+            data_type: datetime
+            description: ""
+          - name: refresh_encounter_date
+            data_type: datetime
+            description: ""
+          - name: refresh_diagnosis_date
+            data_type: datetime
+            description: ""
+          - name: refresh_procedures_date
+            data_type: datetime
+            description: ""
+          - name: refresh_vital_date
+            data_type: datetime
+            description: ""
+          - name: refresh_dispensing_date
+            data_type: datetime
+            description: ""
+          - name: refresh_lab_result_cm_date
+            data_type: datetime
+            description: ""
+          - name: refresh_condition_date
+            data_type: datetime
+            description: ""
+          - name: refresh_pro_cm_date
+            data_type: datetime
+            description: ""
+          - name: refresh_prescribing_date
+            data_type: datetime
+            description: ""
+          - name: refresh_pcornet_trial_date
+            data_type: datetime
+            description: ""
+          - name: refresh_death_date
+            data_type: datetime
+            description: ""
+          - name: refresh_death_cause_date
+            data_type: datetime
+            description: ""
+          - name: refresh_med_admin_date
+            data_type: datetime
+            description: ""
+          - name: refresh_obs_clin_date
+            data_type: datetime
+            description: ""
+          - name: refresh_provider_date
+            data_type: datetime
+            description: ""
+          - name: refresh_obs_gen_date
+            data_type: datetime
+            description: ""
+          - name: refresh_hash_token_date
+            data_type: datetime
+            description: ""
+          - name: refresh_lds_address_hx_date
+            data_type: datetime
+            description: ""
+          - name: refresh_immunization_date
+            data_type: datetime
+            description: ""
+
+      - name: immunization
+        description: "Records of immunizations that have been delivered within the health system as well as reports of those administered elsewhere."
+        columns:
+          - name: immunizationid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: proceduresid
+            data_type: varchar
+            description: ""
+          - name: vx_providerid
+            data_type: varchar
+            description: ""
+          - name: vx_record_date
+            data_type: datetime
+            description: ""
+          - name: vx_admin_date
+            data_type: datetime
+            description: ""
+          - name: vx_code_type
+            data_type: varchar
+            description: ""
+          - name: vx_code
+            data_type: varchar
+            description: ""
+          - name: vx_status
+            data_type: varchar
+            description: ""
+          - name: vx_status_reason
+            data_type: varchar
+            description: ""
+          - name: vx_source
+            data_type: varchar
+            description: ""
+          - name: vx_dose
+            data_type: numeric
+            description: ""
+          - name: vx_dose_unit
+            data_type: varchar
+            description: ""
+          - name: vx_route
+            data_type: varchar
+            description: ""
+          - name: vx_body_site
+            data_type: varchar
+            description: ""
+          - name: vx_manufacturer
+            data_type: varchar
+            description: ""
+          - name: vx_lot_num
+            data_type: varchar
+            description: ""
+          - name: vx_exp_date
+            data_type: datetime
+            description: ""
+          - name: raw_vx_name
+            data_type: varchar
+            description: ""
+          - name: raw_vx_code
+            data_type: varchar
+            description: ""
+          - name: raw_vx_code_type
+            data_type: varchar
+            description: ""
+          - name: raw_vx_dose
+            data_type: varchar
+            description: ""
+          - name: raw_vx_dose_unit
+            data_type: varchar
+            description: ""
+          - name: raw_vx_route
+            data_type: varchar
+            description: ""
+          - name: raw_vx_body_site
+            data_type: varchar
+            description: ""
+          - name: raw_vx_status
+            data_type: varchar
+            description: ""
+          - name: raw_vx_status_reason
+            data_type: varchar
+            description: ""
+          - name: raw_vx_manufacturer
+            data_type: varchar
+            description: ""
+
+      - name: lab_result_cm
+        description: "This table is used to store quantitative and qualitative measurements from blood and other body specimens."
+        columns:
+          - name: lab_result_cm_id
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: specimen_source
+            data_type: varchar
+            description: ""
+          - name: lab_loinc
+            data_type: varchar
+            description: ""
+          - name: lab_result_source
+            data_type: varchar
+            description: ""
+          - name: lab_loinc_source
+            data_type: varchar
+            description: ""
+          - name: priority
+            data_type: varchar
+            description: ""
+          - name: result_loc
+            data_type: varchar
+            description: ""
+          - name: lab_px
+            data_type: varchar
+            description: ""
+          - name: lab_px_type
+            data_type: varchar
+            description: ""
+          - name: lab_order_date
+            data_type: datetime
+            description: ""
+          - name: specimen_date
+            data_type: datetime
+            description: ""
+          - name: specimen_time
+            data_type: varchar
+            description: ""
+          - name: result_date
+            data_type: datetime
+            description: ""
+          - name: result_time
+            data_type: varchar
+            description: ""
+          - name: result_qual
+            data_type: varchar
+            description: ""
+          - name: result_snomed
+            data_type: varchar
+            description: ""
+          - name: result_num
+            data_type: decimal
+            description: ""
+          - name: result_modifier
+            data_type: varchar
+            description: ""
+          - name: result_unit
+            data_type: varchar
+            description: ""
+          - name: norm_range_low
+            data_type: varchar
+            description: ""
+          - name: norm_modifier_low
+            data_type: varchar
+            description: ""
+          - name: norm_range_high
+            data_type: varchar
+            description: ""
+          - name: norm_modifier_high
+            data_type: varchar
+            description: ""
+          - name: abn_ind
+            data_type: varchar
+            description: ""
+          - name: raw_lab_name
+            data_type: varchar
+            description: ""
+          - name: raw_lab_code
+            data_type: varchar
+            description: ""
+          - name: raw_panel
+            data_type: varchar
+            description: ""
+          - name: raw_result
+            data_type: varchar
+            description: ""
+          - name: raw_unit
+            data_type: varchar
+            description: ""
+          - name: raw_order_dept
+            data_type: varchar
+            description: ""
+          - name: raw_facility_code
+            data_type: varchar
+            description: ""
+
+      - name: lds_address_history
+        description: ""
+        columns:
+          - name: addressid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: address_use
+            data_type: varchar
+            description: ""
+          - name: address_type
+            data_type: varchar
+            description: ""
+          - name: address_preferred
+            data_type: varchar
+            description: ""
+          - name: address_city
+            data_type: varchar
+            description: ""
+          - name: address_state
+            data_type: varchar
+            description: ""
+          - name: address_zip5
+            data_type: varchar
+            description: ""
+          - name: address_zip9
+            data_type: varchar
+            description: ""
+          - name: address_county
+            data_type: varchar
+            description: ""
+          - name: address_period_start
+            data_type: datetime
+            description: ""
+          - name: address_period_end
+            data_type: datetime
+            description: ""
+
+      - name: med_admin
+        description: ""
+        columns:
+          - name: medadminid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: prescribingid
+            data_type: varchar
+            description: ""
+          - name: medadmin_providerid
+            data_type: varchar
+            description: ""
+          - name: medadmin_start_date
+            data_type: datetime
+            description: ""
+          - name: medadmin_start_time
+            data_type: varchar
+            description: ""
+          - name: medadmin_stop_date
+            data_type: datetime
+            description: ""
+          - name: medadmin_stop_time
+            data_type: varchar
+            description: ""
+          - name: medadmin_type
+            data_type: varchar
+            description: ""
+          - name: medadmin_code
+            data_type: varchar
+            description: ""
+          - name: medadmin_dose_admin
+            data_type: numeric
+            description: ""
+          - name: medadmin_dose_admin_unit
+            data_type: varchar
+            description: ""
+          - name: medadmin_route
+            data_type: varchar
+            description: ""
+          - name: medadmin_source
+            data_type: varchar
+            description: ""
+          - name: raw_medadmin_med_name
+            data_type: varchar
+            description: ""
+          - name: raw_medadmin_code
+            data_type: varchar
+            description: ""
+          - name: raw_medadmin_dose_admin
+            data_type: varchar
+            description: ""
+          - name: raw_medadmin_dose_admin_unit
+            data_type: varchar
+            description: ""
+          - name: raw_medadmin_route
+            data_type: varchar
+            description: ""
+
+      - name: obs_clin
+        description: ""
+        columns:
+          - name: obsclinid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: obsclin_providerid
+            data_type: varchar
+            description: ""
+          - name: obsclin_start_date
+            data_type: datetime
+            description: ""
+          - name: obsclin_start_time
+            data_type: varchar
+            description: ""
+          - name: obsclin_stop_date
+            data_type: datetime
+            description: ""
+          - name: obsclin_stop_time
+            data_type: varchar
+            description: ""
+          - name: obsclin_type
+            data_type: varchar
+            description: ""
+          - name: obsclin_code
+            data_type: varchar
+            description: ""
+          - name: obsclin_result_qual
+            data_type: varchar
+            description: ""
+          - name: obsclin_result_text
+            data_type: varchar
+            description: ""
+          - name: obsclin_result_snomed
+            data_type: varchar
+            description: ""
+          - name: obsclin_result_num
+            data_type: numeric
+            description: ""
+          - name: obsclin_result_modifier
+            data_type: varchar
+            description: ""
+          - name: obsclin_result_unit
+            data_type: varchar
+            description: ""
+          - name: obsclin_source
+            data_type: varchar
+            description: ""
+          - name: obsclin_abn_ind
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_name
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_code
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_type
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_result
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_modifier
+            data_type: varchar
+            description: ""
+          - name: raw_obsclin_unit
+            data_type: varchar
+            description: ""
+
+      - name: obs_gen
+        description: ""
+        columns:
+          - name: obsgenid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: obsgen_providerid
+            data_type: varchar
+            description: ""
+          - name: obsgen_start_date
+            data_type: datetime
+            description: ""
+          - name: obsgen_start_time
+            data_type: varchar
+            description: ""
+          - name: obsgen_stop_date
+            data_type: datetime
+            description: ""
+          - name: obsgen_stop_time
+            data_type: varchar
+            description: ""
+          - name: obsgen_type
+            data_type: varchar
+            description: ""
+          - name: obsgen_code
+            data_type: varchar
+            description: ""
+          - name: obsgen_result_qual
+            data_type: varchar
+            description: ""
+          - name: obsgen_result_text
+            data_type: varchar
+            description: ""
+          - name: obsgen_result_num
+            data_type: numeric
+            description: ""
+          - name: obsgen_result_modifier
+            data_type: varchar
+            description: ""
+          - name: obsgen_result_unit
+            data_type: varchar
+            description: ""
+          - name: obsgen_table_modified
+            data_type: varchar
+            description: ""
+          - name: obsgen_id_modified
+            data_type: varchar
+            description: ""
+          - name: obsgen_source
+            data_type: varchar
+            description: ""
+          - name: obsgen_abn_ind
+            data_type: varchar
+            description: ""
+          - name: raw_obsgen_name
+            data_type: varchar
+            description: ""
+          - name: raw_obsgen_code
+            data_type: varchar
+            description: ""
+          - name: raw_obsgen_type
+            data_type: varchar
+            description: ""
+          - name: raw_obsgen_result
+            data_type: varchar
+            description: ""
+          - name: raw_obsgen_unit
+            data_type: varchar
+            description: ""
+
+      - name: pcornet_trial
+        description: ""
+        columns:
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: trialid
+            data_type: varchar
+            description: ""
+          - name: participantid
+            data_type: varchar
+            description: ""
+          - name: trial_siteid
+            data_type: varchar
+            description: ""
+          - name: trial_enroll_date
+            data_type: datetime
+            description: ""
+          - name: trial_end_date
+            data_type: datetime
+            description: ""
+          - name: trial_withdraw_date
+            data_type: datetime
+            description: ""
+          - name: trial_invite_code
+            data_type: varchar
+            description: ""
+
+      - name: prescribing
+        description: ""
+        columns:
+          - name: prescribingid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: rx_providerid
+            data_type: varchar
+            description: ""
+          - name: rx_order_date
+            data_type: datetime
+            description: ""
+          - name: rx_order_time
+            data_type: varchar
+            description: ""
+          - name: rx_start_date
+            data_type: datetime
+            description: ""
+          - name: rx_end_date
+            data_type: datetime
+            description: ""
+          - name: rx_dose_ordered
+            data_type: numeric
+            description: ""
+          - name: rx_dose_ordered_unit
+            data_type: varchar
+            description: ""
+          - name: rx_quantity
+            data_type: numeric
+            description: ""
+          - name: rx_dose_form
+            data_type: varchar
+            description: ""
+          - name: rx_refills
+            data_type: numeric
+            description: ""
+          - name: rx_days_supply
+            data_type: numeric
+            description: ""
+          - name: rx_frequency
+            data_type: varchar
+            description: ""
+          - name: rx_prn_flag
+            data_type: varchar
+            description: ""
+          - name: rx_route
+            data_type: varchar
+            description: ""
+          - name: rx_basis
+            data_type: varchar
+            description: ""
+          - name: rxnorm_cui
+            data_type: varchar
+            description: ""
+          - name: rx_source
+            data_type: varchar
+            description: ""
+          - name: rx_dispense_as_written
+            data_type: varchar
+            description: ""
+          - name: raw_rx_med_name
+            data_type: varchar
+            description: ""
+          - name: raw_rx_frequency
+            data_type: varchar
+            description: ""
+          - name: raw_rxnorm_cui
+            data_type: varchar
+            description: ""
+          - name: raw_rx_quantity
+            data_type: varchar
+            description: ""
+          - name: raw_rx_ndc
+            data_type: varchar
+            description: ""
+          - name: raw_rx_dose_ordered
+            data_type: varchar
+            description: ""
+          - name: raw_rx_dose_ordered_unit
+            data_type: varchar
+            description: ""
+          - name: raw_rx_route
+            data_type: varchar
+            description: ""
+          - name: raw_rx_refills
+            data_type: varchar
+            description: ""
+
+      - name: private_address_geocode
+        description: ""
+        columns:
+          - name: geocodeid
+            data_type: varchar
+            description: ""
+          - name: addressid
+            data_type: varchar
+            description: ""
+          - name: geocode_state
+            data_type: char
+            description: ""
+          - name: geocode_county
+            data_type: varchar
+            description: ""
+          - name: geocode_longitude
+            data_type: varchar
+            description: ""
+          - name: geocode_latitude
+            data_type: varchar
+            description: ""
+          - name: geocode_block
+            data_type: varchar
+            description: ""
+          - name: geocode_tract
+            data_type: varchar
+            description: ""
+          - name: geocode_group
+            data_type: varchar
+            description: ""
+          - name: geocode_zcta
+            data_type: varchar
+            description: ""
+          - name: geocode_custom
+            data_type: varchar
+            description: ""
+          - name: geocode_custom_text
+            data_type: varchar
+            description: ""
+          - name: shapefile
+            data_type: varchar
+            description: ""
+          - name: geo_accuracy
+            data_type: char
+            description: ""
+          - name: geo_prov_ref
+            data_type: varchar
+            description: ""
+          - name: assignment_date
+            data_type: date
+            description: ""
+
+      - name: private_address_history
+        description: ""
+        columns:
+          - name: addressid
+            data_type: varchar
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: address_use
+            data_type: char
+            description: ""
+          - name: address_type
+            data_type: char
+            description: ""
+          - name: address_preferred
+            data_type: char
+            description: ""
+          - name: address_street
+            data_type: varchar
+            description: ""
+          - name: address_detail
+            data_type: varchar
+            description: ""
+          - name: address_county
+            data_type: varchar
+            description: ""
+          - name: address_city
+            data_type: varchar
+            description: ""
+          - name: address_state
+            data_type: char
+            description: ""
+          - name: address_zip5
+            data_type: char
+            description: ""
+          - name: address_zip9
+            data_type: char
+            description: ""
+          - name: address_period_start
+            data_type: date
+            description: ""
+          - name: address_period_end
+            data_type: date
+            description: ""
+          - name: raw_address_text
+            data_type: varchar
+            description: ""
+
+      - name: pro_cm
+        description: ""
+        columns:
+          - name: pro_cm_id
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: pro_date
+            data_type: datetime
+            description: ""
+          - name: pro_time
+            data_type: varchar
+            description: ""
+          - name: pro_type
+            data_type: varchar
+            description: ""
+          - name: pro_item_name
+            data_type: varchar
+            description: ""
+          - name: pro_item_loinc
+            data_type: varchar
+            description: ""
+          - name: pro_response_text
+            data_type: varchar
+            description: ""
+          - name: pro_response_num
+            data_type: numeric
+            description: ""
+          - name: pro_method
+            data_type: varchar
+            description: ""
+          - name: pro_mode
+            data_type: varchar
+            description: ""
+          - name: pro_cat
+            data_type: varchar
+            description: ""
+          - name: pro_source
+            data_type: varchar
+            description: ""
+          - name: pro_item_version
+            data_type: varchar
+            description: ""
+          - name: pro_measure_name
+            data_type: varchar
+            description: ""
+          - name: pro_measure_seq
+            data_type: varchar
+            description: ""
+          - name: pro_measure_score
+            data_type: numeric
+            description: ""
+          - name: pro_measure_theta
+            data_type: numeric
+            description: ""
+          - name: pro_measure_scaled_tscore
+            data_type: numeric
+            description: ""
+          - name: pro_measure_standard_error
+            data_type: numeric
+            description: ""
+          - name: pro_measure_count_scored
+            data_type: numeric
+            description: ""
+          - name: pro_measure_loinc
+            data_type: varchar
+            description: ""
+          - name: pro_measure_version
+            data_type: varchar
+            description: ""
+          - name: pro_item_fullname
+            data_type: varchar
+            description: ""
+          - name: pro_item_text
+            data_type: varchar
+            description: ""
+          - name: pro_measure_fullname
+            data_type: varchar
+            description: ""
+
+      - name: procedures
+        description: ""
+        columns:
+          - name: proceduresid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: enc_type
+            data_type: varchar
+            description: ""
+          - name: admit_date
+            data_type: datetime
+            description: ""
+          - name: providerid
+            data_type: varchar
+            description: ""
+          - name: px_date
+            data_type: datetime
+            description: ""
+          - name: px
+            data_type: varchar
+            description: ""
+          - name: px_type
+            data_type: varchar
+            description: ""
+          - name: px_source
+            data_type: varchar
+            description: ""
+          - name: ppx
+            data_type: varchar
+            description: ""
+          - name: raw_px
+            data_type: varchar
+            description: ""
+          - name: raw_px_type
+            data_type: varchar
+            description: ""
+          - name: raw_ppx
+            data_type: varchar
+            description: ""
+
+      - name: provider
+        description: ""
+        columns:
+          - name: providerid
+            data_type: varchar
+            description: ""
+          - name: provider_sex
+            data_type: varchar
+            description: ""
+          - name: provider_specialty_primary
+            data_type: varchar
+            description: ""
+          - name: provider_npi
+            data_type: numeric
+            description: ""
+          - name: provider_npi_flag
+            data_type: varchar
+            description: ""
+          - name: raw_provider_specialty_primary
+            data_type: varchar
+            description: ""
+
+      - name: vital
+        description: ""
+        columns:
+          - name: vitalid
+            data_type: bigint
+            description: ""
+          - name: patid
+            data_type: varchar
+            description: ""
+          - name: encounterid
+            data_type: varchar
+            description: ""
+          - name: measure_date
+            data_type: datetime
+            description: ""
+          - name: measure_time
+            data_type: varchar
+            description: ""
+          - name: vital_source
+            data_type: varchar
+            description: ""
+          - name: ht
+            data_type: numeric
+            description: ""
+          - name: wt
+            data_type: numeric
+            description: ""
+          - name: diastolic
+            data_type: numeric
+            description: ""
+          - name: systolic
+            data_type: numeric
+            description: ""
+          - name: original_bmi
+            data_type: numeric
+            description: ""
+          - name: bp_position
+            data_type: varchar
+            description: ""
+          - name: smoking
+            data_type: varchar
+            description: ""
+          - name: tobacco
+            data_type: varchar
+            description: ""
+          - name: tobacco_type
+            data_type: varchar
+            description: ""
+          - name: raw_vital_source
+            data_type: varchar
+            description: ""
+          - name: raw_ht
+            data_type: varchar
+            description: ""
+          - name: raw_wt
+            data_type: varchar
+            description: ""
+          - name: raw_diastolic
+            data_type: varchar
+            description: ""
+          - name: raw_systolic
+            data_type: varchar
+            description: ""
+          - name: raw_bp_position
+            data_type: varchar
+            description: ""
+          - name: raw_smoking
+            data_type: varchar
+            description: ""
+          - name: raw_tobacco
+            data_type: varchar
+            description: ""
+          - name: raw_tobacco_type
+            data_type: varchar
+            description: ""
