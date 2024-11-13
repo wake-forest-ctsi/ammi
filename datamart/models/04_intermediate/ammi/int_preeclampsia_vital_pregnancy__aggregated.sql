@@ -1,5 +1,6 @@
 {{ config(materialized='view', ) }}
 
+
 select 
     int_preeclampsia_study_dates.birth_id
     ,max(vital.WT) as weight_max
