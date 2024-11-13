@@ -16,6 +16,6 @@ select
 from 
     {{ ref('prescribing') }}
     inner join {{ ref('int_preeclampsia_study_dates') }} int_preeclampsia_study_dates on int_preeclampsia_study_dates.mother_id = prescribing.patid
-        and prescribing.rx_order_date between int_preeclampsia_study_dates.estimated_pregnancy_start_date and int_preeclampsia_study_dates.study_window_end_date
+        and prescribing.rx_order_date between int_preeclampsia_study_dates.estimated_pregnancy_start_date and int_preeclampsia_study_dates.feature_window_end_date
 group by
     int_preeclampsia_study_dates.birth_id
