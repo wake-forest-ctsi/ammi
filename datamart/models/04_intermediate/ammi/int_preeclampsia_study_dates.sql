@@ -9,7 +9,8 @@ select
 	, max(obs_clin.obsclin_result_num) as gestational_age_at_delivery
 	, dateadd(DAY, -max(obs_clin.obsclin_result_num), demographic.birth_date) as estimated_pregnancy_start_date
 	, datediff(YEAR, demographic_mother.birth_date, dateadd(DAY, -max(obs_clin.obsclin_result_num), demographic.birth_date) ) AS "mother_age_at_conception"
-	, dateadd(DAY, 140, dateadd(DAY, -max(obs_clin.obsclin_result_num), demographic.birth_date)) as study_window_end_date
+	, dateadd(WEEK, 20, dateadd(DAY, -max(obs_clin.obsclin_result_num), demographic.birth_date)) as feature_window_end_date
+	, dateadd(DAY, 90, demographic.birth_date) as prediction_window_end_date
 	, case when demographic_mother.hispanic = 'Y' then 1 else 0 end as is_hispanic
 	, case when demographic_mother.race = '03' then 1 else 0 end as is_black
 
