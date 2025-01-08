@@ -1,0 +1,10 @@
+seeds:
+  - name: daterange
+    config:
+      delimiter: "|"
+  - name: zip_tract
+    config:
+      delimiter: "|"
+      column_types:
+        zip: varchar(5)
+        tractfips: varchar(11)
