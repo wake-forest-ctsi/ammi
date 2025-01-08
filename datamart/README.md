@@ -1,4 +1,4 @@
-Welcome to your new dbt project!
+Updated dbt projects for ammi.
 
 ### Using the starter project
 
