@@ -1,15 +1,68 @@
-Updated dbt projects for ammi.
+# Project Overview
 
-### Using the starter project
-
-Try running the following commands:
-- dbt run
-- dbt test
+This project builds tables with `birth_id` as the grain, designed for machine learning analysis. Currently, it supports tables for preeclampsia and postpartum depression, with plans to extend to include cesarean section data in the future.
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+### Running the Project
+
+#### If You Only Need a Table in the SQL Server:
+
+1. **Seed the data**: This command refreshes any existing seeds.
+   ```bash
+   dbt seed --full-refresh
+   ```
+
+2. **Build the report table** (e.g., `rpt_depression` for postpartum depression):
+   ```bash
+   dbt run --select +rpt_depression --vars "{'report': 'depression'}" --full-refresh
+   ```
+
+#### If You Need a Parquet File (For easier I/O like myself):
+
+For those who prefer to work with Parquet files rather than database views, a Python script is provided.
+
+1. **Run the Python script**:
+   ```bash
+   python extract.py --target dev --model rpt_depression --report depression --output_parquet depression.parquet
+   ```
+
+This will generate a Parquet file from the selected report. It will also remove all the intermediate views in the database and keeping only the table for the report model.
+
+### Files That Need Some Explanations
+
+#### 1. `seeds/daterange.csv`
+
+In this project, reports may rely on different start and end dates for feature and target variables for different research questions. These date ranges are stored in the `daterange.csv` seed file. The date ranges are determined based on the report specified in the dbt command (via `var("report")`). If no date range is found for a specific model, it defaults to the `int_cohort` model for that report.
+
+The date range is then passed to different models through the `get_date_range` macro. You can find its implementation in the `macros/get_date_range.sql` file.
+
+#### 2. `03_staging/pcornet/base_pcornet__vital`
+
+For the vital table, I added the `measure_time` to the `measure_date` field. Unlike other tables, the vital table in the AMMI database does not include time information in the `measure_date` field. This information is essential when calculating hypertension, and the modification ensures accuracy in those computations.
+
+#### 3. `04_intermediate/int_censustract__svi_2022_zipcode`
+
+This model computes data from the `stg_censustract__svi_2022_tract` table by mapping census tracts to zip codes. The mapping data was downloaded from [here](https://www.huduser.gov/portal/datasets/usps_crosswalk.html).
+
+#### 4. `requirements.txt`
+
+If you're only using views/tables, you only need the `dbt-core` package, which is specified in `requirements.txt`.
+
+## Additional Resources
+
+- **[dbt Documentation](https://docs.getdbt.com/docs/introduction)**: Official documentation for dbt.
+- **[Discourse](https://discourse.getdbt.com/)**: Forum for commonly asked questions and answers.
+- **[Slack Chat](https://community.getdbt.com/)**: Join the live discussions and get support.
+- **[dbt Events](https://events.getdbt.com)**: Find upcoming dbt events near you.
+- **[dbt Blog](https://blog.getdbt.com/)**: Stay up-to-date with dbt's development and best practices.
+
+---
+
+### Key Improvements:
+
+1. **Headings and structure**: Organized the document into sections for clarity, and added a more prominent title for the project overview.
+2. **Clarity in command instructions**: Each command and its purpose is now clearly separated for ease of use.
+3. **Consistent format**: Standardized formatting for file names and explanations (e.g., backticks around filenames and models).
+4. **Enhanced readability**: Added more detailed explanations where necessary, especially for the file-specific sections.
+
+This should help users navigate the project more efficiently. Let me know if you need any further adjustments!
