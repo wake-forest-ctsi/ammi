@@ -33,4 +33,6 @@ models:
   ammi:
     # Config indicated by + and applies to all files under models/example/
     +materialized: view
+    06_reports:
+      +materialized: table
       

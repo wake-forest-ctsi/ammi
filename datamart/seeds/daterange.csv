@@ -1,4 +1,4 @@
-datamart|model|start_date|end_date|extra
+report|model|start_date|end_date|extra
 depression|int_cohort|dateadd(year, -2, cohort.baby_birth_date)|cohort.baby_birth_date|where baby_birth_date < '2023-05-31'
 preeclampsia|int_cohort|cohort.estimated_pregnancy_date|dateadd(week, 20, cohort.estimated_pregnancy_date)|
 preeclampsia|int_bp_cat|dateadd(week, 20, cohort.estimated_pregnancy_date)|dateadd(day, 90, cohort.baby_birth_date)|

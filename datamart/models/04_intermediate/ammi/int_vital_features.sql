@@ -29,24 +29,24 @@ height as (
 renamed as (
     select
         cohort.birthid,
-        avg(b.systolic) as 'mean_sbp_value',
-        avg(b.diastolic) as 'mean_dbp_value',
-        max(b.systolic) as 'max_sbp_value',
-        max(b.diastolic) as 'max_dbp_value',
-        min(b.systolic) as 'min_sbp_vale',
-        min(b.diastolic) as 'min_dbp_value',
-        avg(b.systolic - b.diastolic) as 'mean_pulse_pressure',
-        max(b.systolic - b.diastolic) as 'max_pulse_pressure',
-        min(b.systolic - b.diastolic) as 'min_pulse_pressure',
-        avg(b.wt) as 'mean_wt',
-        max(b.wt) as 'max_wt',
-        min(b.wt) as 'min_wt',
-        avg(b.original_bmi) as 'mean_original_bmi',
-        max(b.original_bmi) as 'max_original_bmi',
-        min(b.original_bmi) as 'min_original_bmi',
-        avg(b.wt/square(c.mother_height)*705) as 'mean_computed_bmi',
-        max(b.wt/square(c.mother_height)*705) as 'max_computed_bmi',
-        min(b.wt/square(c.mother_height)*705) as 'min_computed_bmi'
+        avg(b.systolic) as 'sbp_value_mean',
+        avg(b.diastolic) as 'dbp_value_mean',
+        max(b.systolic) as 'sbp_value_max',
+        max(b.diastolic) as 'dbp_value_max',
+        min(b.systolic) as 'sbp_vale_min',
+        min(b.diastolic) as 'dbp_value_min',
+        avg(b.systolic - b.diastolic) as 'pulse_pressure_mean',
+        max(b.systolic - b.diastolic) as 'pulse_pressure_max',
+        min(b.systolic - b.diastolic) as 'pulse_pressure_min',
+        avg(b.wt) as 'wt_mean',
+        max(b.wt) as 'wt_max',
+        min(b.wt) as 'wt_min',
+        avg(b.original_bmi) as 'original_bmi_mean',
+        max(b.original_bmi) as 'original_bmi_max',
+        min(b.original_bmi) as 'original_bmi_min',
+        avg(b.wt/square(c.mother_height)*705) as 'computed_bmi_mean',
+        max(b.wt/square(c.mother_height)*705) as 'computed_bmi_max',
+        min(b.wt/square(c.mother_height)*705) as 'computed_bmi_min'
     from cohort
     left join vital b on cohort.mother_patid = b.patid
      and b.measure_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}

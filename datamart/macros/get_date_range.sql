@@ -1,4 +1,4 @@
-{# use information in the seed file to generate the date range for different marts #}
+{# use information in the seed file to generate the date range for different reports #}
 {% macro get_date_range(model_name) %}
     {# print("here" ~ model_name) #}
     {% if execute %}
@@ -11,7 +11,7 @@
                 case when model = '{{ model_name }}' then 2
                      when model = 'int_cohort' then 1 -- default to int_cohort
                      else 0 end as ranking
-            from {{ ref('daterange') }} where datamart = '{{ var("datamart") }}'
+            from {{ ref('daterange') }} where report = '{{ var("report") }}'
             order by ranking desc
         {% endset %}
         {% set date_range_list = run_query(tmpquery).rows[0].values() %}
