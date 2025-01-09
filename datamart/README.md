@@ -46,7 +46,7 @@ This model computes data from the `stg_censustract__svi_2022_tract` table by map
 
 #### 4. `requirements.txt`
 
-If you're only using views/tables, you only need the `dbt-core` package, which is specified in `requirements.txt`.
+If you're only using views/tables, you only need the `dbt-core` package.
 
 ## Additional Resources
 
@@ -55,14 +55,3 @@ If you're only using views/tables, you only need the `dbt-core` package, which i
 - **[Slack Chat](https://community.getdbt.com/)**: Join the live discussions and get support.
 - **[dbt Events](https://events.getdbt.com)**: Find upcoming dbt events near you.
 - **[dbt Blog](https://blog.getdbt.com/)**: Stay up-to-date with dbt's development and best practices.
-
----
-
-### Key Improvements:
-
-1. **Headings and structure**: Organized the document into sections for clarity, and added a more prominent title for the project overview.
-2. **Clarity in command instructions**: Each command and its purpose is now clearly separated for ease of use.
-3. **Consistent format**: Standardized formatting for file names and explanations (e.g., backticks around filenames and models).
-4. **Enhanced readability**: Added more detailed explanations where necessary, especially for the file-specific sections.
-
-This should help users navigate the project more efficiently. Let me know if you need any further adjustments!
