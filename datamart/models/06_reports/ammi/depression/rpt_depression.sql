@@ -25,7 +25,8 @@ select
     {{ dbt_utils.star(from=ref('int_censustract_features'), 
                       except=['birthid', 'addressid', 'zipcode', 'tractfips', 'longitude', 'latitude']) }},
     p.mother_height,
-    (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as ppd_label
+    (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as ppd_label,
+    r.edinburgh_max
 from {{ ref('int_cohort') }} a
 left join {{ ref('int_mother_age_at_birth') }} b on a.birthid = b.birthid
 left join {{ ref('int_race') }} c on a.mother_patid = c.mother_patid
@@ -43,3 +44,4 @@ left join {{ ref('int_other_obese') }} n on a.birthid = n.birthid
 left join {{ ref('int_censustract_features') }} o on a.birthid = o.birthid
 left join {{ ref('int_mother_height') }} p on a.birthid = p.birthid
 left join {{ ref('int_postpartum_depression') }} q on a.birthid = q.birthid
+left join {{ ref('int_edinburgh') }} r on a.birthid = r.birthid

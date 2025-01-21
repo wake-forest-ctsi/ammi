@@ -5,3 +5,4 @@ preeclampsia|int_bp_cat|dateadd(week, 20, cohort.estimated_pregnancy_date)|datea
 preeclampsia|int_preeclampsia_severe|dateadd(week, 20, cohort.estimated_pregnancy_date)|dateadd(day, 90, cohort.baby_birth_date)|
 preeclampsia|int_chronic_bp_cat|cast('19000101' as date)|dateadd(week, 20, cohort.estimated_pregnancy_date)|
 preeclampsia|int_chronic_hypertension|cast('19000101' as date)|dateadd(week, 20, cohort.estimated_pregnancy_date)|
+depression_pram|int_cohort|||where baby_birth_date < '2023-05-31'

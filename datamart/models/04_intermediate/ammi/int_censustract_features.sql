@@ -48,8 +48,8 @@ geocode as (
     select
         addressid,
         min(geocode_custom) as tractfips,
-        min(geocode_longitude) as longitude,
-        min(geocode_latitude) as latitude
+        min(cast(geocode_longitude as float)) as longitude,
+        min(cast(geocode_latitude as float)) as latitude
     from {{ ref('stg_pcornet__private_address_geocode') }}
     group by addressid  -- there're some repeating addressid in the base
 ),
