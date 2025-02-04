@@ -8,3 +8,15 @@ seeds:
       column_types:
         zip: varchar(5)
         tractfips: varchar(11)
+  - name: useful_dx_depression
+    config:
+      delimiter: ","
+      column_types:
+        col: varchar(10)
+        shap: float
+  - name: useful_rx_depression
+    config:
+      delimiter: ","
+      column_types:
+        col: varchar(50)
+        shap: float

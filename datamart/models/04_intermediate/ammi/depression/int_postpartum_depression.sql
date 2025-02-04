@@ -13,7 +13,8 @@ diagnosis as (
         patid,
         dx_date
     from {{ ref('stg_pcornet__diagnosis') }}
-    where dx like 'F53.0%' or dx like 'F32%' or dx like 'F33%' or dx like 'F34.1%'
+    -- where dx like 'F53.0%' or dx like 'F32%' or dx like 'F33%' or dx like 'F34.1%'
+    where dx = 'F53.0'
 ),
 
 renamed as (

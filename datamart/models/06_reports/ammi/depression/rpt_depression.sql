@@ -1,3 +1,8 @@
+-- missing 21012952 for phq !!
+
+{% set phq_list = ('21012948', '21012949', '21012950', '21012951', '21012953',
+                   '21012954', '21012955', '21012956', '21012958') %}
+
 select
     a.birthid,
     b.mother_age,
@@ -8,14 +13,13 @@ select
     d.gest_age_is_null,
     {{ dbt_utils.star(from=ref('int_insurance_pivoted'), except=['birthid']) }},
     {{ dbt_utils.star(from=ref('int_visit_pattern'), except=['birthid']) }},
-    {{ dbt_utils.star(from=ref('int_mental_disorder_pivoted'), except=['birthid']) }},
-    {{ dbt_utils.star(from=ref('int_mental_disorder_details'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_dx_features'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_rx_features'), except=['birthid']) }},
     {{ dbt_utils.star(from=ref('int_delivery_mode_pivoted'), except=['birthid']) }},
     j.parity,
     k.parity_1_recovered,
     k.parity_2_recovered,
-    l.original_bmi_mean,
-    l.computed_bmi_mean,
+    coalesce(l.original_bmi_mean, l.computed_bmi_mean) as bmi,
     m.smoking,
     m.tobacco,
     n.morbid,
@@ -25,16 +29,21 @@ select
     {{ dbt_utils.star(from=ref('int_censustract_features'), 
                       except=['birthid', 'addressid', 'zipcode', 'tractfips', 'longitude', 'latitude']) }},
     p.mother_height,
-    (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as ppd_label,
-    r.edinburgh_max
+    {% for col in phq_list %}
+        coalesce(s.phq_{{col}}_max, 0) as 'phq_{{col}}_max',
+        case when s.phq_{{col}}_max is null then 1 else 0 end as 'phq_{{col}}_isna',
+    {% endfor %}
+    (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as F53_label,
+    r.edinburgh_max,
+    t.phq9_total_max
 from {{ ref('int_cohort') }} a
 left join {{ ref('int_mother_age_at_birth') }} b on a.birthid = b.birthid
 left join {{ ref('int_race') }} c on a.mother_patid = c.mother_patid
 left join {{ ref('int_gestational_age') }} d on a.birthid = d.birthid
 left join {{ ref('int_insurance_pivoted') }} e on a.birthid = e.birthid
 left join {{ ref('int_visit_pattern') }} f on a.birthid = f.birthid
-left join {{ ref('int_mental_disorder_pivoted') }} g on a.birthid = g.birthid
-left join {{ ref('int_mental_disorder_details') }} h on a.birthid = h.birthid
+left join {{ ref('int_dx_features') }} g on a.birthid = g.birthid
+left join {{ ref('int_rx_features') }} h on a.birthid = h.birthid
 left join {{ ref('int_delivery_mode_pivoted') }} i on a.birthid = i.birthid
 left join {{ ref('int_parity') }} j on a.birthid = j.birthid
 left join {{ ref('int_other_parity') }} k on a.birthid = k.birthid
@@ -45,3 +54,5 @@ left join {{ ref('int_censustract_features') }} o on a.birthid = o.birthid
 left join {{ ref('int_mother_height') }} p on a.birthid = p.birthid
 left join {{ ref('int_postpartum_depression') }} q on a.birthid = q.birthid
 left join {{ ref('int_edinburgh') }} r on a.birthid = r.birthid
+left join {{ ref('int_phq') }} s on a.birthid = s.birthid
+left join {{ ref('int_phq9_after_delivery') }} t on a.birthid = t.birthid
