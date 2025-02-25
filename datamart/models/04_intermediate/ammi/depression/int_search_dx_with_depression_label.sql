@@ -20,4 +20,4 @@ select
 from dx_pivoted a
 left join {{ ref('int_postpartum_depression') }} b on a.birthid = b.birthid
 left join {{ ref('int_phq9_after_delivery') }} c on a.birthid = c.birthid
-left join {{ ref('int_edinburgh') }} d on a.birthid = d.birthid
+left join {{ ref('int_edinburgh_after_delivery') }} d on a.birthid = d.birthid

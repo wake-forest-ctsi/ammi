@@ -1,7 +1,8 @@
 -- missing 21012952 for phq !!
 
 {% set phq_list = ('21012948', '21012949', '21012950', '21012951', '21012953',
-                   '21012954', '21012955', '21012956', '21012958') %}
+                   '21012954', '21012955', '21012956', '21012958',
+                   '99046', '71354', '21012959') %}
 
 select
     a.birthid,
@@ -30,8 +31,8 @@ select
                       except=['birthid', 'addressid', 'zipcode', 'tractfips', 'longitude', 'latitude']) }},
     p.mother_height,
     {% for col in phq_list %}
-        coalesce(s.phq_{{col}}_max, 0) as 'phq_{{col}}_max',
-        case when s.phq_{{col}}_max is null then 1 else 0 end as 'phq_{{col}}_isna',
+        coalesce(s.phq_or_edinburgh_{{col}}_max, 0) as 'phq_or_edinburgh_{{col}}_max',
+        case when s.phq_or_edinburgh_{{col}}_max is null then 1 else 0 end as 'phq_or_edinburgh_{{col}}_isna',
     {% endfor %}
     (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as F53_label,
     r.edinburgh_max,
@@ -53,6 +54,6 @@ left join {{ ref('int_other_obese') }} n on a.birthid = n.birthid
 left join {{ ref('int_censustract_features') }} o on a.birthid = o.birthid
 left join {{ ref('int_mother_height') }} p on a.birthid = p.birthid
 left join {{ ref('int_postpartum_depression') }} q on a.birthid = q.birthid
-left join {{ ref('int_edinburgh') }} r on a.birthid = r.birthid
-left join {{ ref('int_phq') }} s on a.birthid = s.birthid
+left join {{ ref('int_edinburgh_after_delivery') }} r on a.birthid = r.birthid
+left join {{ ref('int_phq_or_edinburgh') }} s on a.birthid = s.birthid
 left join {{ ref('int_phq9_after_delivery') }} t on a.birthid = t.birthid

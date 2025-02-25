@@ -1,8 +1,10 @@
 -- depends_on: {{ ref('daterange') }}
+-- see excel file for details
 
 {% set features = ( '13011', '21012976', '21012977',
       '21012954', '21012949', '21012951', '21012960', '21012948', 
-      '21012956', '21012953', '21012958', '21012955', '21012950') %}
+      '21012956', '21012953', '21012958', '21012955', '21012950',
+      '99046-5', '71354-5', '21012959') %}
 
 {% set date_range_list = get_date_range('int_obs_clin_features') %}
 
@@ -43,6 +45,8 @@ phq as (
                      when obsclin_result_text = 'Patient Refusal' then 2
                      when obsclin_result_text = 'PHQ9 Preferred' then 1
                      else 0 end
+            when obsclin_code in ('99046-5', '71354-5', '21012959') then
+                obsclin_result_num
             else
                 -99
         end as phq_value
@@ -69,7 +73,7 @@ renamed as (
     select
         birthid,
         {% for feature in features %}
-            sum(case when obsclin_code = '{{ feature }}' then value_max else null end) as 'phq_{{ feature }}_max' {% if not loop.last %},{% endif %}
+            sum(case when obsclin_code = '{{ feature }}' then value_max else null end) as 'phq_or_edinburgh_{{ feature.split('-')[0] }}_max' {% if not loop.last %},{% endif %}
         {% endfor %}
     from phq_stats
     group by birthid
