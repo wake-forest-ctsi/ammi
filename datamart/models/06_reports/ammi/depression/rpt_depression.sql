@@ -6,6 +6,7 @@
 
 select
     a.birthid,
+    datepart(year, a.baby_birth_date) as delivery_year,
     b.mother_age,
     c.mother_is_black,
     c.mother_is_hispanic,

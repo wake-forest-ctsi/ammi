@@ -171,3 +171,4 @@ renamed as (
 )
 
 select * from renamed
+where rpl_themes >= 0
