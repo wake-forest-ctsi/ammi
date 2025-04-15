@@ -36,6 +36,7 @@ select
         case when s.phq_or_edinburgh_{{col}}_max is null then 1 else 0 end as 'phq_or_edinburgh_{{col}}_isna',
     {% endfor %}
     (case when q.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as F53_label,
+    (case when q.earliest_ppd_diagnosis_date_delete is not null then 1 else 0 end) as PPD_delete_label,
     r.edinburgh_max,
     t.phq9_total_max
 from {{ ref('int_cohort') }} a

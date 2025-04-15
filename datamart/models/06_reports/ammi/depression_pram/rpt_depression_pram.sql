@@ -17,7 +17,14 @@ select
     e.mom_bmig_bc as 'MOM_BMIG_BC',
     e.mat_prwt as 'MAT_PRWT',
     h.pnc_wks as 'PNC_WKS',
-    (case when i.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as ppd_label
+    (case when i.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as F53_label,
+    (case when i.earliest_ppd_diagnosis_date_delete is not null then 1 else 0 end) as PPD_delete_label,
+    j.edinburgh_max,
+    k.phq9_total_max,
+    l.counts_of_visits_prenatal_care,
+    l.counts_of_visits_3m_after_delivery,
+    m.phq2_q1_max,
+    m.phq2_q2_max
 from {{ ref('int_pram_bpg_deprs') }} a
 left join {{ ref('int_pram_income7') }} b on a.birthid = b.birthid
 left join {{ ref('int_pram_mat_age_pu') }} c on a.birthid = c.birthid
@@ -27,3 +34,7 @@ left join {{ ref('int_pram_pre_rx') }} f on a.birthid = f.birthid
 left join {{ ref('int_pram_smoking') }} g on a.birthid = g.birthid
 left join {{ ref('int_pram_pnc_weeks') }} h on a.birthid = h.birthid
 left join {{ ref('int_postpartum_depression') }} i on a.birthid = i.birthid
+left join {{ ref('int_edinburgh_after_delivery') }} j on a.birthid = j.birthid
+left join {{ ref('int_phq9_after_delivery') }} k on a.birthid = k.birthid
+left join {{ ref('int_visit_pattern') }} l on a.birthid = l.birthid
+left join {{ ref('int_phq2_after_delivery') }} m on a.birthid = m.birthid

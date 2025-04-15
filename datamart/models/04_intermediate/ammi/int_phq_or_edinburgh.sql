@@ -6,7 +6,7 @@
       '21012956', '21012953', '21012958', '21012955', '21012950',
       '99046-5', '71354-5', '21012959') %}
 
-{% set date_range_list = get_date_range('int_obs_clin_features') %}
+{% set date_range_list = get_date_range('int_phq_or_edinburgh') %}
 
 with cohort as (
     select
