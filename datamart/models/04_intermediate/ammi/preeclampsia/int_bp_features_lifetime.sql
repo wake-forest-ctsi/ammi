@@ -2,7 +2,6 @@
 
 -- depends_on: {{ ref('daterange') }}
 
-{{ print(this.name) }}
 {% set date_range_list = get_date_range('int_bp_features_lifetime') %}
 
 
