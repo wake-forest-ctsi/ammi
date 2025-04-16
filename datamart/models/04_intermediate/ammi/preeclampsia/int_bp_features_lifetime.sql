@@ -1,4 +1,4 @@
--- it sounds like unc's bp feature is anything before 20 wk of pregnancy, which is fairly strange
+-- it sounds like unc's bp feature is anything before 20 wk of pregnancy
 
 -- depends_on: {{ ref('daterange') }}
 
