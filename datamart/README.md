@@ -56,6 +56,9 @@ If you're only using views/tables, you only need the `dbt-core` package.
 - **Reusability Across Time Periods**:  
   There isn't an easy way to reuse the same code for different time periods within the same report. For example, the models `int_bp_features_lifetime` and `int_vital_features` are essentially the same, but I have to write the same codes twice. 
 
+- **dx and rx features**:
+  Currently the dx and rx features are only useful for postpartum depression. Need to redo the search if need to apply for other phenotypes.
+
 ## Additional Resources
 
 - **[dbt Documentation](https://docs.getdbt.com/docs/introduction)**: Official documentation for dbt.
