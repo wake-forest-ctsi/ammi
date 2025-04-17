@@ -114,10 +114,10 @@ renamed as (
             coalesce(d.{{ col }}, e.{{ col }}_zc) as '{{ col }}' {% if not loop.last %},{% endif %}
         {% endfor %}
     from address_selected_geocoded a
-    left join {{ ref('stg_censustract__sdoh_2020_tract') }} b on a.tractfips = b.tractfips
-    left join {{ ref('stg_censustract__sdoh_2020_zipcode')}} c on a.zipcode = c.zipcode
-    left join {{ ref('stg_censustract__svi_2022_tract') }} d on a.tractfips = d.tractfips
-    left join {{ ref('int_censustract__svi_2022_zipcode') }} e on a.zipcode = e.zipcode
+    left join {{ ref('sdoh_2020_tract') }} b on a.tractfips = b.tractfips
+    left join {{ ref('sdoh_2020_zipcode')}} c on a.zipcode = c.zipcode
+    left join {{ ref('svi_2022_tract') }} d on a.tractfips = d.tractfips
+    left join {{ ref('svi_2022_zipcode') }} e on a.zipcode = e.zipcode
 )
 
 select * from renamed;
