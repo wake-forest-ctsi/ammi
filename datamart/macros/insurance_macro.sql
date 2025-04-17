@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_insurance') %}
+{% macro insurance_macro(date1, date2) %}
 
 with cohort as (
     select
@@ -27,9 +25,10 @@ renamed as (
                            prefix='insurance_')}}
     from cohort 
     left join visits on cohort.birthid = visits.birthid
-     and visits.admit_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and visits.admit_date between {{ date1 }} and {{ date2 }}
     group by cohort.birthid
 )
 
 select * from renamed
 
+{% endmacro %}

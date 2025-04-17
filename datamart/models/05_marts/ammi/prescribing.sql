@@ -4,7 +4,7 @@ select
     encounterid,
     rx_providerid,
     cast(rx_order_date as date) rx_order_date,
-    rx_order_time,
+    cast(rx_order_time as time) rx_order_time,
     cast(rx_start_date as date) rx_start_date,
     cast(rx_end_date as date) rx_end_date,
     rx_dose_ordered,

@@ -41,7 +41,7 @@ address as (
         patid as mother_patid,
         address_period_start,
         address_period_end
-    from {{ ref('stg_pcornet__private_address_history') }}
+    from {{ ref('private_address_history') }}
 ),
 
 geocode as (
@@ -50,7 +50,7 @@ geocode as (
         min(geocode_custom) as tractfips,
         min(cast(geocode_longitude as float)) as longitude,
         min(cast(geocode_latitude as float)) as latitude
-    from {{ ref('stg_pcornet__private_address_geocode') }}
+    from {{ ref('private_address_geocode') }}
     group by addressid  -- there're some repeating addressid in the base
 ),
 

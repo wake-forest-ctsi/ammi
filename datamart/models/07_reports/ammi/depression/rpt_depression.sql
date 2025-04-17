@@ -11,10 +11,10 @@ select
     c.mother_is_white,
     d.gest_age_in_days,
     d.gest_age_is_null,
-    {{ dbt_utils.star(from=ref('int_insurance_pivoted'), except=['birthid']) }},
-    {{ dbt_utils.star(from=ref('int_visit_pattern'), except=['birthid']) }},
-    {{ dbt_utils.star(from=ref('int_dx_features'), except=['birthid']) }},
-    {{ dbt_utils.star(from=ref('int_rx_features'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_depression__insurance'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_depression__visit_pattern'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_depression__dx_features'), except=['birthid']) }},
+    {{ dbt_utils.star(from=ref('int_depression__rx_features'), except=['birthid']) }},
     {{ dbt_utils.star(from=ref('int_delivery_mode_pivoted'), except=['birthid']) }},
     j.parity,
     k.parity_1_recovered,
@@ -41,19 +41,20 @@ from {{ ref('int_cohort') }} a
 left join {{ ref('int_mother_age_at_birth') }} b on a.birthid = b.birthid
 left join {{ ref('int_race') }} c on a.mother_patid = c.mother_patid
 left join {{ ref('int_gestational_age') }} d on a.birthid = d.birthid
-left join {{ ref('int_insurance_pivoted') }} e on a.birthid = e.birthid
-left join {{ ref('int_visit_pattern') }} f on a.birthid = f.birthid
-left join {{ ref('int_dx_features') }} g on a.birthid = g.birthid
-left join {{ ref('int_rx_features') }} h on a.birthid = h.birthid
+left join {{ ref('int_depression__insurance') }} e on a.birthid = e.birthid
+left join {{ ref('int_depression__visit_pattern') }} f on a.birthid = f.birthid
+left join {{ ref('int_depression__dx_features') }} g on a.birthid = g.birthid
+left join {{ ref('int_depression__rx_features') }} h on a.birthid = h.birthid
 left join {{ ref('int_delivery_mode_pivoted') }} i on a.birthid = i.birthid
 left join {{ ref('int_parity') }} j on a.birthid = j.birthid
 left join {{ ref('int_other_parity') }} k on a.birthid = k.birthid
-left join {{ ref('int_vital_features') }} l on a.birthid = l.birthid
-left join {{ ref('int_smoking') }} m on a.birthid = m.birthid
-left join {{ ref('int_other_obese') }} n on a.birthid = n.birthid
+left join {{ ref('int_depression__vital_features') }} l on a.birthid = l.birthid
+left join {{ ref('int_depression__smoking') }} m on a.birthid = m.birthid
+left join {{ ref('int_depression__other_obese') }} n on a.birthid = n.birthid
 left join {{ ref('int_censustract_features') }} o on a.birthid = o.birthid
 left join {{ ref('int_mother_height') }} p on a.birthid = p.birthid
-left join {{ ref('int_postpartum_depression') }} q on a.birthid = q.birthid
-left join {{ ref('int_edinburgh_after_delivery') }} r on a.birthid = r.birthid
-left join {{ ref('int_phq_or_edinburgh') }} s on a.birthid = s.birthid
-left join {{ ref('int_phq9_after_delivery') }} t on a.birthid = t.birthid
+left join {{ ref('int_depression__postpartum_depression_dx_code_only') }} q on a.birthid = q.birthid
+left join {{ ref('int_depression__edinburgh_after_delivery') }} r on a.birthid = r.birthid
+left join {{ ref('int_depression__phq_or_edinburgh') }} s on a.birthid = s.birthid
+left join {{ ref('int_depression__phq9_after_delivery') }} t on a.birthid = t.birthid
+where a.baby_birth_date < '2023-05-31'

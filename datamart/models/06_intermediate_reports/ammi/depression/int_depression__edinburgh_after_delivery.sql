@@ -9,7 +9,7 @@ edinburgh_total as (
         patid,
         obsclin_start_date,
         obsclin_result_num
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_code = '99046-5'
 ),
 
@@ -18,7 +18,7 @@ edinburge_depression_total as (
         patid,
         obsclin_start_date,
         obsclin_result_num
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_code = '71354-5'        
 ),
 

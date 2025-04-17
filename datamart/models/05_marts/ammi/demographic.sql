@@ -1,7 +1,7 @@
 select
     patid,
     cast(birth_date as date) birth_date,
-    birth_time,
+    cast(birth_time as time) birth_time,
     sex,
     sexual_orientation,
     gender_identity,

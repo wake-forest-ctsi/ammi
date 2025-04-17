@@ -13,7 +13,7 @@ encounter as (
         admit_date,
         enc_type,
         payer_type_primary
-    from {{ ref('stg_pcornet__encounter') }}
+    from {{ ref('encounter') }}
 ),
 
 renamed as (

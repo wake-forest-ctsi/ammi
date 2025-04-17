@@ -2,7 +2,7 @@ with obs_clin as (
     select 
         encounterid,
         min(obsclin_result_num) as gest_age_in_days
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_type = 'SM' and obsclin_code = '444135009'
     group by encounterid  -- potential error for twins since it's group by encountered
 ),
@@ -11,7 +11,7 @@ birth_relationship as (
     select
         birthid,
         mother_encounterid
-    from {{ ref('stg_pcornet__birth_relationship') }}   
+    from {{ ref('birth_relationship') }}   
 ),
 
 renamed as (

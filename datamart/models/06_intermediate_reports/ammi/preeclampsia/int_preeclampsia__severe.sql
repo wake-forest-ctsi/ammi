@@ -1,7 +1,7 @@
--- depends_on: {{ ref('daterange') }}
 -- this is to reproduce unc's definition
 
-{% set date_range_list = get_date_range('int_preeclampsia_severe') %}
+{% set date_range_list = ("dateadd(week, 20, cohort.estimated_pregnancy_date)",
+                          "dateadd(day, 90, cohort.baby_birth_date)") %}
 
 with cohort as (
     select
@@ -14,7 +14,7 @@ mag_infuse as (
         cohort.birthid,
         max(case when medadmin_start_date is not null then 1 else 0 end) as mag_infuse
     from cohort
-    left join {{ ref('stg_pcornet__med_admin') }} a on a.patid = cohort.mother_patid
+    left join {{ ref('med_admin') }} a on a.patid = cohort.mother_patid
      and a.medadmin_start_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and raw_medadmin_med_name like '%MAGNESIUM SULFATE%'
     group by cohort.birthid
@@ -26,7 +26,7 @@ icd_10_pre_sf as (
         cohort.birthid,
         max(case when dx_date is not null then 1 else 0 end) as pre_sf_or_ecl
     from cohort
-    left join {{ ref('stg_pcornet__diagnosis') }} a on a.patid = cohort.mother_patid
+    left join {{ ref('diagnosis') }} a on a.patid = cohort.mother_patid
      and a.dx_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and (a.dx like 'O14.1%' or a.dx like 'O14.2%' or a.dx like 'O15%')
     group by cohort.birthid
@@ -38,7 +38,7 @@ icd_10_sipe as (
         cohort.birthid,
         max(case when dx_date is not null then 1 else 0 end) as sipe
     from cohort
-    left join {{ ref('stg_pcornet__diagnosis') }} a on a.patid = cohort.mother_patid
+    left join {{ ref('diagnosis') }} a on a.patid = cohort.mother_patid
      and a.dx_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and a.dx like 'O11%'
     group by cohort.birthid
@@ -50,7 +50,7 @@ lab_proteinuria as (
         cohort.birthid,
         max(case when lab_order_date is not null then 1 else 0 end) as lab_proteinuria
     from cohort
-    left join {{ ref('stg_pcornet__lab_result_cm') }} a on a.patid = cohort.mother_patid
+    left join {{ ref('lab_result_cm') }} a on a.patid = cohort.mother_patid
      and a.lab_order_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and (
              (lab_loinc = '2889-4' and -- protein in 24h urine > 300mg
@@ -70,7 +70,7 @@ lab_others as (
         cohort.birthid,
         max(case when lab_order_date is not null then 1 else 0 end) as lab_others
     from cohort
-    left join {{ ref('stg_pcornet__lab_result_cm') }} a on a.patid = cohort.mother_patid
+    left join {{ ref('lab_result_cm') }} a on a.patid = cohort.mother_patid
      and a.lab_order_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and (
            (lab_loinc = '1920-8' and result_num >= 66) -- ast >= 66
@@ -93,8 +93,8 @@ decision_table as (
         g.lab_others
     from icd_10_pre_sf a
     left join mag_infuse b on a.birthid = b.birthid
-    left join {{ ref('int_chronic_hypertension') }} c on a.birthid = c.birthid
-    left join {{ ref('int_bp_cat') }} d on a.birthid = d.birthid
+    left join {{ ref('int_preeclampsia__chronic_hypertension') }} c on a.birthid = c.birthid
+    left join {{ ref('int_preeclampsia__bp_cat') }} d on a.birthid = d.birthid
     left join icd_10_sipe e on a.birthid = e.birthid
     left join lab_proteinuria f on a.birthid = f.birthid
     left join lab_others g on a.birthid = g.birthid

@@ -1,12 +1,11 @@
--- depends_on: {{ ref('daterange') }}
 -- see excel file for details
+
+{% macro phq_or_edinburgh_macro(date1, date2) %}
 
 {% set features = ( '13011', '21012976', '21012977',
       '21012954', '21012949', '21012951', '21012960', '21012948', 
       '21012956', '21012953', '21012958', '21012955', '21012950',
       '99046-5', '71354-5', '21012959') %}
-
-{% set date_range_list = get_date_range('int_phq_or_edinburgh') %}
 
 with cohort as (
     select
@@ -50,7 +49,7 @@ phq as (
             else
                 -99
         end as phq_value
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_code is not null
       and obsclin_code in {{ features }} 
 ),
@@ -65,7 +64,7 @@ phq_stats as (
         avg(phq_value) as value_mean
     from cohort
     left join phq on cohort.mother_patid = phq.patid
-     and obsclin_start_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and obsclin_start_date between {{ date1 }} and {{ date2 }}
     group by cohort.birthid, obsclin_code
 ),
 
@@ -80,3 +79,5 @@ renamed as (
 )
 
 select * from renamed
+
+{% endmacro %}

@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_smoking') %}
+{% macro smoking_macro(date1, date2) %}
 
 with cohort as (
     select
@@ -24,8 +22,10 @@ renamed as (
         max(tobacco) as tobacco
     from cohort
     left join smoking on cohort.mother_patid = smoking.patid
-     and measure_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and measure_date between {{ date1 }} and {{ date2 }}
     group by cohort.birthid
 )
 
 select * from renamed
+
+{% endmacro %}

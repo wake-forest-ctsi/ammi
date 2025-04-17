@@ -1,8 +1,7 @@
--- depends_on: {{ ref('daterange') }}
+{% macro obs_clin_features_macro(date1, date2) %}
 
 -- get these features:
 {% set features = ('8867-4','8478-0','9279-1','20564-1','8310-5') %}
-{% set date_range_list = get_date_range('int_obs_clin_features') %}
 
 with cohort as (
     select
@@ -16,7 +15,7 @@ obs_clin as (
         obsclin_code,
         obsclin_result_num,
         obsclin_start_date
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_type = 'LC'
       and obsclin_result_modifier = 'EQ'
       and obsclin_code  in {{ features }}
@@ -34,7 +33,7 @@ obs_clin_stats as (
         percentile_cont(0.5) within group (order by obsclin_result_num) over (partition by birthid, obsclin_code) as 'value_median'
     from cohort
     left join obs_clin on cohort.mother_patid = obs_clin.patid
-     and obsclin_start_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and obsclin_start_date between {{ date1 }} and {{ date2 }}
 ),
 
 renamed as (
@@ -52,3 +51,5 @@ renamed as (
 
 
 select * from renamed
+
+{% endmacro %}

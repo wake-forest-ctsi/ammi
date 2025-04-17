@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_mental_disorder') %}
+{% macro mental_disorder_macro(date1, date2) %}
 
 with cohort as (
     select 
@@ -13,7 +11,7 @@ diagnosis as (
         patid,
         left(dx, 3) as dx, -- taken only the 3 letters from diagnosis code
         dx_date
-    from {{ ref('stg_pcornet__diagnosis') }}
+    from {{ ref('diagnosis') }}
     where dx like 'F%' -- all mental diagnosis
        or dx like 'O99.34%' -- -- Other mental disorders complicating pregnancy, childbirth, and the puerperium
        or dx = 'Z79.899' -- Other long term (current) drug therapy
@@ -30,7 +28,9 @@ renamed as (
         diagnosis.dx_date
     from cohort
     left join diagnosis on cohort.mother_patid = diagnosis.patid
-     and diagnosis.dx_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and diagnosis.dx_date between date1 and date2
 )
 
 select * from renamed
+
+{% endmacro %}

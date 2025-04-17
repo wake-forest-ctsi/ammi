@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_vital_features') %}
+{% macro vital_features_macro(date1, date2) %}
 
 with cohort as (
     select
@@ -49,9 +47,11 @@ renamed as (
         min(b.wt/square(c.mother_height)*705) as 'computed_bmi_min'
     from cohort
     left join vital b on cohort.mother_patid = b.patid
-     and b.measure_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and b.measure_date between {{ date1 }} and {{ date2 }}
     left join height c on cohort.birthid = c.birthid
     group by cohort.birthid
 )
 
 select * from renamed
+
+{% endmacro %}

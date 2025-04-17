@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_bp_cat') %}
+{% macro bp_cat_macro(date1, date2) %}
 
 with cohort as (
     select
@@ -15,7 +13,7 @@ vital as (
         case when (systolic >= 160) or (diastolic >= 110) then 2
              when (systolic >= 140) or (diastolic >= 90) then 1
              else 0 end as bp_cat
-    from {{ ref('stg_pcornet__vital') }}
+    from {{ ref('vital') }}
     where systolic is not null and diastolic is not null
 ),
 
@@ -26,7 +24,7 @@ vital_4h as (
         vital.bp_cat
     from cohort
     left join vital on cohort.mother_patid = vital.patid
-     and vital.measure_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and vital.measure_date between {{ date1 }} and {{ date2 }}
     where bp_cat > 0
     group by cohort.birthid, vital.bp_cat
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
@@ -49,3 +47,5 @@ renamed as (
 )
 
 select * from renamed
+
+{% endmacro %}

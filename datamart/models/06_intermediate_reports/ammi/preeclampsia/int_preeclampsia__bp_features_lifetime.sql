@@ -1,10 +1,5 @@
 -- it sounds like unc's bp feature is anything before 20 wk of pregnancy
 
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_bp_features_lifetime') %}
-
-
 with cohort as (
     select
         *
@@ -34,7 +29,7 @@ renamed as (
         min(b.systolic - b.diastolic) as 'pulse_pressure_min'
     from cohort
     left join vital b on cohort.mother_patid = b.patid
-     and b.measure_date < {{ date_range_list[1] }}
+     and b.measure_date < dateadd(week, 20, cohort.estimated_pregnancy_date)
     group by cohort.birthid
 )
 

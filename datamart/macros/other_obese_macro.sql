@@ -1,6 +1,4 @@
--- depends_on: {{ ref('daterange') }}
-
-{% set date_range_list = get_date_range('int_other_obese') %}
+{% macro other_obese_macro(date1, date2) %}
 
 with cohort as (
     select
@@ -13,7 +11,7 @@ other_obese as (
         patid,
         dx,
         dx_date
-    from {{ ref('stg_pcornet__diagnosis') }}
+    from {{ ref('diagnosis') }}
     where dx like 'E66%' or dx like 'O99.21%'
 ),
 
@@ -26,8 +24,10 @@ renamed as (
         max(case when dx like 'O99%' then 1 else 0 end) as 'O99_obese'
     from cohort
     left join other_obese on cohort.mother_patid = other_obese.patid
-     and dx_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and dx_date between {{ date1 }} and {{ date2 }}
     group by cohort.birthid
 )
 
 select * from renamed
+
+{% endmacro %}

@@ -3,7 +3,7 @@ select
     patid,
     encounterid,
     cast(measure_date as date) measure_date,
-    measure_time,
+    cast(measure_time as time) measure_time,
     vital_source,
     ht,
     wt,
