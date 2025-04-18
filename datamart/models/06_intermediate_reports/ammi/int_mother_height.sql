@@ -13,7 +13,7 @@ obs_clin as (
         patid,
         obsclin_result_num as height,
         obsclin_start_date
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_type = 'LC' and obsclin_code = '3137-7'
 ),
 

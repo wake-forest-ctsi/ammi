@@ -12,7 +12,7 @@ vital as (
         measure_date,
         systolic,
         diastolic
-    from {{ ref('stg_pcornet__vital') }}
+    from {{ ref('vital') }}
 ),
 
 renamed as (

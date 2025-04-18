@@ -8,7 +8,7 @@ birth_counts as (
     select
         mother_encounterid,
         count(*) as birth_counts
-    from {{ ref('stg_pcornet__birth_relationship') }}
+    from {{ ref('birth_relationship') }}
     group by mother_encounterid
 ),
 

@@ -14,7 +14,7 @@ vital as (
         diastolic,
         wt,
         original_bmi
-    from {{ ref('stg_pcornet__vital') }}
+    from {{ ref('vital') }}
 ),
 
 height as (

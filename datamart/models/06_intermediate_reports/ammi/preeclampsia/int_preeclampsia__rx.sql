@@ -10,7 +10,7 @@ prescribing as (
         patid,
         raw_rx_med_name,
         rx_order_date
-    from {{ ref('stg_pcornet__prescribing') }}
+    from {{ ref('prescribing') }}
 ),
 
 renamed as (
@@ -28,7 +28,7 @@ renamed as (
         max(case when lower(b.raw_rx_med_name) like '%famotidine%' then 1 else 0 end) as "med_rx_famotidine",
         max(case when lower(b.raw_rx_med_name) like '%ondansetron%' then 1 else 0 end) as "med_rx_ondansetron"
     from cohort
-    left join {{ ref('stg_pcornet__prescribing') }} b on cohort.mother_patid = b.patid
+    left join {{ ref('prescribing') }} b on cohort.mother_patid = b.patid
      and b.rx_order_date between cohort.estimated_pregnancy_date and dateadd(week, 20, cohort.estimated_pregnancy_date)
     group by cohort.birthid
 )

@@ -12,7 +12,7 @@ smoking as (
         case when smoking in ('01', '02', '05', '07', '08') then 1 else 0 end as 'smoking',
         case when tobacco in ('01') then 1 else 0 end as 'tobacco',
         measure_date
-    from {{ ref('stg_pcornet__vital') }}
+    from {{ ref('vital') }}
 ),
 
 renamed as (

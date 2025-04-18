@@ -8,7 +8,7 @@ mother_demographic as (
     select
         patid,
         birth_date
-    from {{ ref('stg_pcornet__demographic') }}
+    from {{ ref('demographic') }}
 ),
 
 renamed as (

@@ -10,7 +10,7 @@ demographic as (
         patid,
         hispanic,
         race
-    from {{ ref('stg_pcornet__demographic') }}
+    from {{ ref('demographic') }}
 ),
 
 renamed as (

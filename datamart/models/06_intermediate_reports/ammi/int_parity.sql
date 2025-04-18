@@ -9,7 +9,7 @@ obs_clin as (
         patid,
         obsclin_result_num as parity,
         obsclin_start_date
-    from {{ ref('stg_pcornet__obs_clin') }}
+    from {{ ref('obs_clin') }}
     where obsclin_code = '11977-6'
 ),
 

@@ -10,7 +10,7 @@ other_parity as (
         case when dx like 'Z34.0%' then 1 else 0 end as 'parity_1_recovered',
         case when dx like 'Z34.8%' then 1 else 0 end as 'parity_2_recovered',
         dx_date
-    from {{ ref('stg_pcornet__diagnosis') }}
+    from {{ ref('diagnosis') }}
     where dx like 'Z34.0%' or dx like 'Z34.8%'
 ),
 
