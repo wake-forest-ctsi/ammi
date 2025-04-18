@@ -9,7 +9,7 @@ with cohort as (
 vital as (
     select 
         patid,
-        measure_date,
+        {{ add_time_to_date_macro("measure_date", "measure_time") }} measure_date,
         case when (systolic >= 160) or (diastolic >= 110) then 2
              when (systolic >= 140) or (diastolic >= 90) then 1
              else 0 end as bp_cat

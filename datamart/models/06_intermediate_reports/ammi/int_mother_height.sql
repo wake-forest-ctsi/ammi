@@ -12,7 +12,7 @@ obs_clin as (
     select
         patid,
         obsclin_result_num as height,
-        obsclin_start_date
+        {{ add_time_to_date_macro("obsclin_start_date", "obsclin_start_time") }} obsclin_start_date
     from {{ ref('obs_clin') }}
     where obsclin_type = 'LC' and obsclin_code = '3137-7'
 ),

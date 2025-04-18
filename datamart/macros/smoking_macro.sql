@@ -11,7 +11,7 @@ smoking as (
         patid,
         case when smoking in ('01', '02', '05', '07', '08') then 1 else 0 end as 'smoking',
         case when tobacco in ('01') then 1 else 0 end as 'tobacco',
-        measure_date
+        {{ add_time_to_date_macro("measure_date", "measure_time") }} as measure_date
     from {{ ref('vital') }}
 ),
 

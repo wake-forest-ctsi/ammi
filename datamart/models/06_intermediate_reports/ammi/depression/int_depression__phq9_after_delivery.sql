@@ -7,7 +7,7 @@ with cohort as (
 phq9_total as (
     select
         patid,
-        obsclin_start_date,
+        {{ add_time_to_date_macro("obsclin_start_date", "obsclin_start_time") }} obsclin_start_date,
         obsclin_result_num
     from {{ ref('obs_clin') }}
     where obsclin_code = '21012959'

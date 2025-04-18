@@ -15,7 +15,7 @@ mag_infuse as (
         max(case when medadmin_start_date is not null then 1 else 0 end) as mag_infuse
     from cohort
     left join {{ ref('med_admin') }} a on a.patid = cohort.mother_patid
-     and a.medadmin_start_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and {{ add_time_to_date_macro("a.medadmin_start_date", "a.medamin_start_time") }} between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and raw_medadmin_med_name like '%MAGNESIUM SULFATE%'
     group by cohort.birthid
 ),
@@ -48,10 +48,10 @@ icd_10_sipe as (
 lab_proteinuria as (
     select
         cohort.birthid,
-        max(case when lab_order_date is not null then 1 else 0 end) as lab_proteinuria
+        max(case when specimen_date is not null then 1 else 0 end) as lab_proteinuria
     from cohort
     left join {{ ref('lab_result_cm') }} a on a.patid = cohort.mother_patid
-     and a.lab_order_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and {{ add_time_to_date_macro("a.specimen_date", "a.specimen_time") }}  between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and (
              (lab_loinc = '2889-4' and -- protein in 24h urine > 300mg
              ((substring(lower(result_unit),1,2)='mg' and result_num >= 300) or 
@@ -68,10 +68,10 @@ lab_proteinuria as (
 lab_others as (
     select
         cohort.birthid,
-        max(case when lab_order_date is not null then 1 else 0 end) as lab_others
+        max(case when specimen_date is not null then 1 else 0 end) as lab_others
     from cohort
     left join {{ ref('lab_result_cm') }} a on a.patid = cohort.mother_patid
-     and a.lab_order_date between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and {{ add_time_to_date_macro("a.specimen_date", "a.specimen_time") }} between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and (
            (lab_loinc = '1920-8' and result_num >= 66) -- ast >= 66
         or (lab_loinc = '1742-6' and result_num >= 72) -- alt >= 72

@@ -1,4 +1,3 @@
-
 with tmp as (
     select
         feature as col,

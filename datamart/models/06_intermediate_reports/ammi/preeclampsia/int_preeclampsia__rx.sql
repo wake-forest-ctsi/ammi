@@ -9,7 +9,7 @@ prescribing as (
     select
         patid,
         raw_rx_med_name,
-        rx_order_date
+        {{ add_time_to_date_macro("rx_order_date", "rx_order_time") }} as rx_order_date
     from {{ ref('prescribing') }}
 ),
 

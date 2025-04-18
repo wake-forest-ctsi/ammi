@@ -10,7 +10,7 @@ with cohort as (
 encounter as (
     select 
         patid,
-        admit_date,
+        {{ add_time_to_date_macro("admit_date", "admit_time") }} as admit_date,
         enc_type,
         payer_type_primary
     from {{ ref('encounter') }}

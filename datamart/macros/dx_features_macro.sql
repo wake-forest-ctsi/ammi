@@ -9,7 +9,7 @@ with cohort as (
 dx as (
     select
         a.patid,
-        a.dx_date,
+        a.dx_date,   -- diagnosis only has date
         a.dx
     from {{ ref('diagnosis') }} a
     inner join {{ ref(selected_dx_table) }} b on a.dx = b.col

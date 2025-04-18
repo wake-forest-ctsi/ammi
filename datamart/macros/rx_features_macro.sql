@@ -9,7 +9,7 @@ with cohort as (
 rx as (
     select
         a.patid,
-        a.rx_order_date as rx_date,
+        {{ add_time_to_date_macro("a.rx_order_date", "a.rx_order_time") }} as rx_date,
         a.rxnorm_cui as rx
     from {{ ref('prescribing') }} a
     inner join {{ ref(selected_rx_table) }} b on a.rxnorm_cui = b.col

@@ -10,7 +10,7 @@ diagnosis as (
     select
         patid,
         left(dx, 3) as dx, -- taken only the 3 letters from diagnosis code
-        dx_date
+        dx_date   -- dx has only date
     from {{ ref('diagnosis') }}
     where dx like 'F%' -- all mental diagnosis
        or dx like 'O99.34%' -- -- Other mental disorders complicating pregnancy, childbirth, and the puerperium

@@ -14,7 +14,7 @@ obs_clin as (
         patid,
         obsclin_code,
         obsclin_result_num,
-        obsclin_start_date
+        {{ add_time_to_date_macro("obsclin_start_date", "obsclin_start_time") }} as obsclin_start_date
     from {{ ref('obs_clin') }}
     where obsclin_type = 'LC'
       and obsclin_result_modifier = 'EQ'

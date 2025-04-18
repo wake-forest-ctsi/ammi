@@ -9,7 +9,7 @@ with cohort as (
 visits as (
     select
         birthid,
-        admit_date,
+        admit_date,  -- int_visits has fixed the date
         payer_type_primary
     from {{ ref('int_visits') }}
 ),

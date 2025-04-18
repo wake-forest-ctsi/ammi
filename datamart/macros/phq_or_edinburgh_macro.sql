@@ -16,7 +16,7 @@ with cohort as (
 phq as (
     select
         patid,
-        obsclin_start_date,
+        {{ add_time_to_date_macro("obsclin_start_date" "obsclin_start_time") }} obsclin_start_date,
         obsclin_code,
         case 
             when obsclin_code in ('21012954', '21012949', '21012951', '21012948', '21012956', 

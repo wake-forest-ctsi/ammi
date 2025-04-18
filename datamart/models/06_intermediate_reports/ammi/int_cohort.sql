@@ -3,10 +3,10 @@ with all_dates as (
        a.birthid,
        a.motherid,
        a.mother_encounterid,
-       (cast(b.birth_date as datetime)+ cast(b.birth_time as datetime)) as baby_birth_date,
-       (cast(c.admit_date as datetime)+ cast(c.admit_time as datetime)) as delivery_admit_date,
-       (cast(c.discharge_date as datetime) + cast(c.discharge_time as datetime)) as delivery_discharge_date,
-       dateadd(day, -d.gest_age_in_days, cast(b.birth_date as datetime) + cast(b.birth_time as datetime)) as estimated_pregnancy_date
+       {{ add_time_to_date_macro("b.birth_date", "b.birth_time") }} as baby_birth_date,
+       {{ add_time_to_date_macro("c.admit_date", "c.admit_time") }} as delivery_admit_date,
+       {{ add_time_to_date_macro("c.discharge_date", "c.discharge_time") }} as delivery_discharge_date,
+       dateadd(day, -d.gest_age_in_days, {{ add_time_to_date_macro("b.birth_date", "b.birth_time") }}) as estimated_pregnancy_date
     from {{ ref('birth_relationship') }} a
     inner join {{ ref('demographic') }} b on a.patid = b.patid
     inner join {{ ref('encounter') }} c on a.mother_encounterid = c.encounterid
