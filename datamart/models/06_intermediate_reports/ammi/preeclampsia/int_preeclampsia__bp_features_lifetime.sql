@@ -9,7 +9,7 @@ with cohort as (
 vital as (
     select
         patid,
-        {{ add_time_to_date("measure_date", "measure_time") }} as measure_date,
+        {{ add_time_to_date_macro("measure_date", "measure_time") }} as measure_date,
         systolic,
         diastolic
     from {{ ref('vital') }}

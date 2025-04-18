@@ -15,7 +15,7 @@ mag_infuse as (
         max(case when medadmin_start_date is not null then 1 else 0 end) as mag_infuse
     from cohort
     left join {{ ref('med_admin') }} a on a.patid = cohort.mother_patid
-     and {{ add_time_to_date_macro("a.medadmin_start_date", "a.medamin_start_time") }} between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and {{ add_time_to_date_macro("a.medadmin_start_date", "a.medadmin_start_time") }} between {{ date_range_list[0] }} and {{ date_range_list[1] }}
      and raw_medadmin_med_name like '%MAGNESIUM SULFATE%'
     group by cohort.birthid
 ),
