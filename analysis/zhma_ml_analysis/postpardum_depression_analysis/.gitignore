@@ -1,2 +1,3 @@
 wfu_features
 *.parquet
+debug*
