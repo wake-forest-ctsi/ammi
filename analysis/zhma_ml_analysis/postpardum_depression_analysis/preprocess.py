@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def preprocess (dat):
+def preprocess (dat, verbose=True):
     # parity has a lot of nan, fill with 1 and mark the nan entry
     dat['parity'] = pd.to_numeric(dat['parity'], errors='coerce')  # the type may sometimes be Object
     dat['parity_isna'] = np.where(dat['parity'].isna(), 1, 0)
@@ -36,7 +36,8 @@ def preprocess (dat):
         'has_address',
         'has_tractfips'
     ]
-    print(f"dropping {len(census_tract_cols)} of census tract columns")
+    if verbose:
+        print(f"dropping {len(census_tract_cols)} of census tract columns")
     dat.drop(columns=census_tract_cols, inplace=True)
 
     # check for nans
@@ -44,7 +45,8 @@ def preprocess (dat):
     subset = []
     for col in cols_to_check:
         if (dat[col].isna().mean() > 0):
-            print(f"found columns with NaN: {col}, NaN number = {dat[col].isna().sum()}, dropping these patients")
+            if verbose:
+                print(f"found columns with NaN: {col}, NaN number = {dat[col].isna().sum()}, dropping these patients")
             subset.append(col)
     dat.dropna(subset=subset, inplace=True)
 
@@ -52,11 +54,13 @@ def preprocess (dat):
     condition_1 = (dat['counts_of_visits_prenatal_care'] == 0)
     condition_2 = (dat['counts_of_visits_3m_after_delivery'] == 0)
     tmp = dat[condition_1 | condition_2]
-    print(f"removing patients without prenatal and postpartum visit {len(tmp)}")
+    if verbose:
+        print(f"removing patients without prenatal and postpartum visit {len(tmp)}")
     dat.drop(tmp.index, inplace=True)
     
     # drop the columns after delivery
-    print(f"dropping columns: counts_of_visits_3m_after_delivery, counts_of_visits_6m_after_delivery")
+    if verbose:
+        print(f"dropping columns: counts_of_visits_3m_after_delivery, counts_of_visits_6m_after_delivery")
     dat.drop(columns=['counts_of_visits_3m_after_delivery', 'counts_of_visits_6m_after_delivery'], 
              inplace=True)
     
@@ -64,7 +68,8 @@ def preprocess (dat):
     condition_1 = dat['edinburgh_max'].isna()
     condition_2 = dat['phq9_total_max'].isna()
     tmp = dat[condition_1 & condition_2]
-    print(f"removing patients without screening using edinburgh or phq9 {len(tmp)}")
+    if verbose:
+        print(f"removing patients without screening using edinburgh or phq9 {len(tmp)}")
     dat.drop(tmp.index, inplace=True)
 
     # NOTE: may want to adjust these to reflect the screening tools used at your institue
@@ -73,5 +78,6 @@ def preprocess (dat):
     dat['label'] = np.where( (dat['edinburgh_max'] >= 10) | 
                              (dat['phq9_total_max'] >= 10) | 
                              (dat['F53_label'] == 1), 1, 0)
-    print(f"removing columns: 'F53_label','edinburgh_max','phq9_total_max', 'PPD_delete_label'")
+    if verbose:
+        print(f"removing columns: 'F53_label','edinburgh_max','phq9_total_max', 'PPD_delete_label'")
     dat.drop(columns=['F53_label','edinburgh_max','phq9_total_max', 'PPD_delete_label'], inplace=True)
