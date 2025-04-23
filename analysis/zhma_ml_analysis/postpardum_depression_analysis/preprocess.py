@@ -2,10 +2,11 @@ import numpy as np
 import pandas as pd
 
 def preprocess (dat, verbose=True):
-    # parity has a lot of nan, fill with 1 and mark the nan entry
-    dat['parity'] = pd.to_numeric(dat['parity'], errors='coerce')  # the type may sometimes be Object
+    # parity has a lot of nan, fill with 0 and mark the nan entry
     dat['parity_isna'] = np.where(dat['parity'].isna(), 1, 0)
-    dat['parity'] = dat['parity'].fillna(1.0)
+    if verbose:
+        print(f"parity is NaN {dat['parity_isna'].sum()}; will be filled with 0")
+    dat['parity'] = dat['parity'].fillna(0.0)
 
     # we will not worry about censustract data for now
     census_tract_cols = [

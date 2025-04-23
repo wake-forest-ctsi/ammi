@@ -12,11 +12,15 @@ seeds:
     config:
       delimiter: ","
       column_types:
-        col: varchar(10)
-        shap: float
+        feature: varchar(10)
+        shap_edinburgh: float
+        shap_phq9: float
+        shap_F53: float
   - name: useful_rx_depression
     config:
       delimiter: ","
       column_types:
-        col: varchar(50)
-        shap: float
+        feature: varchar(10)
+        shap_edinburgh: float
+        shap_phq9: float
+        shap_F53: float

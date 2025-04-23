@@ -13,14 +13,27 @@ obs_clin as (
     where obsclin_code = '11977-6'
 ),
 
-renamed as (
+parity_tmp as (
     select
         cohort.birthid,
-        avg(obs_clin.parity) as parity
+        obs_clin.parity as parity,
+        obsclin_start_date,
+        baby_birth_date,
+        row_number() over (partition by cohort.birthid order by obsclin_start_date desc) as k
     from cohort
     left join obs_clin on cohort.mother_patid = obs_clin.patid
-     and obsclin_start_date between estimated_pregnancy_date and baby_birth_date
-    group by cohort.birthid
+     and obsclin_start_date between estimated_pregnancy_date and dateadd(day, 30, baby_birth_date)
+),
+
+renamed as (
+    select
+      birthid,
+      case 
+        when (obsclin_start_date > baby_birth_date) then parity - 1
+        else parity 
+      end as parity
+    from parity_tmp
+    where k = 1
 )
 
 select * from renamed
