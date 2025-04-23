@@ -41,6 +41,10 @@ If you are only interested in testing the WFU model on your data, you can use `t
 
 See `env.test_only_example` for more details.
 
+#### 4. preprocess.py
+
+All preprocessing steps are implemented in `preprocess.py`. This function is called within both `train.ipynb` and `test.ipynb`, so it does not need to be run separately. Please review the script to see if any changes are necessary.
+
 ### Known Limitations
 
 All scripts and the final ML model required to reproduce the results in our paper will be uploaded once finalized.
