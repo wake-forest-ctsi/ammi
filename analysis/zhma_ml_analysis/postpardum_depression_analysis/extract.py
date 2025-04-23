@@ -54,6 +54,6 @@ if (__name__ == "__main__"):
     dat_train = dat.drop(dat_test.index).reset_index(drop=True)
     dat_test = dat_test.reset_index(drop=True)
 
-    print(f"writing data to {os.getenv('TRAIN_PARQUET') and {os.getenv('TEST_PARQUET')}} with test_size={os.getenv('TEST_SIZE')}")
+    print(f"writing data to {os.getenv('TRAIN_PARQUET')} and {os.getenv('TEST_PARQUET')} with test_size={os.getenv('TEST_SIZE')}")
     dat_train.to_parquet(os.getenv('TRAIN_PARQUET'), index=False)
     dat_test.to_parquet(os.getenv('TEST_PARQUET'), index=False)
