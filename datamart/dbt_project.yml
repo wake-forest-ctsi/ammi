@@ -33,8 +33,6 @@ models:
   ammi:
     # Config indicated by + and applies to all files under models/example/
     +materialized: view
-    03_staging:
-      +materialized: ephemeral
-    04_intermediate:
-      +materialized: ephemeral
+    07_reports:
+      +materialized: table
       

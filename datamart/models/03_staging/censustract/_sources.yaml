@@ -1,0 +1,1350 @@
+sources:
+  - name: censustract
+    description: The census tract table in the ammi database
+    database: "{{ target.database }}"
+    schema: dbo
+    tables:
+      - name: sdoh_2020_tract
+        columns:
+          - name: year
+            data_type: float
+          - name: tractfips
+            data_type: nvarchar
+          - name: countyfips
+            data_type: nvarchar
+          - name: statefips
+            data_type: nvarchar
+          - name: state
+            data_type: nvarchar
+          - name: county
+            data_type: nvarchar
+          - name: region
+            data_type: nvarchar
+          - name: territory
+            data_type: float
+          - name: acs_tot_pop_wt
+            data_type: float
+          - name: acs_tot_pop_us_above1
+            data_type: float
+          - name: acs_tot_pop_above5
+            data_type: float
+          - name: acs_tot_pop_above15
+            data_type: float
+          - name: acs_tot_pop_above16
+            data_type: float
+          - name: acs_tot_pop_16_19
+            data_type: float
+          - name: acs_tot_pop_above25
+            data_type: float
+          - name: acs_tot_civil_pop_above18
+            data_type: float
+          - name: acs_tot_civil_vet_pop_above25
+            data_type: float
+          - name: acs_tot_own_child_below17
+            data_type: float
+          - name: acs_tot_civilian_labor
+            data_type: float
+          - name: acs_tot_civil_employ_pop
+            data_type: float
+          - name: acs_tot_worker_hh
+            data_type: float
+          - name: acs_tot_worker_nwfh
+            data_type: float
+          - name: acs_tot_civil_noninst_pop_pov
+            data_type: float
+          - name: acs_tot_civil_pop_pov
+            data_type: float
+          - name: acs_tot_pop_pov
+            data_type: float
+          - name: acs_tot_grandchildren_gp
+            data_type: float
+          - name: acs_tot_hu
+            data_type: float
+          - name: acs_tot_hh
+            data_type: float
+          - name: acs_avg_hh_size
+            data_type: float
+          - name: acs_tot_civil_noninst_pop
+            data_type: float
+          - name: acs_tot_civil_vet_pop
+            data_type: float
+          - name: acs_pct_child_disab
+            data_type: float
+          - name: acs_pct_disable
+            data_type: float
+          - name: acs_pct_nonvet_disable_18_64
+            data_type: float
+          - name: acs_pct_vet_disable_18_64
+            data_type: float
+          - name: acs_pct_female
+            data_type: float
+          - name: acs_pct_male
+            data_type: float
+          - name: acs_pct_ctz_above18
+            data_type: float
+          - name: acs_pct_ctz_naturalized
+            data_type: float
+          - name: acs_pct_ctz_nonus_born
+            data_type: float
+          - name: acs_pct_ctz_us_born
+            data_type: float
+          - name: acs_pct_foreign_born
+            data_type: float
+          - name: acs_pct_non_citizen
+            data_type: float
+          - name: acs_pct_nonctn_1990
+            data_type: float
+          - name: acs_pct_nonctn_1999
+            data_type: float
+          - name: acs_pct_nonctn_2000
+            data_type: float
+          - name: acs_pct_nonctn_2010
+            data_type: float
+          - name: acs_pct_api_lang
+            data_type: float
+          - name: acs_pct_engl_not_all
+            data_type: float
+          - name: acs_pct_engl_not_well
+            data_type: float
+          - name: acs_pct_engl_very_well
+            data_type: float
+          - name: acs_pct_engl_well
+            data_type: float
+          - name: acs_pct_english
+            data_type: float
+          - name: acs_pct_hh_limit_english
+            data_type: float
+          - name: acs_pct_oth_eurp
+            data_type: float
+          - name: acs_pct_oth_lang
+            data_type: float
+          - name: acs_pct_spanish
+            data_type: float
+          - name: acs_pct_gulfwar_1990_2001
+            data_type: float
+          - name: acs_pct_gulfwar_2001
+            data_type: float
+          - name: acs_pct_gulfwar_vietnam
+            data_type: float
+          - name: acs_pct_vet
+            data_type: float
+          - name: acs_pct_vietnam
+            data_type: float
+          - name: acs_median_age
+            data_type: float
+          - name: acs_median_age_female
+            data_type: float
+          - name: acs_median_age_male
+            data_type: float
+          - name: acs_pct_age_0_4
+            data_type: float
+          - name: acs_pct_age_5_9
+            data_type: float
+          - name: acs_pct_age_10_14
+            data_type: float
+          - name: acs_pct_age_15_17
+            data_type: float
+          - name: acs_pct_age_0_17
+            data_type: float
+          - name: acs_pct_age_18_29
+            data_type: float
+          - name: acs_pct_age_18_44
+            data_type: float
+          - name: acs_pct_age_30_44
+            data_type: float
+          - name: acs_pct_age_45_64
+            data_type: float
+          - name: acs_pct_age_50_64
+            data_type: float
+          - name: acs_pct_age_above65
+            data_type: float
+          - name: acs_pct_age_above80
+            data_type: float
+          - name: acs_pct_aian
+            data_type: float
+          - name: acs_pct_aian_female
+            data_type: float
+          - name: acs_pct_aian_male
+            data_type: float
+          - name: acs_pct_aian_nonhisp
+            data_type: float
+          - name: acs_pct_asian
+            data_type: float
+          - name: acs_pct_asian_female
+            data_type: float
+          - name: acs_pct_asian_male
+            data_type: float
+          - name: acs_pct_asian_nonhisp
+            data_type: float
+          - name: acs_pct_black
+            data_type: float
+          - name: acs_pct_black_female
+            data_type: float
+          - name: acs_pct_black_male
+            data_type: float
+          - name: acs_pct_black_nonhisp
+            data_type: float
+          - name: acs_pct_hisp_female
+            data_type: float
+          - name: acs_pct_hisp_male
+            data_type: float
+          - name: acs_pct_hispanic
+            data_type: float
+          - name: acs_pct_mult_race
+            data_type: float
+          - name: acs_pct_mult_race_female
+            data_type: float
+          - name: acs_pct_mult_race_male
+            data_type: float
+          - name: acs_pct_mult_race_nonhisp
+            data_type: float
+          - name: acs_pct_nhpi
+            data_type: float
+          - name: acs_pct_nhpi_female
+            data_type: float
+          - name: acs_pct_nhpi_male
+            data_type: float
+          - name: acs_pct_nhpi_nonhisp
+            data_type: float
+          - name: acs_pct_other_female
+            data_type: float
+          - name: acs_pct_other_male
+            data_type: float
+          - name: acs_pct_other_nonhisp
+            data_type: float
+          - name: acs_pct_other_race
+            data_type: float
+          - name: acs_pct_white
+            data_type: float
+          - name: acs_pct_white_female
+            data_type: float
+          - name: acs_pct_white_male
+            data_type: float
+          - name: acs_pct_white_nonhisp
+            data_type: float
+          - name: acs_pct_householder_white
+            data_type: float
+          - name: acs_pct_householder_black
+            data_type: float
+          - name: acs_pct_householder_aian
+            data_type: float
+          - name: acs_pct_householder_asian
+            data_type: float
+          - name: acs_pct_householder_nhpi
+            data_type: float
+          - name: acs_pct_householder_other
+            data_type: float
+          - name: acs_pct_householder_mult
+            data_type: float
+          - name: acs_pct_aian_comb
+            data_type: float
+          - name: acs_pct_asian_comb
+            data_type: float
+          - name: acs_pct_black_comb
+            data_type: float
+          - name: acs_pct_nhpi_comb
+            data_type: float
+          - name: acs_pct_white_comb
+            data_type: float
+          - name: acs_pct_hh_no_comp_dev
+            data_type: float
+          - name: acs_pct_hh_smartphone
+            data_type: float
+          - name: acs_pct_hh_smartphone_only
+            data_type: float
+          - name: acs_pct_hh_tablet
+            data_type: float
+          - name: acs_pct_hh_tablet_only
+            data_type: float
+          - name: acs_pct_hh_pc
+            data_type: float
+          - name: acs_pct_hh_pc_only
+            data_type: float
+          - name: acs_pct_hh_other_comp
+            data_type: float
+          - name: acs_pct_hh_other_comp_only
+            data_type: float
+          - name: acs_pct_hh_internet
+            data_type: float
+          - name: acs_pct_hh_internet_no_subs
+            data_type: float
+          - name: acs_pct_hh_broadband
+            data_type: float
+          - name: acs_pct_hh_broadband_only
+            data_type: float
+          - name: acs_pct_hh_broadband_any
+            data_type: float
+          - name: acs_pct_hh_cellular
+            data_type: float
+          - name: acs_pct_hh_cellular_only
+            data_type: float
+          - name: acs_pct_hh_no_internet
+            data_type: float
+          - name: acs_pct_hh_sat_internet
+            data_type: float
+          - name: acs_pct_hh_dial_internet_only
+            data_type: float
+          - name: acs_pct_child_1fam
+            data_type: float
+          - name: acs_pct_children_grandparent
+            data_type: float
+          - name: acs_pct_grandp_resps_no_p
+            data_type: float
+          - name: acs_pct_grandp_resps_p
+            data_type: float
+          - name: acs_pct_grandp_no_resps
+            data_type: float
+          - name: acs_pct_hh_kid_1prnt
+            data_type: float
+          - name: acs_pct_divorced_f
+            data_type: float
+          - name: acs_pct_divorced_m
+            data_type: float
+          - name: acs_pct_married_sp_ab_f
+            data_type: float
+          - name: acs_pct_married_sp_ab_m
+            data_type: float
+          - name: acs_pct_married_sp_pr_f
+            data_type: float
+          - name: acs_pct_married_sp_pr_m
+            data_type: float
+          - name: acs_pct_nvr_married_f
+            data_type: float
+          - name: acs_pct_nvr_married_m
+            data_type: float
+          - name: acs_pct_widowed_f
+            data_type: float
+          - name: acs_pct_widowed_m
+            data_type: float
+          - name: acs_pct_pop_same_sex_unmrd_p
+            data_type: float
+          - name: acs_pct_pop_same_sex_spouse
+            data_type: float
+          - name: acs_pct_admin
+            data_type: float
+          - name: acs_pct_armed_forces
+            data_type: float
+          - name: acs_pct_art
+            data_type: float
+          - name: acs_pct_construct
+            data_type: float
+          - name: acs_pct_educ
+            data_type: float
+          - name: acs_pct_employed
+            data_type: float
+          - name: acs_pct_finance
+            data_type: float
+          - name: acs_pct_govt
+            data_type: float
+          - name: acs_pct_inform
+            data_type: float
+          - name: acs_pct_manufact
+            data_type: float
+          - name: acs_pct_nature
+            data_type: float
+          - name: acs_pct_not_labor
+            data_type: float
+          - name: acs_pct_other
+            data_type: float
+          - name: acs_pct_profess
+            data_type: float
+          - name: acs_pct_pvt_nonprofit
+            data_type: float
+          - name: acs_pct_pvt_profit
+            data_type: float
+          - name: acs_pct_retail
+            data_type: float
+          - name: acs_pct_transport
+            data_type: float
+          - name: acs_pct_unemploy
+            data_type: float
+          - name: acs_pct_vet_labor_force_18_64
+            data_type: float
+          - name: acs_pct_vet_unempl_18_64
+            data_type: float
+          - name: acs_pct_wholesale
+            data_type: float
+          - name: acs_pct_work_res_f
+            data_type: float
+          - name: acs_pct_work_res_m
+            data_type: float
+          - name: acs_gini_index
+            data_type: float
+          - name: acs_mdn_grndprnt_no_prnt_inc
+            data_type: float
+          - name: acs_mdn_grndprnt_inc
+            data_type: float
+          - name: acs_median_hh_inc_aian
+            data_type: nvarchar
+          - name: acs_median_hh_inc_asian
+            data_type: nvarchar
+          - name: acs_median_hh_inc_black
+            data_type: float
+          - name: acs_median_hh_inc_hisp
+            data_type: float
+          - name: acs_median_hh_inc_multi
+            data_type: float
+          - name: acs_median_hh_inc_nhpi
+            data_type: nvarchar
+          - name: acs_median_hh_inc_other
+            data_type: nvarchar
+          - name: acs_median_hh_inc_white
+            data_type: float
+          - name: acs_median_hh_inc
+            data_type: float
+          - name: acs_median_inc_f
+            data_type: float
+          - name: acs_median_inc_m
+            data_type: float
+          - name: acs_median_nonvet_inc
+            data_type: float
+          - name: acs_median_vet_inc
+            data_type: float
+          - name: acs_pct_inc50_above65
+            data_type: float
+          - name: acs_pct_inc50_below17
+            data_type: float
+          - name: acs_pct_health_inc_below137
+            data_type: float
+          - name: acs_pct_health_inc_138_199
+            data_type: float
+          - name: acs_pct_health_inc_200_399
+            data_type: float
+          - name: acs_pct_health_inc_above400
+            data_type: float
+          - name: acs_pct_hh_inc_10000
+            data_type: float
+          - name: acs_pct_hh_inc_100000
+            data_type: float
+          - name: acs_pct_hh_inc_14999
+            data_type: float
+          - name: acs_pct_hh_inc_24999
+            data_type: float
+          - name: acs_pct_hh_inc_49999
+            data_type: float
+          - name: acs_pct_hh_inc_99999
+            data_type: float
+          - name: acs_pct_inc50
+            data_type: float
+          - name: acs_pct_nonvet_pov_18_64
+            data_type: float
+          - name: acs_pct_vet_pov_18_64
+            data_type: float
+          - name: acs_pct_person_inc_100_124
+            data_type: float
+          - name: acs_pct_person_inc_125_199
+            data_type: float
+          - name: acs_pct_person_inc_above200
+            data_type: float
+          - name: acs_pct_person_inc_below99
+            data_type: float
+          - name: acs_per_capita_inc
+            data_type: float
+          - name: acs_pct_pov_aian
+            data_type: float
+          - name: acs_pct_pov_asian
+            data_type: float
+          - name: acs_pct_pov_black
+            data_type: float
+          - name: acs_pct_pov_hispanic
+            data_type: float
+          - name: acs_pct_pov_multi
+            data_type: float
+          - name: acs_pct_pov_nhpi
+            data_type: float
+          - name: acs_pct_pov_other
+            data_type: float
+          - name: acs_pct_pov_white
+            data_type: float
+          - name: acs_pct_hh_1fam_food_stmp
+            data_type: float
+          - name: acs_pct_hh_food_stmp
+            data_type: float
+          - name: acs_pct_hh_food_stmp_blw_pov
+            data_type: float
+          - name: acs_pct_hh_no_fd_stmp_blw_pov
+            data_type: float
+          - name: acs_pct_hh_pub_assist
+            data_type: float
+          - name: acs_pct_college_associate_dgr
+            data_type: float
+          - name: acs_pct_bachelor_dgr
+            data_type: float
+          - name: acs_pct_no_work_no_schl_16_19
+            data_type: float
+          - name: acs_pct_graduate_dgr
+            data_type: float
+          - name: acs_pct_hs_graduate
+            data_type: float
+          - name: acs_pct_lt_hs
+            data_type: float
+          - name: acs_pct_posths_ed
+            data_type: float
+          - name: acs_pct_vet_bachelor
+            data_type: float
+          - name: acs_pct_vet_college
+            data_type: float
+          - name: acs_pct_vet_hs
+            data_type: float
+          - name: acs_median_home_value
+            data_type: float
+          - name: acs_median_rent
+            data_type: float
+          - name: acs_mdn_owner_cost_mortgage
+            data_type: float
+          - name: acs_mdn_owner_cost_no_mortg
+            data_type: float
+          - name: acs_median_year_built
+            data_type: float
+          - name: acs_pct_10units
+            data_type: float
+          - name: acs_pct_1up_owner_1room
+            data_type: float
+          - name: acs_pct_1up_pers_1room
+            data_type: float
+          - name: acs_pct_1up_rent_1room
+            data_type: float
+          - name: acs_pct_hu_built_1979
+            data_type: float
+          - name: acs_pct_dif_state
+            data_type: float
+          - name: acs_pct_grp_qrt
+            data_type: float
+          - name: acs_pct_hh_1pers
+            data_type: float
+          - name: acs_pct_hh_above65
+            data_type: float
+          - name: acs_pct_hh_alone_above65
+            data_type: float
+
+      - name: sdoh_2020_zipcode
+        columns:
+          - name: year
+            data_type: float
+          - name: statefips
+            data_type: nvarchar
+          - name: zipcode
+            data_type: nvarchar
+          - name: zcta
+            data_type: nvarchar
+          - name: state
+            data_type: nvarchar
+          - name: region
+            data_type: nvarchar
+          - name: territory
+            data_type: float
+          - name: point_zip
+            data_type: float
+          - name: acs_tot_pop_wt_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_us_above1_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_above5_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_above15_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_above16_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_16_19_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_above25_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_pop_above18_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_vet_pop_above25_zc
+            data_type: nvarchar
+          - name: acs_tot_own_child_below17_zc
+            data_type: nvarchar
+          - name: acs_tot_worker_nwfh_zc
+            data_type: nvarchar
+          - name: acs_tot_worker_hh_zc
+            data_type: nvarchar
+          - name: acs_tot_civilian_labor_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_employ_pop_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_noninst_pop_pov_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_pop_pov_zc
+            data_type: nvarchar
+          - name: acs_tot_pop_pov_zc
+            data_type: nvarchar
+          - name: acs_tot_grandchildren_gp_zc
+            data_type: nvarchar
+          - name: acs_tot_hu_zc
+            data_type: nvarchar
+          - name: acs_tot_hh_zc
+            data_type: nvarchar
+          - name: acs_avg_hh_size_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_noninst_pop_zc
+            data_type: nvarchar
+          - name: acs_tot_civil_vet_pop_zc
+            data_type: nvarchar
+          - name: acs_pct_child_disab_zc
+            data_type: nvarchar
+          - name: acs_pct_disable_zc
+            data_type: nvarchar
+          - name: acs_pct_nonvet_disable_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_disable_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_female_zc
+            data_type: nvarchar
+          - name: acs_pct_male_zc
+            data_type: nvarchar
+          - name: acs_pct_ctz_naturalized_zc
+            data_type: nvarchar
+          - name: acs_pct_ctz_nonus_born_zc
+            data_type: nvarchar
+          - name: acs_pct_ctz_us_born_zc
+            data_type: nvarchar
+          - name: acs_pct_foreign_born_zc
+            data_type: nvarchar
+          - name: acs_pct_non_citizen_zc
+            data_type: nvarchar
+          - name: acs_pct_nonctn_1990_zc
+            data_type: nvarchar
+          - name: acs_pct_nonctn_1999_zc
+            data_type: nvarchar
+          - name: acs_pct_nonctn_2000_zc
+            data_type: nvarchar
+          - name: acs_pct_nonctn_2010_zc
+            data_type: nvarchar
+          - name: acs_pct_api_lang_zc
+            data_type: nvarchar
+          - name: acs_pct_engl_not_all_zc
+            data_type: nvarchar
+          - name: acs_pct_engl_not_well_zc
+            data_type: nvarchar
+          - name: acs_pct_engl_very_well_zc
+            data_type: nvarchar
+          - name: acs_pct_engl_well_zc
+            data_type: nvarchar
+          - name: acs_pct_english_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_limit_english_zc
+            data_type: nvarchar
+          - name: acs_pct_oth_eurp_zc
+            data_type: nvarchar
+          - name: acs_pct_oth_lang_zc
+            data_type: nvarchar
+          - name: acs_pct_spanish_zc
+            data_type: nvarchar
+          - name: acs_pct_gulfwar_1990_2001_zc
+            data_type: nvarchar
+          - name: acs_pct_gulfwar_2001_zc
+            data_type: nvarchar
+          - name: acs_pct_gulfwar_vietnam_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_zc
+            data_type: nvarchar
+          - name: acs_pct_vietnam_zc
+            data_type: nvarchar
+          - name: acs_median_age_zc
+            data_type: nvarchar
+          - name: acs_median_age_female_zc
+            data_type: nvarchar
+          - name: acs_median_age_male_zc
+            data_type: nvarchar
+          - name: acs_pct_age_0_4_zc
+            data_type: nvarchar
+          - name: acs_pct_age_5_9_zc
+            data_type: nvarchar
+          - name: acs_pct_age_10_14_zc
+            data_type: nvarchar
+          - name: acs_pct_age_15_17_zc
+            data_type: nvarchar
+          - name: acs_pct_age_0_17_zc
+            data_type: nvarchar
+          - name: acs_pct_age_18_29_zc
+            data_type: nvarchar
+          - name: acs_pct_age_18_44_zc
+            data_type: nvarchar
+          - name: acs_pct_age_30_44_zc
+            data_type: nvarchar
+          - name: acs_pct_age_45_64_zc
+            data_type: nvarchar
+          - name: acs_pct_age_50_64_zc
+            data_type: nvarchar
+          - name: acs_pct_age_above65_zc
+            data_type: nvarchar
+          - name: acs_pct_age_above80_zc
+            data_type: nvarchar
+          - name: acs_pct_aian_zc
+            data_type: nvarchar
+          - name: acs_pct_aian_female_zc
+            data_type: nvarchar
+          - name: acs_pct_aian_male_zc
+            data_type: nvarchar
+          - name: acs_pct_aian_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_asian_zc
+            data_type: nvarchar
+          - name: acs_pct_asian_female_zc
+            data_type: nvarchar
+          - name: acs_pct_asian_male_zc
+            data_type: nvarchar
+          - name: acs_pct_asian_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_black_zc
+            data_type: nvarchar
+          - name: acs_pct_black_female_zc
+            data_type: nvarchar
+          - name: acs_pct_black_male_zc
+            data_type: nvarchar
+          - name: acs_pct_black_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_hisp_female_zc
+            data_type: nvarchar
+          - name: acs_pct_hisp_male_zc
+            data_type: nvarchar
+          - name: acs_pct_hispanic_zc
+            data_type: nvarchar
+          - name: acs_pct_mult_race_zc
+            data_type: nvarchar
+          - name: acs_pct_mult_race_female_zc
+            data_type: nvarchar
+          - name: acs_pct_mult_race_male_zc
+            data_type: nvarchar
+          - name: acs_pct_mult_race_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_nhpi_zc
+            data_type: nvarchar
+          - name: acs_pct_nhpi_female_zc
+            data_type: nvarchar
+          - name: acs_pct_nhpi_male_zc
+            data_type: nvarchar
+          - name: acs_pct_nhpi_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_other_female_zc
+            data_type: nvarchar
+          - name: acs_pct_other_male_zc
+            data_type: nvarchar
+          - name: acs_pct_other_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_other_race_zc
+            data_type: nvarchar
+          - name: acs_pct_white_zc
+            data_type: nvarchar
+          - name: acs_pct_white_female_zc
+            data_type: nvarchar
+          - name: acs_pct_white_male_zc
+            data_type: nvarchar
+          - name: acs_pct_white_nonhisp_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_white_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_black_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_aian_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_asian_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_nhpi_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_other_zc
+            data_type: nvarchar
+          - name: acs_pct_householder_mult_zc
+            data_type: nvarchar
+          - name: acs_pct_aian_comb_zc
+            data_type: nvarchar
+          - name: acs_pct_asian_comb_zc
+            data_type: nvarchar
+          - name: acs_pct_black_comb_zc
+            data_type: nvarchar
+          - name: acs_pct_nhpi_comb_zc
+            data_type: nvarchar
+          - name: acs_pct_white_comb_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_no_comp_dev_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_smartphone_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_smartphone_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_tablet_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_tablet_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_pc_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_pc_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_other_comp_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_other_comp_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_internet_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_internet_no_subs_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_broadband_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_broadband_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_broadband_any_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_cellular_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_cellular_only_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_no_internet_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_sat_internet_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_dial_internet_only_zc
+            data_type: nvarchar
+          - name: acs_pct_child_1fam_zc
+            data_type: nvarchar
+          - name: acs_pct_children_grandparent_zc
+            data_type: nvarchar
+          - name: acs_pct_grandp_resps_no_p_zc
+            data_type: nvarchar
+          - name: acs_pct_grandp_resps_p_zc
+            data_type: nvarchar
+          - name: acs_pct_grandp_no_resps_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_kid_1prnt_zc
+            data_type: nvarchar
+          - name: acs_pct_divorced_f_zc
+            data_type: nvarchar
+          - name: acs_pct_divorced_m_zc
+            data_type: nvarchar
+          - name: acs_pct_married_sp_ab_f_zc
+            data_type: nvarchar
+          - name: acs_pct_married_sp_ab_m_zc
+            data_type: nvarchar
+          - name: acs_pct_married_sp_pr_f_zc
+            data_type: nvarchar
+          - name: acs_pct_married_sp_pr_m_zc
+            data_type: nvarchar
+          - name: acs_pct_nvr_married_f_zc
+            data_type: nvarchar
+          - name: acs_pct_nvr_married_m_zc
+            data_type: nvarchar
+          - name: acs_pct_widowed_f_zc
+            data_type: nvarchar
+          - name: acs_pct_widowed_m_zc
+            data_type: nvarchar
+          - name: acs_pct_pop_same_sex_unmrd_p_zc
+            data_type: nvarchar
+          - name: acs_pct_pop_same_sex_spouse_zc
+            data_type: nvarchar
+          - name: acs_pct_admin_zc
+            data_type: nvarchar
+          - name: acs_pct_armed_forces_zc
+            data_type: nvarchar
+          - name: acs_pct_art_zc
+            data_type: nvarchar
+          - name: acs_pct_construct_zc
+            data_type: nvarchar
+          - name: acs_pct_educ_zc
+            data_type: nvarchar
+          - name: acs_pct_employed_zc
+            data_type: nvarchar
+          - name: acs_pct_finance_zc
+            data_type: nvarchar
+          - name: acs_pct_govt_zc
+            data_type: nvarchar
+          - name: acs_pct_inform_zc
+            data_type: nvarchar
+          - name: acs_pct_manufact_zc
+            data_type: nvarchar
+          - name: acs_pct_nature_zc
+            data_type: nvarchar
+          - name: acs_pct_not_labor_zc
+            data_type: nvarchar
+          - name: acs_pct_other_zc
+            data_type: nvarchar
+          - name: acs_pct_profess_zc
+            data_type: nvarchar
+          - name: acs_pct_pvt_nonprofit_zc
+            data_type: nvarchar
+          - name: acs_pct_pvt_profit_zc
+            data_type: nvarchar
+          - name: acs_pct_retail_zc
+            data_type: nvarchar
+          - name: acs_pct_transport_zc
+            data_type: nvarchar
+          - name: acs_pct_unemploy_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_labor_force_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_unempl_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_wholesale_zc
+            data_type: nvarchar
+          - name: acs_pct_work_res_f_zc
+            data_type: nvarchar
+          - name: acs_pct_work_res_m_zc
+            data_type: nvarchar
+          - name: acs_gini_index_zc
+            data_type: nvarchar
+          - name: acs_mdn_grndprnt_no_prnt_inc_zc
+            data_type: nvarchar
+          - name: acs_mdn_grndprnt_inc_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_aian_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_asian_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_black_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_hisp_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_multi_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_nhpi_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_other_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_white_zc
+            data_type: nvarchar
+          - name: acs_median_hh_inc_zc
+            data_type: nvarchar
+          - name: acs_median_inc_f_zc
+            data_type: nvarchar
+          - name: acs_median_inc_m_zc
+            data_type: nvarchar
+          - name: acs_median_nonvet_inc_zc
+            data_type: nvarchar
+          - name: acs_median_vet_inc_zc
+            data_type: nvarchar
+          - name: acs_pct_inc50_above65_zc
+            data_type: nvarchar
+          - name: acs_pct_inc50_below17_zc
+            data_type: nvarchar
+          - name: acs_pct_health_inc_below137_zc
+            data_type: nvarchar
+          - name: acs_pct_health_inc_138_199_zc
+            data_type: nvarchar
+          - name: acs_pct_health_inc_200_399_zc
+            data_type: nvarchar
+          - name: acs_pct_health_inc_above400_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_10000_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_100000_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_14999_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_24999_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_49999_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_inc_99999_zc
+            data_type: nvarchar
+          - name: acs_pct_inc50_zc
+            data_type: nvarchar
+          - name: acs_pct_nonvet_pov_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_pov_18_64_zc
+            data_type: nvarchar
+          - name: acs_pct_person_inc_100_124_zc
+            data_type: nvarchar
+          - name: acs_pct_person_inc_125_199_zc
+            data_type: nvarchar
+          - name: acs_pct_person_inc_above200_zc
+            data_type: nvarchar
+          - name: acs_pct_person_inc_below99_zc
+            data_type: nvarchar
+          - name: acs_per_capita_inc_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_aian_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_asian_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_black_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_hispanic_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_multi_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_nhpi_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_other_zc
+            data_type: nvarchar
+          - name: acs_pct_pov_white_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_1fam_food_stmp_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_food_stmp_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_food_stmp_blw_pov_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_no_fd_stmp_blw_pov_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_pub_assist_zc
+            data_type: nvarchar
+          - name: acs_pct_college_associate_dgr_zc
+            data_type: nvarchar
+          - name: acs_pct_bachelor_dgr_zc
+            data_type: nvarchar
+          - name: acs_pct_no_work_no_schl_16_19_zc
+            data_type: nvarchar
+          - name: acs_pct_graduate_dgr_zc
+            data_type: nvarchar
+          - name: acs_pct_hs_graduate_zc
+            data_type: nvarchar
+          - name: acs_pct_lt_hs_zc
+            data_type: nvarchar
+          - name: acs_pct_posths_ed_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_bachelor_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_college_zc
+            data_type: nvarchar
+          - name: acs_pct_vet_hs_zc
+            data_type: nvarchar
+          - name: acs_median_home_value_zc
+            data_type: nvarchar
+          - name: acs_median_rent_zc
+            data_type: nvarchar
+          - name: acs_mdn_owner_cost_mortgage_zc
+            data_type: nvarchar
+          - name: acs_mdn_owner_cost_no_mortg_zc
+            data_type: nvarchar
+          - name: acs_median_year_built_zc
+            data_type: nvarchar
+          - name: acs_pct_10units_zc
+            data_type: nvarchar
+          - name: acs_pct_1up_owner_1room_zc
+            data_type: nvarchar
+          - name: acs_pct_1up_pers_1room_zc
+            data_type: nvarchar
+          - name: acs_pct_1up_rent_1room_zc
+            data_type: nvarchar
+          - name: acs_pct_hu_built_1979_zc
+            data_type: nvarchar
+          - name: acs_pct_dif_state_zc
+            data_type: nvarchar
+          - name: acs_pct_grp_qrt_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_1pers_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_above65_zc
+            data_type: nvarchar
+          - name: acs_pct_hh_alone_above65_zc
+            data_type: nvarchar
+          - name: acs_pct_hu_no_fuel_zc
+            data_type: nvarchar
+
+      - name: svi_2022_us
+        columns:
+          - name: st
+            data_type: varchar
+          - name: state
+            data_type: varchar
+          - name: st_abbr
+            data_type: varchar
+          - name: stcnty
+            data_type: varchar
+          - name: county
+            data_type: varchar
+          - name: fips
+            data_type: varchar
+          - name: location
+            data_type: varchar
+          - name: area_sqmi
+            data_type: varchar
+          - name: e_totpop
+            data_type: varchar
+          - name: m_totpop
+            data_type: varchar
+          - name: e_hu
+            data_type: varchar
+          - name: m_hu
+            data_type: varchar
+          - name: e_hh
+            data_type: varchar
+          - name: m_hh
+            data_type: varchar
+          - name: e_pov150
+            data_type: varchar
+          - name: m_pov150
+            data_type: varchar
+          - name: e_unemp
+            data_type: varchar
+          - name: m_unemp
+            data_type: varchar
+          - name: e_hburd
+            data_type: varchar
+          - name: m_hburd
+            data_type: varchar
+          - name: e_nohsdp
+            data_type: varchar
+          - name: m_nohsdp
+            data_type: varchar
+          - name: e_uninsur
+            data_type: varchar
+          - name: m_uninsur
+            data_type: varchar
+          - name: e_age65
+            data_type: varchar
+          - name: m_age65
+            data_type: varchar
+          - name: e_age17
+            data_type: varchar
+          - name: m_age17
+            data_type: varchar
+          - name: e_disabl
+            data_type: varchar
+          - name: m_disabl
+            data_type: varchar
+          - name: e_sngpnt
+            data_type: varchar
+          - name: m_sngpnt
+            data_type: varchar
+          - name: e_limeng
+            data_type: varchar
+          - name: m_limeng
+            data_type: varchar
+          - name: e_minrty
+            data_type: varchar
+          - name: m_minrty
+            data_type: varchar
+          - name: e_munit
+            data_type: varchar
+          - name: m_munit
+            data_type: varchar
+          - name: e_mobile
+            data_type: varchar
+          - name: m_mobile
+            data_type: varchar
+          - name: e_crowd
+            data_type: varchar
+          - name: m_crowd
+            data_type: varchar
+          - name: e_noveh
+            data_type: varchar
+          - name: m_noveh
+            data_type: varchar
+          - name: e_groupq
+            data_type: varchar
+          - name: m_groupq
+            data_type: varchar
+          - name: ep_pov150
+            data_type: varchar
+          - name: mp_pov150
+            data_type: varchar
+          - name: ep_unemp
+            data_type: varchar
+          - name: mp_unemp
+            data_type: varchar
+          - name: ep_hburd
+            data_type: varchar
+          - name: mp_hburd
+            data_type: varchar
+          - name: ep_nohsdp
+            data_type: varchar
+          - name: mp_nohsdp
+            data_type: varchar
+          - name: ep_uninsur
+            data_type: varchar
+          - name: mp_uninsur
+            data_type: varchar
+          - name: ep_age65
+            data_type: varchar
+          - name: mp_age65
+            data_type: varchar
+          - name: ep_age17
+            data_type: varchar
+          - name: mp_age17
+            data_type: varchar
+          - name: ep_disabl
+            data_type: varchar
+          - name: mp_disabl
+            data_type: varchar
+          - name: ep_sngpnt
+            data_type: varchar
+          - name: mp_sngpnt
+            data_type: varchar
+          - name: ep_limeng
+            data_type: varchar
+          - name: mp_limeng
+            data_type: varchar
+          - name: ep_minrty
+            data_type: varchar
+          - name: mp_minrty
+            data_type: varchar
+          - name: ep_munit
+            data_type: varchar
+          - name: mp_munit
+            data_type: varchar
+          - name: ep_mobile
+            data_type: varchar
+          - name: mp_mobile
+            data_type: varchar
+          - name: ep_crowd
+            data_type: varchar
+          - name: mp_crowd
+            data_type: varchar
+          - name: ep_noveh
+            data_type: varchar
+          - name: mp_noveh
+            data_type: varchar
+          - name: ep_groupq
+            data_type: varchar
+          - name: mp_groupq
+            data_type: varchar
+          - name: epl_pov150
+            data_type: varchar
+          - name: epl_unemp
+            data_type: varchar
+          - name: epl_hburd
+            data_type: varchar
+          - name: epl_nohsdp
+            data_type: varchar
+          - name: epl_uninsur
+            data_type: varchar
+          - name: spl_theme1
+            data_type: varchar
+          - name: rpl_theme1
+            data_type: varchar
+          - name: epl_age65
+            data_type: varchar
+          - name: epl_age17
+            data_type: varchar
+          - name: epl_disabl
+            data_type: varchar
+          - name: epl_sngpnt
+            data_type: varchar
+          - name: epl_limeng
+            data_type: varchar
+          - name: spl_theme2
+            data_type: varchar
+          - name: rpl_theme2
+            data_type: varchar
+          - name: epl_minrty
+            data_type: varchar
+          - name: spl_theme3
+            data_type: varchar
+          - name: rpl_theme3
+            data_type: varchar
+          - name: epl_munit
+            data_type: varchar
+          - name: epl_mobile
+            data_type: varchar
+          - name: epl_crowd
+            data_type: varchar
+          - name: epl_noveh
+            data_type: varchar
+          - name: epl_groupq
+            data_type: varchar
+          - name: spl_theme4
+            data_type: varchar
+          - name: rpl_theme4
+            data_type: varchar
+          - name: spl_themes
+            data_type: varchar
+          - name: rpl_themes
+            data_type: varchar
+          - name: f_pov150
+            data_type: varchar
+          - name: f_unemp
+            data_type: varchar
+          - name: f_hburd
+            data_type: varchar
+          - name: f_nohsdp
+            data_type: varchar
+          - name: f_uninsur
+            data_type: varchar
+          - name: f_theme1
+            data_type: varchar
+          - name: f_age65
+            data_type: varchar
+          - name: f_age17
+            data_type: varchar
+          - name: f_disabl
+            data_type: varchar
+          - name: f_sngpnt
+            data_type: varchar
+          - name: f_limeng
+            data_type: varchar
+          - name: f_theme2
+            data_type: varchar
+          - name: f_minrty
+            data_type: varchar
+          - name: f_theme3
+            data_type: varchar
+          - name: f_munit
+            data_type: varchar
+          - name: f_mobile
+            data_type: varchar
+          - name: f_crowd
+            data_type: varchar
+          - name: f_noveh
+            data_type: varchar
+          - name: f_groupq
+            data_type: varchar
+          - name: f_theme4
+            data_type: varchar
+          - name: f_total
+            data_type: varchar
+          - name: e_daypop
+            data_type: varchar
+          - name: e_noint
+            data_type: varchar
+          - name: m_noint
+            data_type: varchar
+          - name: e_afam
+            data_type: varchar
+          - name: m_afam
+            data_type: varchar
+          - name: e_hisp
+            data_type: varchar
+          - name: m_hisp
+            data_type: varchar
+          - name: e_asian
+            data_type: varchar
+          - name: m_asian
+            data_type: varchar
+          - name: e_aian
+            data_type: varchar
+          - name: m_aian
+            data_type: varchar
+          - name: e_nhpi
+            data_type: varchar
+          - name: m_nhpi
+            data_type: varchar
+          - name: e_twomore
+            data_type: varchar
+          - name: m_twomore
+            data_type: varchar
+          - name: e_otherrace
+            data_type: varchar
+          - name: m_otherrace
+            data_type: varchar
+          - name: ep_noint
+            data_type: varchar
+          - name: mp_noint
+            data_type: varchar
+          - name: ep_afam
+            data_type: varchar
+          - name: mp_afam
+            data_type: varchar
+          - name: ep_hisp
+            data_type: varchar
+          - name: mp_hisp
+            data_type: varchar
+          - name: ep_asian
+            data_type: varchar
+          - name: mp_asian
+            data_type: varchar
+          - name: ep_aian
+            data_type: varchar
+          - name: mp_aian
+            data_type: varchar
+          - name: ep_nhpi
+            data_type: varchar
+          - name: mp_nhpi
+            data_type: varchar
+          - name: ep_twomore
+            data_type: varchar
+          - name: mp_twomore
+            data_type: varchar
+          - name: ep_otherrace
+            data_type: varchar
+          - name: mp_otherrace
+            data_type: varchar
