@@ -1,0 +1,42 @@
+select
+    a.birthid,
+    a.bpg_deprs as 'BPG_DEPRS',
+    b.income7 as 'INCOME7',
+    c.mat_age_pu as 'MAT_AGE_PU',
+    d.pay as 'PAY',
+    d.insmed as 'INSMED',
+    d.inswork as 'INSWORK',
+    d.hi_work as 'HI_WORK',
+    d.hi_medic as 'HI_MEDIC',
+    e.pgwt_gn as 'PGWT_GN',
+    e.mom_bmi as 'MOM_BMI',
+    g.smk6c_nw as 'SMK6C_NW',
+    f.pre_rx as 'PRE_RX',
+    g.smk2yrs as 'SMK2YRS',
+    g.smk6nw_a as 'SMK6NW_A',
+    e.mom_bmig_bc as 'MOM_BMIG_BC',
+    e.mat_prwt as 'MAT_PRWT',
+    h.pnc_wks as 'PNC_WKS',
+    (case when i.earliest_ppd_diagnosis_date is not null then 1 else 0 end) as F53_label,
+    (case when i.earliest_ppd_diagnosis_date_delete is not null then 1 else 0 end) as PPD_delete_label,
+    j.edinburgh_max,
+    k.phq9_total_max,
+    l.counts_of_visits_prenatal_care,
+    l.counts_of_visits_3m_after_delivery,
+    m.phq2_q1_max,
+    m.phq2_q2_max
+from {{ ref('int_pram__bpg_deprs') }} a
+left join {{ ref('int_pram__income7') }} b on a.birthid = b.birthid
+left join {{ ref('int_pram__mat_age_pu') }} c on a.birthid = c.birthid
+left join {{ ref('int_pram__pay') }} d on a.birthid = d.birthid
+left join {{ ref('int_pram__wt_features') }} e on a.birthid = e.birthid
+left join {{ ref('int_pram__pre_rx') }} f on a.birthid = f.birthid
+left join {{ ref('int_pram__smoking') }} g on a.birthid = g.birthid
+left join {{ ref('int_pram__pnc_weeks') }} h on a.birthid = h.birthid
+left join {{ ref('int_depression__postpartum_depression_dx_code_only') }} i on a.birthid = i.birthid
+left join {{ ref('int_depression__edinburgh_after_delivery') }} j on a.birthid = j.birthid
+left join {{ ref('int_depression__phq9_after_delivery') }} k on a.birthid = k.birthid
+left join {{ ref('int_depression__visit_pattern') }} l on a.birthid = l.birthid
+left join {{ ref('int_pram__phq2_after_delivery') }} m on a.birthid = m.birthid
+left join {{ ref('int_cohort') }} n on a.birthid = n.birthid
+where n.baby_birth_date < '2023-05-31'
