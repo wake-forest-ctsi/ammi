@@ -19,7 +19,7 @@ renamed as (
     select
         cohort.birthid,
         {{ dbt_utils.pivot('dx',
-                            dbt_utils.get_column_values(ref(selected_dx_table), 'col'),
+                            dbt_utils.get_column_values(ref(selected_dx_table), column='col', default=[]),
                             agg='max',
                             then_value=1,
                             else_value=0,

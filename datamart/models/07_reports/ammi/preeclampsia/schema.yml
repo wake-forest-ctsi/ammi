@@ -1,0 +1,369 @@
+version: 2
+
+models:
+  - name: rpt_preeclampsia
+    description: This table contains all of the features needed for building a predictive model for preeclampsia
+
+    columns:
+      - name: birthid
+        data_type: string
+        type: string
+        description: Unique deidentified identifier for each pregnancy
+        tests:
+          - unique
+          - not_null
+
+      - name: baby_birth_date
+        data_type: date
+        type: date
+
+
+      - name: mother_patid
+        data_type: string
+        type: string
+        description: Unique deidentified identifier for each patient
+        tests:
+          - not_null
+
+      - name: preeclampsia_label
+        data_type: int
+        type: int
+        description: identifies patients who developed preeclampsia with severe features after 20 weeks (either superimposed or denovo)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: wt_mean
+        data_type: int
+        type: int
+        description: mean of observations for weight present for a patient before 20 weeks
+
+      - name: wt_min
+        data_type: int
+        type: int
+        description: minimum value of observations for weight present for a patient before 20 weeks
+
+      - name: wt_max
+        data_type: int
+        type: int
+        description: maximum value of observations for weight present for a patient before 20 weeks
+
+      - name: original_bmi_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: original_bmi_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: original_bmi_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: computed_bmi_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: computed_bmi_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: computed_bmi_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: sbp_value_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: sbp_value_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: sbp_value_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: dbp_value_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: dbp_value_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: dbp_value_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: pulse_pressure_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: pulse_pressure_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: pulse_pressure_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_8867-4_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: LC_8867-4_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: LC_8867-4_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_8867-4_median
+        data_type: int
+        type: int
+        description: median value of observations present for a patient before 20 weeks
+
+      - name: LC_8478-0_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: LC_8478-0_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: LC_8478-0_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_8478-0_median
+        data_type: int
+        type: int
+        description: median value of observations present for a patient before 20 weeks
+
+      - name: LC_9279-1_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: LC_9279-1_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: LC_9279-1_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_9279-1_median
+        data_type: int
+        type: int
+        description: median value of observations present for a patient before 20 weeks
+
+      - name: LC_20564-1_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: LC_20564-1_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: LC_20564-1_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_20564-1_median
+        data_type: int
+        type: int
+        description: median value of observations present for a patient before 20 weeks
+
+      - name: LC_8310-5_mean
+        data_type: int
+        type: int
+        description: mean of observations present for a patient before 20 weeks
+
+      - name: LC_8310-5_min
+        data_type: int
+        type: int
+        description: minimum value of observations present for a patient before 20 weeks
+
+      - name: LC_8310-5_max
+        data_type: int
+        type: int
+        description: maximum value of observations present for a patient before 20 weeks
+
+      - name: LC_8310-5_median
+        data_type: int
+        type: int
+        description: median value of observations present for a patient before 20 weeks
+
+      - name: mother_age
+        data_type: int
+        type: int
+        description: age of the mother at delivery
+
+      - name: mother_height
+        data_type: int
+        type: int
+        description: average height value for the mother between 1 year before delivery and 1 year after delivery
+
+      - name: med_rx_aspirin
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_nifedipine
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_insulin
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_amlodipine
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_glucagon
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_glucose
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_methyldopa
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_promethazine
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_ethyl
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_famotidine
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: med_rx_ondansetron
+        data_type: int
+        type: int
+        description: Prescribed medications for the patient during the encounter. Boolean operator, stored as numeric with 0 = did not receive med in first 20 weeks, 1 = received med in first 20 weeks.
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: mother_is_hispanic
+        data_type: int
+        type: int
+        description: Self-reported ethnicity of the mother is listed as hispanic 
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: mother_is_black
+        data_type: int
+        type: int
+        description: Self-reported race of the mother is listed as Black or African American
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: mother_is_white
+        data_type: int
+        type: int
+        description: Self-reported race of the mother is listed as White
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+# 
+# 
+# 
+# 
+# 
+# 
+

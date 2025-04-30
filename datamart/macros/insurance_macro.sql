@@ -18,7 +18,7 @@ renamed as (
     select
         cohort.birthid,
         {{ dbt_utils.pivot('payer_type_primary',
-                           dbt_utils.get_column_values(ref('int_visits'), 'payer_type_primary', where="payer_type_primary != 'NI'"),
+                           dbt_utils.get_column_values(ref('int_visits'), 'payer_type_primary', where="payer_type_primary != 'NI'", default=[]),
                            agg='max',
                            then_value=1,
                            else_value=0,

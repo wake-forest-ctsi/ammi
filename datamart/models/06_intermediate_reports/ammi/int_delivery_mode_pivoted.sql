@@ -1,7 +1,7 @@
 select 
     birthid,
     {{ dbt_utils.pivot('delivery_mode', 
-                       dbt_utils.get_column_values(ref('int_delivery_mode'), 'delivery_mode'),
+                       dbt_utils.get_column_values(ref('int_delivery_mode'), 'delivery_mode', default=[]),
                        agg='max',
                        then_value=1,
                        else_value=0,
