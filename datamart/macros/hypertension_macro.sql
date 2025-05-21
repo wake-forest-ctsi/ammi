@@ -10,7 +10,8 @@ with cohort as (
 bp_cat as (
     select
         birthid,
-        bp_cat
+        bp_cat,
+        nobp
     from {{ ref(bp_cat_table) }}
 ),
 
@@ -27,7 +28,8 @@ renamed as (
         cohort.birthid,
         case when max(bp_cat.bp_cat) > 0 then 1
              when max(case when diagnosis.dx_date is not null then 1 else 0 end) > 0 then 1
-             else 0 end as chronic_hyptertension
+             else 0 end as chronic_hyptertension,
+        min(nobp) as nobp
     from cohort
     left join bp_cat on cohort.birthid = bp_cat.birthid
     left join diagnosis on cohort.mother_patid = diagnosis.patid

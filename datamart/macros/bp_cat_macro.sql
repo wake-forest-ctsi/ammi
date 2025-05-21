@@ -17,6 +17,16 @@ vital as (
     where systolic is not null and diastolic is not null
 ),
 
+-- mark patients without bp at all
+no_bp as (
+    select
+        a.birthid,
+        min(case when bp_cat is null then 1 else 0 end) as nobp
+    from cohort a
+    left join vital b on a.mother_patid = b.patid
+    group by a.birthid
+),
+
 -- get the 4 hour apart criteria
 vital_4h as (
     select
@@ -41,9 +51,11 @@ bp_cat as (
 renamed as (
     select
         cohort.birthid,
-        (case when bp_cat is null then 0 else bp_cat end) as bp_cat
+        (case when bp_cat is null then 0 else bp_cat end) as bp_cat,
+        nobp
     from cohort
     left join bp_cat on cohort.birthid = bp_cat.birthid
+    left join no_bp on cohort.birthid = no_bp.birthid
 )
 
 select * from renamed

@@ -2,7 +2,7 @@ with cohort as (
     select 
         birthid,
         mother_patid,
-        estimated_pregnancy_date,
+        estimated_preg_start_date,
         baby_birth_date
     from {{ ref('int_cohort') }}
 ),

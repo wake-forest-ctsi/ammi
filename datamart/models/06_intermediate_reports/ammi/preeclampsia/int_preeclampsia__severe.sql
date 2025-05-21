@@ -1,6 +1,6 @@
 -- this is to reproduce unc's definition
 
-{% set date_range_list = ("dateadd(week, 20, cohort.estimated_pregnancy_date)",
+{% set date_range_list = ("dateadd(week, 20, cohort.estimated_preg_start_date)",
                           "dateadd(day, 90, cohort.baby_birth_date)") %}
 
 with cohort as (
@@ -90,7 +90,9 @@ decision_table as (
         d.bp_cat as bp_cat_after_20wk,
         e.sipe,
         f.lab_proteinuria,
-        g.lab_others
+        g.lab_others,
+        c.nobp as npbp_pre20wks,
+        d.nobp as nobp_ap
     from icd_10_pre_sf a
     left join mag_infuse b on a.birthid = b.birthid
     left join {{ ref('int_preeclampsia__chronic_hypertension') }} c on a.birthid = c.birthid
