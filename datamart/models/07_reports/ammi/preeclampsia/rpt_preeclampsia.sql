@@ -2,6 +2,7 @@
 
 select
     a.birthid as preg_deid,
+    a.mother_patid as mom_deid,
     b.preeclampsia as cp_anypree_sf,
     c.chronic_hyptertension as chtn_any,
     d.sbp_value_mean as mean_sbp_value,

@@ -59,10 +59,10 @@ renamed as (
         min(b.original_bmi) over (partition by cohort.birthid) as 'original_bmi_min',
         percentile_cont(0.5) within group (order by b.original_bmi) over (partition by cohort.birthid) as 'original_bmi_median',
 
-        avg(b.wt/square(c.mother_height)*705) over (partition by cohort.birthid) as 'computed_bmi_mean',
-        max(b.wt/square(c.mother_height)*705) over (partition by cohort.birthid) as 'computed_bmi_max',
-        min(b.wt/square(c.mother_height)*705) over (partition by cohort.birthid) as 'computed_bmi_min',
-        percentile_cont(0.5) within group (order by (b.wt/square(c.mother_height)*705)) over (partition by cohort.birthid) as 'computed_bmi_median'
+        avg(b.wt/square(c.mother_height)*703) over (partition by cohort.birthid) as 'computed_bmi_mean',
+        max(b.wt/square(c.mother_height)*703) over (partition by cohort.birthid) as 'computed_bmi_max',
+        min(b.wt/square(c.mother_height)*703) over (partition by cohort.birthid) as 'computed_bmi_min',
+        percentile_cont(0.5) within group (order by (b.wt/square(c.mother_height)*703)) over (partition by cohort.birthid) as 'computed_bmi_median'
 
     from cohort
     left join vital b on cohort.mother_patid = b.patid
