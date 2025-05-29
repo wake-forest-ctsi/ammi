@@ -13,6 +13,8 @@ dx_list as (
     select
         patid,
         dx_date,
+        dx,
+        encounterid,
         enc_type,
         case
             when dx in ('F32.0', 'F32.1', 'F32.2', 'F32.3', 'F32.4', 'F32.5', 'F32.8', 
@@ -51,6 +53,8 @@ renamed as (
         a.delivery_admit_date,
         a.delivery_discharge_date,
         b.dx_date,
+        b.dx,
+        b.encounterid,
         b.enc_type,
         datediff(day, a.estimated_preg_start_date, b.dx_date) as gestage_days,
         mental_cat
