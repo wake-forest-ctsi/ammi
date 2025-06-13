@@ -17,41 +17,55 @@ vital as (
     where systolic is not null and diastolic is not null
 ),
 
--- mark patients without bp at all
-no_bp as (
+-- select birthid with bp_cat >= 1
+vital_4h_bp_cat_1 as(
     select
-        a.birthid,
-        min(case when bp_cat is null then 1 else 0 end) as nobp
-    from cohort a
-    left join vital b on a.mother_patid = b.patid
-    group by a.birthid
-),
-
--- get the 4 hour apart criteria
-vital_4h as (
-    select
-        cohort.birthid,
-        vital.bp_cat
+        cohort.birthid
     from cohort
     left join vital on cohort.mother_patid = vital.patid
      and vital.measure_date between {{ date1 }} and {{ date2 }}
-    where bp_cat > 0
-    group by cohort.birthid, vital.bp_cat
+     and bp_cat >= 1
+    group by cohort.birthid
+    having datediff(hour, min(measure_date), max(measure_date)) >= 4
+),
+
+-- select birthid with bp_cat == 2
+vital_4h_bp_cat_2 as (
+    select
+        cohort.birthid
+    from cohort
+    left join vital on cohort.mother_patid = vital.patid
+     and vital.measure_date between {{ date1 }} and {{ date2 }}
+     and bp_cat = 2
+    group by cohort.birthid
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
 ),
 
 bp_cat as (
     select
         birthid,
-        max(bp_cat) as bp_cat
-    from vital_4h
-    group by birthid
+        case when birthid in (select birthid from vital_4h_bp_cat_2) then 2
+             when birthid in (select birthid from vital_4h_bp_cat_1) then 1
+             else 0 end as bp_cat
+    from cohort
+),
+
+
+-- mark patients without bp at all
+no_bp as (
+    select
+        cohort.birthid,
+        min(case when bp_cat is null then 1 else 0 end) as nobp
+    from cohort
+    left join vital on cohort.mother_patid = vital.patid
+     and vital.measure_date between {{ date1 }} and {{ date2 }}
+    group by cohort.birthid
 ),
 
 renamed as (
     select
         cohort.birthid,
-        (case when bp_cat is null then 0 else bp_cat end) as bp_cat,
+        bp_cat,
         nobp
     from cohort
     left join bp_cat on cohort.birthid = bp_cat.birthid

@@ -9,13 +9,14 @@ with cohort as (
     from {{ ref('int_cohort') }}
 ),
 
+-- mag-infuse needs to be after delivery
 mag_infuse as (
     select
         cohort.birthid,
         max(case when medadmin_start_date is not null then 1 else 0 end) as mag_infuse
     from cohort
     left join {{ ref('med_admin') }} a on a.patid = cohort.mother_patid
-     and {{ add_time_to_date_macro("a.medadmin_start_date", "a.medadmin_start_time") }} between {{ date_range_list[0] }} and {{ date_range_list[1] }}
+     and {{ add_time_to_date_macro("a.medadmin_start_date", "a.medadmin_start_time") }} between {{ "cohort.baby_birth_date" }} and {{ date_range_list[1] }}
      and raw_medadmin_med_name like '%MAGNESIUM SULFATE%'
     group by cohort.birthid
 ),
@@ -105,11 +106,11 @@ decision_table as (
 renamed as (
     select
         birthid,
-        case when (chtn_any = 0 and (pre_sf_or_ecl = 1 or bp_cat_after_20wk = 2 or mag_infuse = 1 or sipe = 1)) then 1  -- i think sipe can be 1 here
-             when (chtn_any = 0 and (bp_cat_after_20wk = 1 and lab_others = 1)) then 1 -- seems protienuria alone is not considered severe??
+        case when (chtn_any = 0 and (pre_sf_or_ecl = 1 or bp_cat_after_20wk = 2 or mag_infuse = 1)) then 1  -- i think sipe can be 1 here ??
+             when (chtn_any = 0 and (bp_cat_after_20wk >= 1 and lab_others = 1)) then 1
 	         when (chtn_any = 1 and (pre_sf_or_ecl = 1 or sipe = 1 or mag_infuse = 1)) then 1
-	         when (chtn_any = 1 and bp_cat_after_20wk = 2 and lab_proteinuria = 1) then 1 -- this doesn't feel right to me, should include lab_others = 1??
-	         when (chtn_any = 1 and bp_cat_after_20wk = 1 and lab_others = 1) then 1
+	         when (chtn_any = 1 and (bp_cat_after_20wk = 2 and lab_proteinuria = 1)) then 1
+	         when (chtn_any = 1 and (bp_cat_after_20wk >= 1 and lab_others = 1)) then 1  -- i believe this should be >= 1 here otherwise will mis (bp_cat_after_20wk = 2 and lab_others ==1)
 	         else 0 end as 'preeclampsia'
     from decision_table
 )
