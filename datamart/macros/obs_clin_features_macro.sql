@@ -1,6 +1,7 @@
 {% macro obs_clin_features_macro(date1, date2) %}
 
 -- get these features:
+-- (Pulse Heart Rate, MAP Mean Blood Pressure, RespiratoryRate, SPO2 Oxygen Saturation, Body Temperature)
 {% set features = ('8867-4','8478-0','9279-1','20564-1','8310-5') %}
 
 with cohort as (

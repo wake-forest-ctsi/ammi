@@ -21,7 +21,7 @@ renamed as (
         coalesce(max(other_parity.parity_2_recovered), 0) as 'parity_2_recovered'
     from cohort
     left join other_parity on cohort.mother_patid = other_parity.patid
-     and dx_date between cohort.estimated_pregnancy_date and cohort.baby_birth_date
+     and dx_date between cohort.estimated_preg_start_date and cohort.baby_birth_date
     group by cohort.birthid
 )
 
