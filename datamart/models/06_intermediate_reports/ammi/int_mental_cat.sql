@@ -16,7 +16,10 @@ dx_list as (
         dx,
         encounterid,
         enc_type,
+        pdx,
         case
+            when dx like 'F1%' or dx like 'F55.%' then 'hx_SUD'
+            when dx like 'T74.%' or dx like 'Z91.41%' or dx like 'Z62.81' then 'hx_abuse'
             when dx in ('F32.0', 'F32.1', 'F32.2', 'F32.3', 'F32.4', 'F32.5', 'F32.8', 
             'F32.89', 'F32.9', 'F32.A', 'F33.0', 'F33.1', 'F33.2', 'F33.3', 'F33.4',
             'F33.40', 'F33.41', 'F33.42', 'F33.8', 'F33.9', 'F34.1', 'F53.0', 'O90.6', 'O99.34') then 'depression'
@@ -237,6 +240,7 @@ renamed as (
         b.dx,
         b.encounterid,
         b.enc_type,
+        b.pdx,
         datediff(day, a.estimated_preg_start_date, b.dx_date) as gestage_days,
         mental_cat
     from cohort a
