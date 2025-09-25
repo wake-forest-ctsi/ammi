@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: clarity
+    description: ""
+    database: "{{ env_var('DBT_CLARITY_DATABASE', 'mdp_refined_prod') }}"
+    schema: "{{ env_var('DBT_CLARITY_SCHEMA', 'clarity_se') }}"
+    tables:
+      - name: ob_hsb_delivery
+        description: ""
+      - name: pat_enc
+        description: ""
+      - name: episode
+        description: ""
+        name: patient
+        description: ""
+        name: patient_3
+        description: ""
+        name: zc_delivery_type
+        description: ""
+                
+
+
+
+
+

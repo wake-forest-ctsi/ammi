@@ -1,3 +1,5 @@
 dbt-core
 sqlalchemy
 pandas
+dbt-snowflake
+dbt-sqlserver
