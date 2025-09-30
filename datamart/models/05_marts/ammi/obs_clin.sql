@@ -24,4 +24,4 @@ select
     raw_obsclin_modifier,
     raw_obsclin_unit
 from
-    {{ source('pcornet', 'obs_clin') }}
+    {{ ref('stg_pcornet__obs_clin') }}

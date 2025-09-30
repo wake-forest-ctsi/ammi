@@ -24,4 +24,4 @@ select
     raw_tobacco,
     raw_tobacco_type
 from
-    {{ source('pcornet', 'vital') }}
+    {{ ref('stg_pcornet__vital') }}

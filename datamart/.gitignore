@@ -7,3 +7,5 @@ __pycache__/
 *.py
 *old*.sql
 *.log
+old_mental_cat_sql.txt
+tmp_convert_list.py

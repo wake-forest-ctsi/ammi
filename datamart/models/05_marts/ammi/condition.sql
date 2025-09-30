@@ -14,4 +14,4 @@ select
     raw_condition_type,
     raw_condition_source
 from
-    {{ source('pcornet', 'condition') }}
+    {{ ref('stg_pcornet__condition') }}

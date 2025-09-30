@@ -1,0 +1,120 @@
+models:
+  - name: rpt_psychosis_mental_cat_list
+    description: This table contains all the mental disease diagnosis for each patients in the datamart. Every row is one diagnosis. If mothers don't have these diagnosis, the relevant fields will be null.
+
+    columns:
+      - name: birthid
+        data_type: string
+        description: Unique ID for each delivery
+        tests:
+          - not_null
+
+      - name: mother_patid
+        data_type: string
+        description: Unique ID for each mother
+        tests:
+          - not_null
+
+      - name: baby_birth_date
+        data_type: datetime
+        description: Baby's birth date, used as a proxy for baby delivery date.
+
+      - name: delivery_admit_date
+        data_type: datetime
+        description: The admit date for the delivery encounter.
+
+      - name: delivery_discharge_date
+        data_type: datetime
+        description: The discharge date for the delivery encounter.
+
+      - name: dx_date
+        data_type: date
+        description: Diagnosis date.
+
+      - name: dx
+        data_type: string
+        description: Diagnosis code.
+
+      - name: encounterid
+        data_type: string
+        description: Encounter ID for this diagnosis
+
+      - name: enc_type
+        data_type: string
+        description: Encounter type for this diagnosis
+        tests:
+          - accepted_values:
+              values: ['AV', 'ED', 'EI', 'IP', 'IS', 'OS', 'IC', 'TH', 'OA', 'NI', 'UN', 'OT']
+
+      - name: pdx
+        data_type: string
+        description: Principal discharge diagnosis flag
+        tests:
+          - accepted_values:
+              values: ['P', 'S', 'NI', 'UN', 'OT']
+
+      - name: gestage_days
+        data_type: int
+        description: Days since the estimated pregnancy date. It can be negative (before pregnancy date) or positive (after pregnancy date)
+
+      - name: mental_cat
+        data_type: string
+        description: Categorized mental health condition associated with this diagnosis code.
+
+      - name: chief_complaint
+        data_type: string
+        description: A list of chief_complaint related to this encounter (CONDITION_SOURCE=CC in the CONDITION table).
+
+      - name: health_problem_list
+        data_type: string
+        description: A list of health problem related to this encounter (CONDITION_SOURCE=HC in the CONDITION table).
+
+      - name: pcornet_defined_list
+        data_type: string
+        description: A list of PCORnet defined condition related to this encounter (CONDITION_SOURCE=PC in the CONDITION table).
+
+  - name: rpt_psychosis_phq_epds_list
+    description: This contains a list of PHQ and EPDS score for all the mothers in the datamart. Every row is one record of score. If mothers don't have these diagnosis, the relevant fields will be null.
+    columns:
+      - name: birthid
+        data_type: string
+        description: Unique ID for each delivery
+        tests:
+          - not_null
+
+      - name: mother_patid
+        data_type: string
+        description: Unique ID for each mother
+        tests:
+          - not_null
+
+      - name: baby_birth_date
+        data_type: datetime
+        description: Baby's birth date, used as a proxy for baby delivery date.
+
+      - name: delivery_admit_date
+        data_type: datetime
+        description: The admit date for the delivery encounter.
+
+      - name: delivery_discharge_date
+        data_type: datetime
+        description: The discharge date for the delivery encounter.
+
+      - name: obsclin_start_date
+        data_type: datetime
+        description: The date this score was taken.
+
+      - name: gestage_days
+        data_type: int
+        description: Days since the estimated pregnancy date. It can be negative (before pregnancy date) or positive (after pregnancy date)
+
+      - name: obsclin_code
+        data_type: varchar
+        description: obsclin code for this PHQ or EPDS question. 
+        tests:
+          - accepted_values:
+              values: ['13011', '21012976', '21012977', '21012954', '21012949', '21012951', '21012960', '21012948', '21012956', '21012953', '21012958', '21012955', '21012950', '99046-5', '71354-5', '21012959']
+
+      - name: phq_value
+        data_type: numeric
+        description: answer to this PHQ or EPDS question.
