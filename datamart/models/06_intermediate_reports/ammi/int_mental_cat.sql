@@ -21,8 +21,23 @@ dx_list as (
         mental_cat_list.mental_cat
     from {{ ref('diagnosis') }} diagnosis
     inner join {{ ref('mental_cat')}} mental_cat_list
-      on (mental_cat_list.match_type = 'exact' and mental_cat_list.dx = diagnosis.dx)
-      or (mental_cat_list.match_type = 'like' and diagnosis.dx like mental_cat_list.dx)
+      on (mental_cat_list.match_type = 'exact' and diagnosis.dx = mental_cat_list.dx)
+    
+    union all
+
+    select
+        diagnosis.diagnosisid,
+        diagnosis.patid,
+        diagnosis.dx_date,
+        diagnosis.dx,
+        diagnosis.encounterid,
+        diagnosis.enc_type,
+        diagnosis.pdx,
+        mental_cat_list.mental_cat
+    from {{ ref('diagnosis') }} diagnosis
+    inner join {{ ref('mental_cat')}} mental_cat_list
+      on (mental_cat_list.match_type = 'like' and diagnosis.dx like mental_cat_list.dx)
+
 ),
 
 renamed as (

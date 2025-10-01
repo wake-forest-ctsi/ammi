@@ -1,7 +1,7 @@
 with mental_cat as (
     select
         *
-    from {{ ref('int_mental_cat_new') }}
+    from {{ ref('int_mental_cat') }}
 ),
 
 condition_grouped as (
