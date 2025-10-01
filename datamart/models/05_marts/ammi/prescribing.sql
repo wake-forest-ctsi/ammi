@@ -30,4 +30,4 @@ select
     raw_rx_route,
     raw_rx_refills
 from
-    {{ source('pcornet', 'prescribing') }}
+    {{ ref('stg_pcornet__prescribing') }}

@@ -19,4 +19,4 @@ select
     raw_pdx,
     raw_dx_poa
 from
-    {{ source('pcornet', 'diagnosis') }}
+    {{ ref('stg_pcornet__diagnosis') }}

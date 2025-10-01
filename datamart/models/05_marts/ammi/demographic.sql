@@ -16,4 +16,4 @@ select
     raw_gender_identity,
     raw_pat_pref_language_spoken
 from
-    {{ source('pcornet', 'demographic') }}
+    {{ ref('stg_pcornet__demographic') }}

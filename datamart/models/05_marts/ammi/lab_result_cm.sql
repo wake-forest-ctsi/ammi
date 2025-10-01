@@ -33,4 +33,4 @@ select
     raw_order_dept,
     raw_facility_code
 from
-    {{ source('pcornet', 'lab_result_cm') }}
+    {{ ref('stg_pcornet__lab_result_cm') }}

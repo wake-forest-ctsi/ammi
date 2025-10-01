@@ -31,4 +31,4 @@ select
     raw_payer_name_secondary,
     raw_payer_id_secondary
 from
-    {{ source('pcornet', 'encounter') }}
+    {{ ref('stg_pcornet__encounter') }}

@@ -17,7 +17,8 @@ vital as (
     where systolic is not null and diastolic is not null
 ),
 
-vital_within_time as (
+-- get the 4 hour apart criteria
+vital_4h as (
     select
         cohort.birthid,
         vital.measure_date,
@@ -31,7 +32,7 @@ vital_within_time as (
 vital_4h_bp_cat_1 as(
     select
         birthid
-    from vital_within_time
+    from vital_4h
     where bp_cat >= 1
     group by birthid
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
@@ -41,7 +42,7 @@ vital_4h_bp_cat_1 as(
 vital_4h_bp_cat_2 as (
     select
         birthid
-    from vital_within_time 
+    from vital_4h
     where bp_cat = 2
     group by birthid
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
@@ -65,17 +66,18 @@ no_bp as (
         cohort.birthid,
         min(case when bp_cat is null then 1 else 0 end) as nobp
     from cohort
-    left join vital_within_time on cohort.birthid = vital_within_time.birthid
+    left join vital_4h on cohort.birthid = vital_4h.birthid
     group by cohort.birthid
 ),
 
 renamed as (
     select
-        bp_cat.birthid,
-        bp_cat,
+        cohort.birthid,
+        (case when bp_cat is null then 0 else bp_cat end) as bp_cat,
         nobp
-    from bp_cat
-    left join no_bp on bp_cat.birthid = no_bp.birthid
+    from cohort
+    left join bp_cat on cohort.birthid = bp_cat.birthid
+    left join no_bp on cohort.birthid = no_bp.birthid
 )
 
 select * from renamed

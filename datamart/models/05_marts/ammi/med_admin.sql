@@ -20,4 +20,4 @@ select
     raw_medadmin_dose_admin_unit,
     raw_medadmin_route
 from
-    {{ source('pcornet', 'med_admin') }}
+    {{ ref('stg_pcornet__med_admin') }}
