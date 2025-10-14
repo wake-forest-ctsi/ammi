@@ -9,3 +9,4 @@ __pycache__/
 *.log
 old_mental_cat_sql.txt
 tmp_convert_list.py
+tmp*

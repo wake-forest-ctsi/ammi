@@ -3,9 +3,9 @@ select
     patid,
     encounterid,
     enc_type,
-    admit_date,
+    cast(admit_date as date) admit_date,
     providerid,
-    px_date,
+    cast(px_date as date) px_date, -- there's only date here anyway
     px,
     px_type,
     px_source,
