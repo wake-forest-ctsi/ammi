@@ -1,9 +1,12 @@
-{% macro insurance_macro(date1, date2) %}
+{% macro insurance_macro(date1, date2, cohort_filter='') %}
 
 with cohort as (
     select
-        *
-    from {{ ref('int_cohort') }}
+        {{ dbt_utils.star(from=ref('int_cohort'), relation_alias='cohort') }}
+    from {{ ref('int_cohort') }} cohort
+    {% if cohort_filter | length > 0 %}
+    {{ cohort_filter }}
+    {% endif %}
 ),
 
 visits as (

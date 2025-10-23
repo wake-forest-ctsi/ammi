@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with cohort as (
     select
         *

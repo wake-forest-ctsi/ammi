@@ -3,7 +3,7 @@ with cohort as (
         birthid,
         mother_patid,
         baby_birth_date
-    from {{ ref('int_cohort') }}
+    from {{ ref('int_ssi__cohort') }}
 ),
 
 diagnosis as (
@@ -15,15 +15,24 @@ diagnosis as (
     where dx like 'O86.0%' or dx like 'T81.4%'
 ),
 
-renamed as (
+wound_culture as (
     select
         birthid,
-        max(case when dx is not null then 1 else 0 end) as SSI_diagnosis
+        wound_culture
+    from {{ ref('int_ssi__wound_culture') }}
+),
+
+renamed as (
+    select
+        cohort.birthid,
+        max(case when dx is not null then 1 else 0 end) as SSI_diagnosis,
+        max(case when wound_culture.wound_culture is not null then wound_culture else 0 end) as wound_culture
     from cohort
     left join diagnosis on cohort.mother_patid = diagnosis.patid
      and datediff(day, cohort.baby_birth_date, dx_date) <= 30
      and datediff(day, cohort.baby_birth_date, dx_date) >= 0
-    group by birthid
+    left join wound_culture on cohort.birthid = wound_culture.birthid
+    group by cohort.birthid
 )
 
 select * from renamed
