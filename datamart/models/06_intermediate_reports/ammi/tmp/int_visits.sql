@@ -7,20 +7,21 @@ with cohort as (
     from {{ ref('int_cohort') }}
 ),
 
+-- it's better to use date only since there can be multiple entries for the save visit
 encounter as (
-    select 
+    select
         patid,
-        {{ add_time_to_date_macro("admit_date", "admit_time") }} as admit_date,
+        admit_date,
         enc_type,
         payer_type_primary
     from {{ ref('encounter') }}
 ),
 
 renamed as (
-    select 
+    select
         a.birthid,
         b.admit_date,
-        datediff(day, a.baby_birth_date, b.admit_date) as days_since_child_birth,
+        -- datediff(day, a.baby_birth_date, b.admit_date) as days_since_child_birth,
         b.enc_type,
         b.payer_type_primary
     from cohort a
