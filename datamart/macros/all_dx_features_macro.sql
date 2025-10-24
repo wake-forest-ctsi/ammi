@@ -1,15 +1,12 @@
-{% macro all_dx_features_macro(min_count, date1, date2, cohort_filter='') %}
+{% macro all_dx_features_macro(cohort_table, min_count, date1, date2) %}
 
 -- by default truncating the dx to 5 char, except keepting all chars for O, T, Z codes
 -- it only outputs dx observed with patients > min_count
 
 with cohort as (
     select
-        {{ dbt_utils.star(from=ref('int_cohort'), relation_alias='cohort') }}
-    from {{ ref('int_cohort') }} cohort
-    {% if cohort_filter | length > 0 %}
-    {{ cohort_filter }}
-    {% endif %}
+        *
+    from {{ cohort_table }}
 ),
 
 diagnosis as (
