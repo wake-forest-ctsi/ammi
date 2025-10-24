@@ -24,7 +24,7 @@ rx_selected as (
         rx.rx_order_date,
         rx_name
     from cohort
-    left join rx on cohort.mother_patid = rx.patid 
+    inner join rx on cohort.mother_patid = rx.patid 
      and rx.rx_order_date between {{ date1 }} and {{ date2 }}
 ),
 

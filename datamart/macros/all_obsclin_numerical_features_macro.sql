@@ -33,7 +33,7 @@ obsclin_selected as (
         obsclin_start_date,
         result
     from cohort
-    left join obsclin_numerical on cohort.mother_patid = obsclin_numerical.patid 
+    inner join obsclin_numerical on cohort.mother_patid = obsclin_numerical.patid 
      and obsclin_numerical.obsclin_start_date between {{ date1 }} and {{ date2 }}
 ),
 

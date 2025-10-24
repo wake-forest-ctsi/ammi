@@ -18,7 +18,7 @@ diagnosis as (
              else replace(left(dx, 5), '.', '_') end as dx,
         dx_date
     from cohort
-    left join {{ ref('diagnosis') }} diagnosis
+    inner join {{ ref('diagnosis') }} diagnosis
       on cohort.mother_patid = diagnosis.patid and dx_date between {{ date1 }} and {{ date2 }}
 ),
 

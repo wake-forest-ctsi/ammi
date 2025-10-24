@@ -32,7 +32,7 @@ lab_selected as (
         specimen_date,
         result
     from cohort
-    left join lab_numerical on cohort.mother_patid = lab_numerical.patid 
+    inner join lab_numerical on cohort.mother_patid = lab_numerical.patid 
      and lab_numerical.specimen_date between {{ date1 }} and {{ date2 }}
 ),
 

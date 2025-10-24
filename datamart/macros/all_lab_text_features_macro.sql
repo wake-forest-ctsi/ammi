@@ -36,7 +36,7 @@ lab_selected as (
         lab_name,
         result
     from cohort
-    left join lab_text on cohort.mother_patid = lab_text.patid 
+    inner join lab_text on cohort.mother_patid = lab_text.patid 
      and lab_text.specimen_date between {{ date1 }} and {{ date2 }}
 ),
 
