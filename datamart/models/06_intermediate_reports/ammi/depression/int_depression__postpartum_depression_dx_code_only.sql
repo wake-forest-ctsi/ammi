@@ -5,7 +5,7 @@ with cohort as (
         birthid,
         mother_patid,
         baby_birth_date
-    from {{ ref('int_cohort') }}
+    from {{ ref('int_depression__cohort') }}
 ),
 
 diagnosis as (
@@ -33,9 +33,9 @@ renamed as (
         min(c.dx_date) as earliest_ppd_diagnosis_date_delete,
         max(c.dx_date) as latest_ppd_diagnosis_date_delete
     from cohort a
-    left join diagnosis b on a.mother_patid = b.patid
+    inner join diagnosis b on a.mother_patid = b.patid
      and b.dx_date between a.baby_birth_date and dateadd(year, 1.0, a.baby_birth_date)
-    left join diagnosis_delete c on a.mother_patid = c.patid
+    inner join diagnosis_delete c on a.mother_patid = c.patid
      and c.dx_date between a.baby_birth_date and dateadd(year, 1.0, a.baby_birth_date)
     group by a.birthid
 )

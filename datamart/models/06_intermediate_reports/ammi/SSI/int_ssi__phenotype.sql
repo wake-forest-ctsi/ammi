@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with cohort as (
     select
         birthid,
@@ -22,7 +24,7 @@ wound_culture as (
     from {{ ref('int_ssi__wound_culture') }}
 ),
 
-renamed as (
+all_posibilities as (
     select
         cohort.birthid,
         max(case when dx is not null then 1 else 0 end) as SSI_diagnosis,
@@ -35,4 +37,9 @@ renamed as (
     group by cohort.birthid
 )
 
-select * from renamed
+select
+    birthid,
+    'target_variable' as 'feature_name',
+    case when (SSI_diagnosis = 1) or (wound_culture) = 1 then 1
+         else 0 end as 'value'
+from all_posibilities

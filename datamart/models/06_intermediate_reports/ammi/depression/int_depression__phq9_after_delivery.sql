@@ -1,7 +1,7 @@
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ ref('int_depression__cohort') }}
 ),
 
 phq9_total as (
@@ -19,7 +19,7 @@ renamed as (
         avg(b.obsclin_result_num) as phq9_total_avg,
         max(b.obsclin_result_num) as phq9_total_max
     from cohort a
-    left join phq9_total b on a.mother_patid = b.patid
+    inner join phq9_total b on a.mother_patid = b.patid
      and b.obsclin_start_date between a.baby_birth_date and dateadd(year, 1, a.baby_birth_date)
     group by a.birthid
 )

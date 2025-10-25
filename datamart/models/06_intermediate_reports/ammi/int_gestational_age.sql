@@ -1,3 +1,6 @@
+-- gestational age is filled to 268 if no records is found
+-- this is called by the int_cohort which requires an estimate of preganancy start date
+
 with obs_clin as (
     select 
         encounterid,

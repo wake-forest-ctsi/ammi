@@ -1,7 +1,7 @@
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ ref('int_depression__cohort') }}
 ),
 
 edinburgh_total as (
@@ -31,9 +31,9 @@ renamed as (
         max(c.obsclin_result_num) as edinburgh_depression_total_max,
         greatest(max(b.obsclin_result_num), max(c.obsclin_result_num)) as edinburgh_max
     from cohort a
-    left join edinburgh_total b on a.mother_patid = b.patid
+    inner join edinburgh_total b on a.mother_patid = b.patid
      and b.obsclin_start_date between a.baby_birth_date and dateadd(year, 1, a.baby_birth_date)
-    left join edinburge_depression_total c on a.mother_patid = c.patid
+    inner join edinburge_depression_total c on a.mother_patid = c.patid
      and c.obsclin_start_date between a.baby_birth_date and dateadd(year, 1, a.baby_birth_date)
     group by a.birthid
 )

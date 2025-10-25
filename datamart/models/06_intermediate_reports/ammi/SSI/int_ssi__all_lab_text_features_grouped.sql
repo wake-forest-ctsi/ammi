@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with dummy_cte as (
     select
         birthid,

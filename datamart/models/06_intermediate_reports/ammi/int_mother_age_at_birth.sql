@@ -16,7 +16,7 @@ renamed as (
         a.birthid,
         datediff(year, b.birth_date, a.baby_birth_date) as mother_age
     from cohort a
-    left join mother_demographic b on a.mother_patid = b.patid
+    inner join mother_demographic b on a.mother_patid = b.patid
 )
 
 select * from renamed

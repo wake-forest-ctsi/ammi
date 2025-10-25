@@ -1,7 +1,5 @@
 {% macro all_obsclin_numerical_features_macro(cohort_table, min_count, date1, date2) %}
 
--- it only outputs loinc code observed with patients > min_count
-
 with cohort as (
     select
         *

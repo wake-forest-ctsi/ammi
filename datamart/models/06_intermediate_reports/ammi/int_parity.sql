@@ -21,7 +21,7 @@ parity_tmp as (
         baby_birth_date,
         row_number() over (partition by cohort.birthid order by obsclin_start_date desc) as k
     from cohort
-    left join obs_clin on cohort.mother_patid = obs_clin.patid
+    inner join obs_clin on cohort.mother_patid = obs_clin.patid
      and obsclin_start_date between estimated_preg_start_date and dateadd(day, 30, baby_birth_date)
 ),
 

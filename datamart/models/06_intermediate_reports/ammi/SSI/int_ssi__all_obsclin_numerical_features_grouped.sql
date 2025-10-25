@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with median_cte as (
     select
         distinct

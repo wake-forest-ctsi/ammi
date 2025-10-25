@@ -19,9 +19,10 @@ delivery_mode as (
 renamed as (
     select
         cohort.birthid,
-        delivery_mode.delivery_mode
+        min(delivery_mode.delivery_mode) as delivery_mode
     from cohort
     inner join delivery_mode on cohort.mother_encounterid = delivery_mode.encounterid
+    group by cohort.birthid
 )
 
 select * from renamed
