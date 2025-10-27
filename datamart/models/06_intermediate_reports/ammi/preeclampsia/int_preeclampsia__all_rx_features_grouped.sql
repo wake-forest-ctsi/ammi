@@ -4,8 +4,8 @@ with grouped_cte as (
     select
         birthid,
         rxnorm_cui,
-        max(datediff(day, rx_order_date, baby_birth_date)) as earliest_day,
-        min(datediff(day, rx_order_date, baby_birth_date)) as latest_day,
+        max(datediff(day, estimated_preg_start_date, rx_order_date)) as earliest_day,
+        min(datediff(day, estimated_preg_start_date, rx_order_date)) as latest_day,
         1 as has_rx
     from {{ ref('int_preeclampsia__all_rx_features') }}
     group by birthid, rxnorm_cui

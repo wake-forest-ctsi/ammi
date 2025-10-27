@@ -20,6 +20,7 @@ rx_selected as (
         cohort.birthid,
         cohort.mother_patid,
         cohort.baby_birth_date,
+        cohort.estimated_preg_start_date,
         rx.rxnorm_cui,
         rx.rx_order_date,
         rx_name
@@ -41,6 +42,7 @@ renamed as (
         rx_selected.birthid,
         rx_selected.mother_patid,
         rx_selected.baby_birth_date,
+        rx_selected.estimated_preg_start_date,
         rx_selected.rxnorm_cui,
         rx_selected.rx_order_date,
         rx_selected.rx_name

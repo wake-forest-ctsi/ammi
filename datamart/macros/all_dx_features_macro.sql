@@ -14,6 +14,7 @@ diagnosis as (
         cohort.birthid,
         cohort.mother_patid,
         cohort.baby_birth_date,
+        cohort.estimated_preg_start_date,
         case when left(dx, 1) in ('O', 'T', 'Z') then replace(dx, '.', '_')
              else replace(left(dx, 5), '.', '_') end as dx,
         dx_date
@@ -35,6 +36,7 @@ renamed as (
         diagnosis.birthid,
         diagnosis.mother_patid,
         diagnosis.baby_birth_date,
+        diagnosis.estimated_preg_start_date,
         diagnosis.dx,
         diagnosis.dx_date
     from diagnosis

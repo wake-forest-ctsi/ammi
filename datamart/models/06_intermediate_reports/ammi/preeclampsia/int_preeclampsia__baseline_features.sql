@@ -79,3 +79,4 @@ select
     all_birthids.*
 from all_birthids
 inner join {{ ref('int_preeclampsia__cohort')}} ssi_cohort on all_birthids.birthid = ssi_cohort.birthid
+  and all_birthids.value is not null

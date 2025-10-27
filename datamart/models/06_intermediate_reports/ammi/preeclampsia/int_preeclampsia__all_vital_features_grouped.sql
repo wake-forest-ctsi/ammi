@@ -27,7 +27,10 @@ other_stat_cte as (
     group by birthid
 )
 
-select * from median_cte
+select 
+    * 
+from median_cte
+where value is not null
 
 union all
 
@@ -37,24 +40,34 @@ select
     '{{ f }}_mean_value' as 'feature_name',
     {{ f }}_mean_value as 'value'
 from other_stat_cte
+where {{ f }}_mean_value is not null
+
 union all
+
 select
     birthid,
     '{{ f }}_min_value' as 'feature_name',
     {{ f }}_min_value as 'value'
 from other_stat_cte
+where {{ f }}_min_value is not null
+
 union all
+
 select
     birthid,
     '{{ f }}_max_value' as 'feature_name',
     {{ f }}_max_value as 'value'
 from other_stat_cte
+where {{ f }}_max_value is not null
+
 union all
+
 select
     birthid,
     '{{ f }}_count_value' as 'feature_name',
     {{ f }}_count_value as 'value'
 from other_stat_cte
+where {{ f }}_count_value is not null
 
 {% if not loop.last %} union all {% endif %}
 {% endfor %}
