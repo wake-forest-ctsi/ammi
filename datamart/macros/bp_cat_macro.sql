@@ -1,9 +1,11 @@
-{% macro bp_cat_macro(date1, date2) %}
+-- helper macro to get the bp_cat
+
+{% macro bp_cat_macro(cohort_table, date1, date2) %}
 
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ cohort_table }}
 ),
 
 vital as (
@@ -17,7 +19,7 @@ vital as (
     where systolic is not null and diastolic is not null
 ),
 
--- get the 4 hour apart criteria
+-- join to cohort
 vital_4h as (
     select
         cohort.birthid,
@@ -64,7 +66,7 @@ bp_cat as (
 no_bp as (
     select
         cohort.birthid,
-        min(case when bp_cat is null then 1 else 0 end) as nobp
+        case when count(measure_date) = 0 then 1 else 0 end as nobp -- this is more clear
     from cohort
     left join vital_4h on cohort.birthid = vital_4h.birthid
     group by cohort.birthid
@@ -73,7 +75,7 @@ no_bp as (
 renamed as (
     select
         cohort.birthid,
-        (case when bp_cat is null then 0 else bp_cat end) as bp_cat,
+        coalesce(bp_cat, 0) as bp_cat,
         nobp
     from cohort
     left join bp_cat on cohort.birthid = bp_cat.birthid

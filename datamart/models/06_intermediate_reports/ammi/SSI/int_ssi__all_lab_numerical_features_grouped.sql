@@ -16,7 +16,7 @@ other_stat_cte as (
         avg(result) as 'mean_value',
         min(result) as 'min_value',
         max(result) as 'max_value',
-        count(result) as 'counts'
+        count(1) as 'counts'
     from {{ ref('int_ssi__all_lab_numerical_features') }}
     group by birthid, lab_loinc
 )
