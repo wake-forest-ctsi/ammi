@@ -5,6 +5,7 @@
     {'description': 'prescribing', 'table': ref('int_depression__all_rx_features_grouped')},
     {'description': 'encounter_counts', 'table': ref('int_depression__all_enctype_features_grouped')},
     {'description': 'insurace', 'table': ref('int_depression__all_insurance_features_grouped')},
+    {'description': 'smoking', 'table': ref('int_depression__all_smoking_features_grouped')},
     {'description': 'phq_or_epds', 'table': ref('int_depression__phq_or_edinburgh')}
 ] %}
 

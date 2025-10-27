@@ -1,9 +1,9 @@
-{% macro smoking_macro(date1, date2) %}
+{% macro all_smoking_macro(cohort_table, date1, date2) %}
 
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ cohort_table }}
 ),
 
 smoking as (
@@ -18,12 +18,11 @@ smoking as (
 renamed as (
     select
         cohort.birthid,
-        max(smoking) as smoking,
-        max(tobacco) as tobacco
+        smoking,
+        tobacco
     from cohort
     left join smoking on cohort.mother_patid = smoking.patid
      and measure_date between {{ date1 }} and {{ date2 }}
-    group by cohort.birthid
 )
 
 select * from renamed

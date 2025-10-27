@@ -1,21 +1,37 @@
 # Project Overview
 
-This project builds tables with `birth_id` as the grain, designed for machine learning analysis. Currently, it supports tables for preeclampsia and postpartum depression, with plans to extend to include cesarean section data in the future.
+This project builds tables with `birthid` as the grain, designed for machine learning analysis. Currently, it supports tables for preeclampsia, postpartum depression and surgical site infection, with plans to extend to include postpartum hemorrhage in the future.
 
+This has been redesigned. The current implementation reads all available source tables and produces a comprehensive, long-format report table for each phenotype. This approach lets the machine learning pipeline to automatically select the most relevant features, minimizing manual effort when introducing new phenotypes.
 
 ### Running the Project
 
-#### If You Only Need a Table in the SQL Server:
-
-1. **Seed the data**: This command refreshes any existing seeds.
-   ```bash
-   dbt seed --full-refresh
-   ```
-
-2. **Build the report table**: This command will build both the depression and preeclampsia models. It may take 5-10 minutes depending on the size.
+This command will build the depression, preeclampsia and surgical infection models. It may take 15-30 minutes depending on the size.
    ```bash
    dbt run --full-refresh
    ```
+
+### Example: Preeclampsia Workflow
+
+There are two main routes to generate the final report tables (currently named `rpt_preeclampsia_new` to preserve older versions for comparison):
+
+#### 1. Models dependent on study period
+These include features such as diagnoses, insurance, prescriptions and etc. Each model uses a macro to filter by study period, then joins to the cohort, and finally aggregates by `birthid`.
+
+**Example steps:**
+- Start with `int_preeclampsia__cohort`, which has been materialized into a table to speed up following queries
+- `int_preeclampsia__all_dx_features` calls the macro that joins all diagnosis data within the study period with the cohort
+- `int_preeclampsia__all_dx_features_grouped` performs a `group by birthid, dx` then unpivot to a long table
+
+#### 2. Models independent of study period
+These include baseline features like mother's race, mother's height, parity and etc. These models are shared across all phenotypes and calculated only once.
+
+**Example steps:**
+- `int_race` and `int_mother_height` feed into `int_preeclampsia__baseline_features`, which are then inner joined with `int_preeclampsia__cohort`
+
+The final `rpt_preeclampsia_new` table is the union of all these models.  
+All `_grouped` models are materialized to estimate the time required for each step.
+
 
 ### Files That Need Some Explanations
 
@@ -26,15 +42,6 @@ In this project, reports may rely on different start and end dates for feature a
 #### 2. `05_marts/ammi`
 
 All the dates now only have the date part to be consistent with the definition in PCORnet. To get the full time, we need to add the time part to the date part.
-
-#### 3. `05_marts/ammi/svi_2022_zipcode`
-
-This model computes data from the `stg_censustract__svi_2022_tract` table by mapping census tracts to zip codes. The mapping data was downloaded from [here](https://www.huduser.gov/portal/datasets/usps_crosswalk.html).
-
-### Known Limitations
-
-- **dx and rx features**:
-  Currently the dx and rx features are only useful for postpartum depression. Need to redo the search if need to apply for other phenotypes.
 
 ## Additional Resources
 
