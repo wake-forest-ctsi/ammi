@@ -1,178 +1,41 @@
 version: 2
 
 models:
-  - name: rpt_preeclampsia
-    description: This table contains all of the features needed for building a predictive model for preeclampsia. All predictors (features) are computed between the estimated pregnancy start time and 20 weeks into pregnancy.
+  - name: rpt_preeclampsia_new
+    description: "{{ doc('rpt_preeclampsia_new') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - birthid
+            - feature_name
 
     columns:
-      - name: preg_deid
+      - name: birthid
         data_type: string
         type: string
         description: Unique deidentified identifier for each pregnancy
         tests:
-          - unique
           - not_null
       
-      - name: mom_deid
+      - name: feature_category
         data_type: string
         type: string
-        description: Deidentified identifier for mother, which may have duplicate values if the mother delivers twins, triplets, or higher-order multiples.
+        description: High level category of this feature (e.g. diagnosis, vital, insurance etc)
         tests:
           - not_null
 
-      - name: cp_anypree_sf
-        data_type: int
-        type: int
-        description: identifies patients who developed preeclampsia with severe features after 20 weeks (either superimposed or denovo)
+      - name: feature_name
+        data_type: string
+        type: string
+        description: Name of the feature
         tests:
           - not_null
-          - accepted_values:
-              values: [0, 1]
 
-      - name: chtn_any
-        data_type: int
-        description: identifies patients with chronic hypertension, either from blood pressure measurements or icd10 code
-        tests:
-          - not_null
-          - accepted_values:
-              values: [0, 1]
-
-      - name: mean_sbp_value
-        data_type: numeric
-        description: mean value of systolic blood pressure (SBP)
-
-      - name: med_sbp_value
+      - name: feature_value
         data_type: float
-        description: median value of systolic blood pressure (SBP)
-
-      - name: med_dbp_value
-        data_type: float
-        description: median value of diastolic blood pressure (DBP)
-
-      - name: mean_dbp_value
-        data_type: numeric
-        description: mean value of diastolic blood pressure (DBP)
-
-      - name: max_sbp_value
-        data_type: numeric
-        description: maximum value of systolic blood pressure (SBP)
-
-      - name: max_dbp_value
-        data_type: numeric
-        description: maximum value of diastolic blood pressure (DBP)
-
-      - name: max_weight
-        data_type: numeric
-        description: maximum value of patient weight
-
-      - name: median_weight
-        data_type: float
-        description: median value of patient weight
-
-      - name: mean_weight
-        data_type: numeric
-        description: mean value of patient weight
-
-      - name: min_weight
-        data_type: numeric
-        description: minimum value of patient weight
-
-      - name: max_pulse_pressure
-        data_type: numeric
-        description: maximum value of pulse pressure, computed using SBP - DBP
-
-      - name: max_bmi
-        data_type: float
-        description: maximum value of BMI, either from recorded value or computed as wt/square(mother_height)*703
-
-      - name: mean_bmi
-        data_type: float
-        description: mean value of BMI, either from recorded value or computed as wt/square(mother_height)*703
-
-      - name: min_bmi
-        data_type: float
-        description: minimum value of BMI, either from recorded value or computed as wt/square(mother_height)*703
-
-      - name: median_bmi
-        data_type: float
-        description: median value of BMI, either from recorded value or computed as wt/square(mother_height)*703
-
-      - name: mean_pulse_pressure
-        data_type: numeric
-        description: mean value of pulse pressure, computed using SBP - DBP
-
-      - name: med_nifedipine
-        data_type: int
-        description: Indicate whether nifedipine is prescribed to the patient
+        description: Numeric or binary value of the given feature
         tests:
           - not_null
           - accepted_values:
               values: [0, 1]
-
-      - name: med_insulin
-        data_type: int
-        description: Indicate whether insulin is prescribed to the patient
-        tests:
-          - not_null
-          - accepted_values:
-              values: [0, 1]
-
-      - name: max_map
-        data_type: numeric
-        description: maximum value of Mean Arterial Pressure (MAP), either from recorded value or computed as systolic/3+2*diastolic/3
-
-      - name: med_glucagon
-        data_type: int
-        description: Indicate whether glucagon is prescribed to the patient
-        tests:
-          - not_null
-          - accepted_values:
-              values: [0, 1]
-
-      - name: med_needle
-        data_type: int
-        description: Indicate whether needle is prescribed to the patient. we do not have this record and all values are null for now.
-
-      - name: mom_race_num
-        data_type: int
-        description: Mother's race number. values are (1, 2, 3, 4, 5, 6, 7, 8) for ("American Indian/Alaska Native", "Asian", "Black/African American", "Multiracial Native Hawaiian/Other", "Pacific Islander", "Other Race", "Unknown", "White"),
-
-      - name: med_lancets
-        data_type: int
-        description: Indicate whether lancets is prescribed to the patient. we do not have this record and all values are null for now.
-
-      - name: mean_map
-        data_type: numeric
-        description: mean value of Mean Arterial Pressure (MAP), either from recorded value or computed as systolic/3+2*diastolic/3
-
-      - name: preg_mom_age_at_del
-        data_type: int
-        description: mom's age at delivery
-
-      - name: median_map
-        data_type: float
-        description: median value of Mean Arterial Pressure (MAP), either from recorded value or computed as systolic/3+2*diastolic/3
-
-      - name: median_pulse
-        data_type: float
-        description: median value of Pulse Heart Rate
-
-      - name: max_pulse
-        data_type: numeric
-        description: maximum value of Pulse Heart Rate
-
-      - name: mean_pulse
-        data_type: numeric
-        description: mean value of Pulse Heart Rate
-
-      - name: med_glucose
-        data_type: int
-        description: Indicate whether glucose is prescribed to the patient
-        tests:
-          - not_null
-          - accepted_values:
-              values: [0, 1]
-
-      - name: min_temperature
-        data_type: numeric
-        description: minimum value of patient temperature
+              where: "feature_category = 'phenotype'"

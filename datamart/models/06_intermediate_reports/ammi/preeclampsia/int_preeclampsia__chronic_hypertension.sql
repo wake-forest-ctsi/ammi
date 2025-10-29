@@ -1,10 +1,7 @@
-{% set date1 = 'cohort.estimated_preg_start_date' %}
-{% set date2 = 'dateadd(week, 20, cohort.estimated_preg_start_date)' %}
-
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ ref('int_preeclampsia__cohort') }}
 ),
 
 bp_cat as (
@@ -20,7 +17,7 @@ diagnosis as (
         patid,
         dx_date
     from {{ ref('diagnosis') }}
-    where dx like 'O10%'           -- use O10% insetad of I1%
+    where dx like 'I1%'
 ),
 
 renamed as (
@@ -33,7 +30,7 @@ renamed as (
     from cohort
     left join bp_cat on cohort.birthid = bp_cat.birthid
     left join diagnosis on cohort.mother_patid = diagnosis.patid
-     and diagnosis.dx_date between {{ date1 }} and {{ date2 }}
+     and diagnosis.dx_date between cohort.estimated_preg_start_date and dateadd(week, 20, cohort.estimated_preg_start_date)
     group by cohort.birthid
 )
 

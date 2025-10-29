@@ -22,7 +22,7 @@ renamed as (
         a.birthid,
         avg(b.height) as mother_height
     from cohort a
-    left join obs_clin b on a.mother_patid = b.patid
+    inner join obs_clin b on a.mother_patid = b.patid
      and obsclin_start_date between dateadd(year, -1, a.baby_birth_date) and dateadd(year, 1, a.baby_birth_date)
     group by a.birthid
 )

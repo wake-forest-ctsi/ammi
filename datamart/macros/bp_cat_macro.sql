@@ -1,9 +1,11 @@
-{% macro bp_cat_macro(date1, date2) %}
+-- helper macro to get the bp_cat
+
+{% macro bp_cat_macro(cohort_table, date1, date2) %}
 
 with cohort as (
     select
         *
-    from {{ ref('int_cohort') }}
+    from {{ cohort_table }}
 ),
 
 vital as (
@@ -17,7 +19,8 @@ vital as (
     where systolic is not null and diastolic is not null
 ),
 
-vital_within_time as (
+-- join to cohort
+vital_4h as (
     select
         cohort.birthid,
         vital.measure_date,
@@ -31,7 +34,7 @@ vital_within_time as (
 vital_4h_bp_cat_1 as(
     select
         birthid
-    from vital_within_time
+    from vital_4h
     where bp_cat >= 1
     group by birthid
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
@@ -41,7 +44,7 @@ vital_4h_bp_cat_1 as(
 vital_4h_bp_cat_2 as (
     select
         birthid
-    from vital_within_time 
+    from vital_4h
     where bp_cat = 2
     group by birthid
     having datediff(hour, min(measure_date), max(measure_date)) >= 4
@@ -63,19 +66,20 @@ bp_cat as (
 no_bp as (
     select
         cohort.birthid,
-        min(case when bp_cat is null then 1 else 0 end) as nobp
+        case when count(measure_date) = 0 then 1 else 0 end as nobp -- this is more clear
     from cohort
-    left join vital_within_time on cohort.birthid = vital_within_time.birthid
+    left join vital_4h on cohort.birthid = vital_4h.birthid
     group by cohort.birthid
 ),
 
 renamed as (
     select
-        bp_cat.birthid,
-        bp_cat,
+        cohort.birthid,
+        coalesce(bp_cat, 0) as bp_cat,
         nobp
-    from bp_cat
-    left join no_bp on bp_cat.birthid = no_bp.birthid
+    from cohort
+    left join bp_cat on cohort.birthid = bp_cat.birthid
+    left join no_bp on cohort.birthid = no_bp.birthid
 )
 
 select * from renamed

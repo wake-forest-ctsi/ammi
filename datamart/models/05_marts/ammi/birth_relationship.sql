@@ -6,4 +6,4 @@ select
     motherid,
     mother_encounterid
 from
-    {{ source('pcornet', 'birth_relationship') }}
+    {{ ref('stg_pcornet__birth_relationship') }}
